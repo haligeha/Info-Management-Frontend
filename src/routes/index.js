@@ -22,7 +22,7 @@ class RouteView extends Component{
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Indicator" */
-              './Monitor/views'),
+              './Monitor/Scene'),
             loading: Loading
           })}
         />

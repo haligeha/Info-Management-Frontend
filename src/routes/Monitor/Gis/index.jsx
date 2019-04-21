@@ -18,7 +18,7 @@ class Gis extends Component {
       <div>
         <PageTitle titles={['监测预警','GIS地图']} />
         <Module>
-          <p>设备欣喜</p>
+          <p>GIS地图</p>
         </Module>
       </div>
 
