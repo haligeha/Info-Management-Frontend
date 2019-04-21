@@ -1,29 +1,77 @@
 import React, { Component, } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, Layout, Icon, Dropdown, Avatar, } from 'antd';
+
 const { Header,} = Layout;
+
 
 class HeaderLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuList: [
+      meuList:[
         {
           id:'1',
-          name:'场景汇报',
-          url:'/infomation/report',
+          name:"监测预警",
+          url:'/monitor',
+          children:[
+            {
+              id:'11',
+              name:'首页展示',
+              url:'/monitor/view'
+            },
+            {
+              id:'12',
+              name:'GIS地图',
+              url:'/monitor/gis'
+            },
+            {
+              id:'13',
+              name:'设备信息',
+              url:'/monitor/device'
+            }
+          ]
         },
         {
           id:'2',
-          name:'应急预案',
-          url:'/infomation/plan',
+          name:"巡检维护",
+          url:'/inspection',
+          children:[
+            {
+              id:'21',
+              name:'巡检计划',
+              url:'/inspection/plan'
+            },
+            {
+              id:'22',
+              name:'如廊作业',
+              url:'/inspection/entrance/work'
+            }
+          ]
         },
         {
           id:'3',
-          name:'入廊作业',
-          url:'/infomation/work',
-        },
-      ],
+          name:"应急指挥",
+          url:'/emergency',
+          children:[
+            {
+              id:'31',
+              name:'应急预案',
+              url:'/emergency/plan'
+            },
+            {
+              id:'32',
+              name:'应急资源',
+              url:'/emergency/resource'
+            },
+            {
+              id:'33',
+              name:'预案审批',
+              url:'/emergency/plan/approval'
+            },
+          ]
+        }
+      ]
     };
   }
 
@@ -52,7 +100,6 @@ class HeaderLayout extends Component {
               <span style={{ color: 'white', }}>刘苗苗</span>
             </span>
           </Dropdown>
-
         </div>
 
         <Menu
@@ -60,7 +107,24 @@ class HeaderLayout extends Component {
           mode="horizontal"
           selectedKeys={[this.state.currentTabId,]}
         >
+          {this.state.meuList && this.state.meuList.map((subMenu) =>{
+            return(
+              <Menu.SubMenu
+                className="custom-sub-menu"
+                key={subMenu.id}
+                title={<span>{subMenu.name}</span>}
+              >
+                {subMenu.children && subMenu.children.map(item =>
+                  <Menu.Item key={item.id}>
+                    <Link to={item.url}>{item.name}</Link>
+                  </Menu.Item>
+                )
+                }
+              </Menu.SubMenu>
+            );
 
+          })
+          }
         </Menu>
       </Header>
     );

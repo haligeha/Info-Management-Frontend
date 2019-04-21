@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { PageTitle,Module } from '../../components';
+import { PageTitle,Module } from '../../../../components';
 
 
 class EmergencyPlan extends Component {
@@ -16,9 +16,9 @@ class EmergencyPlan extends Component {
 
     return (
       <div>
-        <PageTitle titles={['监测预警','首屏展示']} />
+        <PageTitle titles={['监测预警','设备信息']} />
         <Module>
-          <p>llll</p>
+          <p>设备欣喜</p>
         </Module>
       </div>
 
