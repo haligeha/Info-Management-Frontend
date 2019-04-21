@@ -2,7 +2,7 @@ import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../components';
 
 
-class Gis extends Component {
+class EmergencyPlan extends Component {
   constructor(props) {
     super(props);
 
@@ -16,9 +16,9 @@ class Gis extends Component {
 
     return (
       <div>
-        <PageTitle titles={['监测预警','GIS地图']} />
+        <PageTitle titles={['监测预警','首屏展示']} />
         <Module>
-          <p>设备欣喜</p>
+          <p>llll</p>
         </Module>
       </div>
 
@@ -26,5 +26,5 @@ class Gis extends Component {
   }
 }
 
-export default Gis;
+export default EmergencyPlan;
 
