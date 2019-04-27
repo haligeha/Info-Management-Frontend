@@ -70,7 +70,7 @@ class RouteView extends Component{
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Marketing" */
-              './Monitor/Gis'),
+              './Emergency/Plan'),
             loading: Loading
           })}
         />
@@ -79,7 +79,7 @@ class RouteView extends Component{
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Indicator" */
-              './Monitor/Scene'),
+              './Emergency/Resource'),
             loading: Loading
           })}
         />
@@ -88,7 +88,7 @@ class RouteView extends Component{
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Marketing" */
-              './Monitor/Device'),
+              './Emergency/PlanApproval'),
             loading: Loading
           })}
         />
