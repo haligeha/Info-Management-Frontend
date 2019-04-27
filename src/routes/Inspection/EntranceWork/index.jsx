@@ -27,11 +27,15 @@ class Homework extends Component {
     } = this.state;
     return (
       <div className="report-page">
-        <PageTitle titles={['巡检维护','入廊作业']} />
+        <PageTitle titles={['巡检维护','入廊作业']}>
+          {
+            <Button type="primary"> + 添加如廊作业</Button>
+          }       
+        </PageTitle>
         <Module>
           <Row>
-            <Col span="6">
-              活动范围：
+            <Col span={2}>活动范围：</Col>
+            <Col span={6}>
               <Select placeholder="请选择活动范围"
                 style={{ width: 220 }}
               >
@@ -43,9 +47,7 @@ class Homework extends Component {
                 }
               </Select>
             </Col>
-            <Col span="6">
-              <Button type="primary"> + 添加如廊作业</Button>
-            </Col>
+            
           </Row> 
         </Module>
         <Table

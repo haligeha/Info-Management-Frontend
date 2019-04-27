@@ -13,9 +13,7 @@ class PlanApproval extends Component {
     this.state = {
     };
   }
-
   render() {
-
     return (
       <div className="plan-approval-list-page">
         <Tabs defaultActiveKey="1">
