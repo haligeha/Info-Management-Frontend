@@ -67,7 +67,7 @@ class HeaderLayout extends Component {
             {
               id:'33',
               name:'预案审批',
-              url:'/emergency/plan/approval'
+              url:'/emergency/approval'
             },
           ]
         }

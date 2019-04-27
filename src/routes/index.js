@@ -21,7 +21,7 @@ class RouteView extends Component{
           path="/monitor/view"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Indicator" */
+              /* webpackChunkName: "Scene" */
               './Monitor/Scene'),
             loading: Loading
           })}
@@ -30,7 +30,7 @@ class RouteView extends Component{
           path="/monitor/device"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Marketing" */
+              /* webpackChunkName: "Device" */
               './Monitor/Device'),
             loading: Loading
           })}
@@ -39,7 +39,7 @@ class RouteView extends Component{
           path="/monitor/gis"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Marketing" */
+              /* webpackChunkName: "Gis" */
               './Monitor/Gis'),
             loading: Loading
           })}
@@ -69,7 +69,7 @@ class RouteView extends Component{
           path="/emergency/plan"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Marketing" */
+              /* webpackChunkName: "Plan" */
               './Emergency/Plan'),
             loading: Loading
           })}
@@ -78,16 +78,16 @@ class RouteView extends Component{
           path="/emergency/resource"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Indicator" */
+              /* webpackChunkName: "Resource" */
               './Emergency/Resource'),
             loading: Loading
           })}
         />
         <Route
-          path="/emergency/plan/approval"
+          path="/emergency/approval"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Marketing" */
+              /* webpackChunkName: "PlanApproval" */
               './Emergency/PlanApproval'),
             loading: Loading
           })}
