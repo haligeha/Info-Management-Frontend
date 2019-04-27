@@ -44,6 +44,55 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
+
+        
+        <Route    
+          path="/inspection/plan"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Indicator" */
+              './Inspection/Plan'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/inspection/entrance/work"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "EntranceWork" */
+              './Inspection/EntranceWork'),
+            loading: Loading
+          })}
+        />
+
+        <Route
+          path="/emergency/plan"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Marketing" */
+              './Monitor/Gis'),
+            loading: Loading
+          })}
+        />
+        <Route    
+          path="/emergency/resource"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Indicator" */
+              './Monitor/Scene'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/emergency/plan/approval"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Marketing" */
+              './Monitor/Device'),
+            loading: Loading
+          })}
+        />
+        
       </Switch>
     );
   }
