@@ -11,9 +11,7 @@ const Loading = () => {
 };
 
 class RouteView extends Component{
-  componentDidMount(){
-
-  }
+  
   render(){
     return (
       <Switch>
