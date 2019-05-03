@@ -25,7 +25,7 @@ class PageTitle extends Component {
         style={{display:'flex',justifyContent:"space-between"}}
       >
         <div>
-          <ul clsssName="page-title-component-titles"
+          <ul className="page-title-component-titles"
             style={{display:'flex',padding:0}}
           >
             {

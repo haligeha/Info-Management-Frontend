@@ -6,6 +6,7 @@ import {
   SELECT_HOME_WORK_NUM,
 }from '../../configs';
 import { PageTitle,Module } from '../../../../../components';
+import axios from 'axios';
 const FormItem = Form.Item;
 const FIRST_PAGE = 1;
 const PAGE_SIZE = 10;
@@ -19,6 +20,22 @@ class Homework extends Component {
       total: 0,     
     };
   } 
+  componentDidMount(){
+    console.log('此处发送ajax请求');
+    axios.get('/api/v1/info/entranceWorkByPage?limit=10&page=0')
+      .then(function (response) {
+        console.log(response);
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log('css');
+  }
   render() {
     const {
       data,
