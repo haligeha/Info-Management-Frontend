@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {PageTitle,Module} from '../../../components';
 
 
-class InspectionPlan extends Component{
+class EmergencyPlan extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -12,9 +12,9 @@ class InspectionPlan extends Component{
 
     return (
       <div>
-        <PageTitle titles={['巡检维护','巡检计划']} />
+        <PageTitle titles={['应急指挥','应急预案']} />
         <Module>
-          <p>巡检计划</p>
+          <p>应急预案</p>
         </Module>
       </div>
     );
@@ -22,4 +22,4 @@ class InspectionPlan extends Component{
 
 }
 
-export default InspectionPlan;
+export default EmergencyPlan;

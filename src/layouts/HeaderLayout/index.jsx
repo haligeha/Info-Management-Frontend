@@ -44,7 +44,7 @@ class HeaderLayout extends Component {
             },
             {
               id:'22',
-              name:'如廊作业',
+              name:'入廊作业',
               url:'/inspection/entrance/work'
             }
           ]

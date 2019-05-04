@@ -2,7 +2,7 @@ import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../components';
 
 
-class EmergencyPlan extends Component {
+class DeviceInfo extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ class EmergencyPlan extends Component {
       <div>
         <PageTitle titles={['监测预警','设备信息']} />
         <Module>
-          <p>设备欣喜</p>
+          <p>设备信息</p>
         </Module>
       </div>
 
@@ -26,5 +26,5 @@ class EmergencyPlan extends Component {
   }
 }
 
-export default EmergencyPlan;
+export default DeviceInfo;
 
