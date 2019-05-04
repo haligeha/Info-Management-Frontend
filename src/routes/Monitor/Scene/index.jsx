@@ -52,13 +52,17 @@ class SceneView extends Component {
                 {...formItemLayout}
               >
                 <Col span="4"><Icon type="laptop"
-                  style={{ fontSize: 24,}}/></Col>
+                  style={{ fontSize: 24,}}
+                /></Col>
                 <Col span="4"><Icon type="appstore-o"
-                  style={{ fontSize: 24}}/></Col>
+                  style={{ fontSize: 24}}
+                /></Col>
                 <Col span="4"><Icon type="layout"
-                  style={{ fontSize: 24, color: '#08c'}}/></Col>
+                  style={{ fontSize: 24, color: '#08c'}}
+                /></Col>
                 <Col span="4"><Icon type="exception"
-                  style={{ fontSize: 24}}/></Col>  
+                  style={{ fontSize: 24}}
+                /></Col>  
               </FormItem>
             </Col>
             
