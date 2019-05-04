@@ -8,7 +8,7 @@ import {
 import { PageTitle,Module } from '../../../../../components';
 import axios from 'axios';
 const FormItem = Form.Item;
-const FIRST_PAGE = 1;
+const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
   
 class Homework extends Component {
@@ -17,32 +17,38 @@ class Homework extends Component {
     this.state = {
       current: FIRST_PAGE,
       size: PAGE_SIZE,
-      total: 0,     
+      total: 0,  
+      data:[],
     };
+    this.getGroupList = this.getGroupList.bind(this);
   } 
   componentDidMount(){
-    console.log('此处发送ajax请求');
-    axios.get('/api/v1/info/entranceWorkByPage?limit=10&page=0')
-      .then(function (response) {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.status);
-        console.log(response.statusText);
-        console.log(response.headers);
-        console.log(response.config);
+    this.getGroupList(FIRST_PAGE);
+  }
+  //获取列表信息
+  getGroupList = (page) => {
+    const { size } = this.state;
+    axios.get(`/api/v1/info/entranceWorkByPage?limit=${size}&page=${page}`)
+      .then((res) => {
+        if(res && res.status === 200){
+          console.log(res);
+          this.setState({
+            data: res.data,
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
-    console.log('css');
+      
   }
   render() {
     const {
       data,
       current,
-      total,
       size,
     } = this.state;
+    console.log(data);
     return (
       <div className="report-page">
         <PageTitle titles={['巡检维护','入廊作业']}>
@@ -77,37 +83,34 @@ class Homework extends Component {
           bordered
           pagination={{
             current,
-            total,
             pageSize: size,
             onChange: this.handlePageChagne,
-            showTotal: () => `共 ${total} 条数据`,
           }}
           dataSource={data}
           columns={[{
-            title: '排列序号',
+            title: '活动范围',
+            dataIndex: 'activity_range',
+            render: (text, record) => (record.activity_range && record.activity_range) || '--',
+          },{
+            title: '排序',
             key: 'tagId',
             render: (text, record) => (record.tagId && record.tagId) || '--',
           }, {
             title: '工期',
-            key: 'tagName',
-            render: (text, record) => (record.tagName && record.tagName) || '--',
+            key: 'duration',
+            render: (text, record) => (record.duration && record.duration) || '--',
           }, {
             title: '创建时间',
-            key: 'tagType',
-            render: (text, record) => (record.type && record.type.name) || '--',
+            key: 'date',
+            render: (text, record) => (record.date && record.date) || '--',
           }, {
             title: '施工人员数量',
-            dataIndex: 'actualUserCount',
-            render: (text, record) => `${record.type.id === '3'
-              ? (record.actualAmount === '0' ? '--' : record.actualAmount) : (record.actualAmount || 0)}`,
-          }, {
-            title: '活动范围',
-            dataIndex: 'creatorNameZh',
-            render: (text, record) => `${record.creatorNameZh || ''}`,
-          }, {
+            dataIndex: 'work_number',
+            render: (text, record) => (record.work_number && record.work_number) || '--',
+          },  {
             title: '评价',
-            key: 'createTime',
-            render: (text, record) => `${record.createTime}`,
+            key: 'evaluation',
+            render: (text, record) => (record.evaluation && record.evaluation) || '暂无评价',
           }, {
             title: '操作',
             render: (text, record, index) => (
