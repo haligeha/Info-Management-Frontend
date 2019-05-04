@@ -48,6 +48,16 @@ class EntranceWorkRoute extends Component{
             loading: Loading
           })}
         />
+        <Route
+          exact
+          path="/inspection/entrance/work/edit:id"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Dssevice" */
+              './Create/index'),
+            loading: Loading
+          })}
+        />
       </Switch>
     );
   }

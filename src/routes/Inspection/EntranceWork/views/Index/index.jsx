@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.styl';
 import { Link } from 'react-router-dom';
-import { Button, Form, Row, Col, Select, Table } from 'antd';
+import { Button, Form, Row, Col, Select, Table, Popconfirm } from 'antd';
 import {
   SELECT_HOME_WORK_NUM,
 }from '../../configs';
@@ -21,7 +21,7 @@ class Homework extends Component {
       data:[],
     };
     this.getGroupList = this.getGroupList.bind(this);
-  } 
+  }
   componentDidMount(){
     this.getGroupList(FIRST_PAGE);
   }
@@ -40,7 +40,6 @@ class Homework extends Component {
       .catch(function (error) {
         console.log(error);
       });
-      
   }
   render() {
     const {
@@ -114,12 +113,19 @@ class Homework extends Component {
           }, {
             title: '操作',
             render: (text, record, index) => (
-              <div className="operate-btns"
-                style={{ display: 'block' }}
-              >
-                <Button type="simple">编辑</Button>
-                <Button type="simple">详情</Button>
-                <Button type="simple">删除</Button>
+              <div className="operate-btns"> 
+                <Link
+                  to="/inspection/entrance/work/new"
+                >编辑</Link>
+                <Link
+                  to="/inspection/entrance/work/detail"
+                >详情</Link>
+                <Popconfirm
+                  title="确定要删除吗？"
+                  onConfirm={()=> {this.deleteGroup(record)}}
+                >
+                  <Button type="simple">删除</Button>
+                </Popconfirm>
                 <Button type="simple">评价</Button>
               </div>
             ),
