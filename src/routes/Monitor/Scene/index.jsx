@@ -52,17 +52,13 @@ class SceneView extends Component {
                 {...formItemLayout}
               >
                 <Col span="4"><Icon type="laptop"
-                  style={{ fontSize: 24,}}
-                              /></Col>
+                  style={{ fontSize: 24,}}/></Col>
                 <Col span="4"><Icon type="appstore-o"
-                  style={{ fontSize: 24}}
-                              /></Col>
+                  style={{ fontSize: 24}}/></Col>
                 <Col span="4"><Icon type="layout"
-                  style={{ fontSize: 24, color: '#08c'}}
-                              /></Col>
+                  style={{ fontSize: 24, color: '#08c'}}/></Col>
                 <Col span="4"><Icon type="exception"
-                  style={{ fontSize: 24}}
-                              /></Col>  
+                  style={{ fontSize: 24}}/></Col>  
               </FormItem>
             </Col>
             
@@ -74,20 +70,15 @@ class SceneView extends Component {
                 {...formItemLayout}
               >
                 <Col span="3"><Button type="primary"
-                  size="small"
-                              >GIS</Button></Col>
+                  size="small">GIS</Button></Col>
                 <Col span="3"><Button type="primary"
-                  size="small"
-                              >预案</Button></Col>
+                  size="small">预案</Button></Col>
                 <Col span="3"><Button type="primary"
-                  size="small"
-                              >告警</Button></Col>
+                  size="small">告警</Button></Col>
                 <Col span="3"><Button type="primary"
-                  size="small"
-                              >视频</Button></Col>
+                  size="small">视频</Button></Col>
                 <Col span="3"><Button type="primary"
-                  size="small"
-                              >统计</Button></Col>
+                  size="small">统计</Button></Col>
                 <Col span="9">拖拽或选中区域点击</Col>
               </FormItem>
             </Col>
