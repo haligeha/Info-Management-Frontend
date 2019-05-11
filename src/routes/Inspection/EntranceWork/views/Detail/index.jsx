@@ -13,7 +13,7 @@ class EntranceWorkDetail extends Component {
   render() {
 
     return (
-      <div>
+      <div className="entrance-work-detail-page">
         <PageTitle titles={['巡检维护','入廊作业','详情']} />
         
       </div>

@@ -116,17 +116,25 @@ class Homework extends Component {
               <div className="operate-btns"> 
                 <Link
                   to="/inspection/entrance/work/new"
+                  style={{marginRight:'5px'}}
                 >编辑</Link>
                 <Link
                   to="/inspection/entrance/work/detail"
+                  style={{marginRight:'5px'}}
                 >详情</Link>
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={()=> {this.deleteGroup(record)}}
                 >
-                  <Button type="simple">删除</Button>
+                  <Button 
+                    type="simple"
+                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                  >删除</Button>
                 </Popconfirm>
-                <Button type="simple">评价</Button>
+                <Button 
+                  type="simple"
+                  style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                >评价</Button>
               </div>
             ),
           }]}
