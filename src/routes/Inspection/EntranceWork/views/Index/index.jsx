@@ -7,6 +7,7 @@ import {
 }from '../../configs';
 import { PageTitle,Module } from '../../../../../components';
 import axios from 'axios';
+import moment from 'moment';
 const FormItem = Form.Item;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
@@ -101,7 +102,8 @@ class Homework extends Component {
           }, {
             title: '创建时间',
             key: 'date',
-            render: (text, record) => (record.date && record.date) || '--',
+            render: (text, record) => (record.date && 
+              moment(parseInt(record.date)).format('YYYY-MM-DD HH:mm:ss')) || '--',
           }, {
             title: '施工人员数量',
             dataIndex: 'work_number',
