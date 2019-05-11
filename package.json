@@ -28,15 +28,15 @@
     "not op_mini all"
   ],
   "babel": {
-    "plugins":[
+    "plugins": [
       [
         "module-resolver",
         {
-          "root":[
+          "root": [
             "./"
           ],
-          "alias":{
-            "@components":"./src/components"
+          "alias": {
+            "@components": "./src/components"
           }
         }
       ]

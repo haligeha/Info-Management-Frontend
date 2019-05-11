@@ -62,7 +62,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-
+       
         <Route
           path="/emergency/plan"
           component={Loadable({
