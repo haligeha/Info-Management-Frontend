@@ -109,7 +109,7 @@ class EmergencyPlan extends Component {
             render: (text, record, index) => (
               <div className="operate-btns"> 
                 <Link
-                  to="/emergency/plan/edit"
+                  to="/emergency/plan/new"
                 >编辑</Link>
                 <Link
                   to="/emergency/plan/detail"
