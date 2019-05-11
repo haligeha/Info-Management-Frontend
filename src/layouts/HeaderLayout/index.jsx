@@ -62,7 +62,7 @@ class HeaderLayout extends Component {
             {
               id:'32',
               name:'应急资源',
-              url:'/emergency/resource'
+              url:'/emergency/resource/work'
             },
             {
               id:'33',
