@@ -4,6 +4,7 @@ import { Button, Table,Popconfirm, Row, Col, Input} from 'antd';
 import axios from 'axios';
 import './index.styl';
 import { Link } from 'react-router-dom';
+import { isNullOrUndefined } from 'util';
 
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
@@ -19,6 +20,7 @@ class EmergencyPlan extends Component {
       data:[],
     };
     this.getTotalPage = this.getTotalPage.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
  
   componentDidMount(){
@@ -40,6 +42,14 @@ class EmergencyPlan extends Component {
         console.log(error);
       });
   }
+  
+  handleChange=(id)=>{
+    this.setState({ 
+      currentId:id, 
+    
+  }, () => {
+  });
+  }
 
   render() {
     const {
@@ -52,7 +62,7 @@ class EmergencyPlan extends Component {
       <div className="emergency-page">
         <PageTitle titles={['应急指挥','应急预案']}>
           {
-            <Link to="/emergency/plan/new">
+            <Link to={{pathname:"/emergency/plan/new",state:{id:isNullOrUndefined}}}>
             <Button type="primary">+ 新建预案</Button>
             </Link>
           }
@@ -105,20 +115,24 @@ class EmergencyPlan extends Component {
             render: (text, record) => `${record.signer}`,
           },{
             title: '操作',
-            title: '操作',
             render: (text, record, index) => (
               <div className="operate-btns"> 
                 <Link
-                  to="/emergency/plan/new"
+                  to={{pathname:"/emergency/plan/new",state:{id:record.emergency_id}}}
+                  style={{marginRight:'5px'}}
+                  onClick={()=>{this.handleChange(record.emergency_id)}}
                 >编辑</Link>
                 <Link
                   to="/emergency/plan/detail"
+                  style={{marginRight:'5px'}}
                 >详情</Link>
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={()=> {this.deleteGroup(record)}}
                 >
-                  <Button type="simple">删除</Button>
+                  <Button type="simple"
+                  style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                  >删除</Button>
                 </Popconfirm>
               </div>
             ),
