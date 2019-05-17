@@ -48,6 +48,13 @@ class EmergencyResourceRoute extends Component{
             loading: Loading
           })}
         />
+        <Route
+          exact
+          path="/emergency/resource/work/edit:id"
+          component={Loadable({
+            loader:()=>import('./Create/index'),
+            loading:Loading})}
+        />
       </Switch>
     );
   }

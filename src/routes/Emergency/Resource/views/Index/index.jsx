@@ -2,7 +2,7 @@ import React, { Component, } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { PageTitle,Module } from '../../../../../components';
-import {Button,Table,Form,Row,Col,Select} from 'antd';
+import {Button,Table,Form,Row,Col,Select,Popconfirm} from 'antd';
 const FormItem = Form.Item;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
@@ -109,9 +109,15 @@ class EmergencyResource extends Component {
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
-                <Button type="simple">编辑</Button>
-                <Button type="simple">详情</Button>
-                <Button type="simple">删除</Button>
+                <Link to="/emergency/resource/work/new">  
+                  <Button type="simple">编辑</Button>
+                </Link>
+                <Link to="/emergency/resource/work/detail">
+                  <Button type="simple">详情</Button>
+                </Link>
+                <Popconfirm title="确定要删除吗" onConfirm={()=>{this.deleteGroup(record)}}>
+                  <Button type="simple">删除</Button>
+                </Popconfirm>
               </div>
             ),
           }]}

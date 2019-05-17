@@ -53,7 +53,7 @@ class EmergencyPlan extends Component {
         <PageTitle titles={['应急指挥','应急预案']}>
           {
             <Link to="/emergency/plan/new">
-            <Button type="primary">+ 新建预案</Button>
+              <Button type="primary">+ 新建预案</Button>
             </Link>
           }
         </PageTitle>
@@ -73,10 +73,8 @@ class EmergencyPlan extends Component {
           bordered
           pagination={{
             current,
-           // total,
             pageSize: size,
             onChange: this.handlePageChagne,
-           // showTotal: () => `共 ${total} 条数据`,
           }}
           dataSource={data}
           columns={[{
@@ -104,7 +102,6 @@ class EmergencyPlan extends Component {
             key: 'signer',
             render: (text, record) => `${record.signer}`,
           },{
-            title: '操作',
             title: '操作',
             render: (text, record, index) => (
               <div className="operate-btns"> 
