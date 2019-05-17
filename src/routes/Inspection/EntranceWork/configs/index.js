@@ -1,6 +1,6 @@
-export const SELECT_HOME_WORK_NUM_ONE = '1';
-export const SELECT_HOME_WORK_NUM_TWO = '2';
-export const SELECT_HOME_WORK_NUM_THREE = '3';
+export const SELECT_HOME_WORK_NUM_ONE = '0';
+export const SELECT_HOME_WORK_NUM_TWO = '1';
+export const SELECT_HOME_WORK_NUM_THREE = '2';
 
 export const SELECT_HOME_WORK_NUM_MAP = {
   [SELECT_HOME_WORK_NUM_ONE]: '管廊1号',
