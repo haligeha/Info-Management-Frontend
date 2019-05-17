@@ -8,7 +8,7 @@ import { isNullOrUndefined } from 'util';
 
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
-const Search = Input.Search;
+//const Search = Input.Search;
 
 class EmergencyPlan extends Component {
   constructor(props) {
@@ -46,9 +46,7 @@ class EmergencyPlan extends Component {
   handleChange=(id)=>{
     this.setState({ 
       currentId:id, 
-    
-  }, () => {
-  });
+    }, () => {});
   }
 
   render() {
@@ -63,14 +61,14 @@ class EmergencyPlan extends Component {
         <PageTitle titles={['应急指挥','应急预案']}>
           {
             <Link to={{pathname:"/emergency/plan/new",state:{id:isNullOrUndefined}}}>
-            <Button type="primary">+ 新建预案</Button>
+              <Button type="primary">+ 新建预案</Button>
             </Link>
           }
         </PageTitle>
         <Module>
           <Row>
             <Col span={7}>
-              <Search
+              <Input.Search
                 placeholder="请输入序列ID"
                 onSearch={value => console.log(value)}
                 enterButton
@@ -83,10 +81,8 @@ class EmergencyPlan extends Component {
           bordered
           pagination={{
             current,
-           // total,
             pageSize: size,
             onChange: this.handlePageChagne,
-           // showTotal: () => `共 ${total} 条数据`,
           }}
           dataSource={data}
           columns={[{
@@ -131,7 +127,7 @@ class EmergencyPlan extends Component {
                   onConfirm={()=> {this.deleteGroup(record)}}
                 >
                   <Button type="simple"
-                  style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
                   >删除</Button>
                 </Popconfirm>
               </div>

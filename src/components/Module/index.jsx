@@ -21,6 +21,7 @@ class PageTitle extends Component {
     } = this.props;
     return (
       <div className="search-and-select"
+        
         {...other}
       >
       </div>
