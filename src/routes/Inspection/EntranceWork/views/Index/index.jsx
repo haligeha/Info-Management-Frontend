@@ -20,6 +20,7 @@ class Homework extends Component {
       size: PAGE_SIZE,
       total: 0,  
       data:[],
+      range:'',
     };
     this.getGroupList = this.getGroupList.bind(this);
   }
@@ -28,11 +29,10 @@ class Homework extends Component {
   }
   //获取列表信息
   getGroupList = (page) => {
-    const { size } = this.state;
-    axios.get(`/api/v1/info/entranceWorkByPage?limit=${size}&page=${page}`)
+    const { size ,range} = this.state;
+    axios.get(`/api/v1/info/entranceWorkByPage?limit=${size}&page=${page}&range=${range}`)
       .then((res) => {
         if(res && res.status === 200){
-          console.log(res);
           this.setState({
             data: res.data,
           });
@@ -42,13 +42,27 @@ class Homework extends Component {
         console.log(error);
       });
   }
+  //分页
+  handlePageChagne = (page) => {
+    this.getGroupList(page-1)
+  }
+  //搜索
+  selectActivity = (value) => {
+    this.setState({range:SELECT_HOME_WORK_NUM[value].name})
+  }
+  
   render() {
     const {
-      data,
-      current,
-      size,
+      data:{
+        data,
+        allCount,
+        page,
+        limit,
+      },
     } = this.state;
-    console.log(data);
+    const total = allCount
+    const current = page+1
+    const size = limit
     return (
       <div className="report-page">
         <PageTitle titles={['巡检维护','入廊作业']}>
@@ -61,9 +75,10 @@ class Homework extends Component {
         <Module>
           <Row>
             <Col span={2}>活动范围：</Col>
-            <Col span={6}>
+            <Col span={4}>
               <Select placeholder="请选择活动范围"
                 style={{ width: 220 }}
+                onChange={this.selectActivity}
               >
                 {
                   SELECT_HOME_WORK_NUM &&
@@ -75,7 +90,12 @@ class Homework extends Component {
                 }
               </Select>
             </Col>
-            
+            <Col span={2}>
+              <Button  
+                type="primary" 
+                onClick={() => {this.getGroupList(0)}}
+              >搜索</Button>
+            </Col>
           </Row> 
         </Module>
         <Table
@@ -83,8 +103,10 @@ class Homework extends Component {
           bordered
           pagination={{
             current,
+            total,
             pageSize: size,
             onChange: this.handlePageChagne,
+            showTotal: () => `共${allCount} 条数据`
           }}
           dataSource={data}
           columns={[{
