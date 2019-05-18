@@ -91,6 +91,25 @@ class RouteView extends Component{
           })}
         />
         
+        <Route    
+          path="/entrance/work"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Indicator" */
+              './EntranceWork/EntranceWork'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/entrance/work/approval"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "EntranceWork" */
+              './EntranceWork/EntranceWork'),
+            loading: Loading
+          })}
+        />
+
       </Switch>
     );
   }

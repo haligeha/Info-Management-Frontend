@@ -44,9 +44,14 @@ class HeaderLayout extends Component {
             },
             {
               id:'22',
-              name:'入廊作业',
-              url:'/inspection/entrance/work'
-            }
+              name:'巡检日志',
+              url:'/inspection/plan'
+            },
+            {
+              id:'23',
+              name:'巡检报告',
+              url:'/inspection/plan'
+            },
           ]
         },
         {
@@ -68,6 +73,23 @@ class HeaderLayout extends Component {
               id:'33',
               name:'预案审批',
               url:'/emergency/approval'
+            },
+          ]
+        },
+        {
+          id:'4',
+          name:"入廊作业",
+          url:'/entrance',
+          children:[
+            {
+              id:'41',
+              name:'入廊作业',
+              url:'/entrance/work'
+            },
+            {
+              id:'42',
+              name:'作业审批',
+              url:'/entrance/work'
             },
           ]
         }
