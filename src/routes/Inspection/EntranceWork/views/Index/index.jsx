@@ -21,6 +21,7 @@ class Homework extends Component {
       total: 0,  
       data:[],
       range:'',
+      nowCurrent:FIRST_PAGE,
     };
     this.getGroupList = this.getGroupList.bind(this);
   }
@@ -35,6 +36,7 @@ class Homework extends Component {
         if(res && res.status === 200){
           this.setState({
             data: res.data,
+            nowCurrent:res.data.page
           });
         }
       })
@@ -50,14 +52,23 @@ class Homework extends Component {
   selectActivity = (value) => {
     this.setState({range:SELECT_HOME_WORK_NUM[value].name})
   }
-  
+  //删除
+  deleteGroup = (record) => {
+    axios.delete(`/api/v1/info/entranceWorkById?WorkId=${record.id}`)
+      .then(() => {
+        this.getGroupList(this.state.nowCurrent)
+      })
+      .catch( (err) => {
+        console.log(err);
+      });
+  }
   render() {
     const {
       data:{
         data,
         allCount,
-        page,
         limit,
+        page,
       },
     } = this.state;
     const total = allCount
@@ -139,11 +150,11 @@ class Homework extends Component {
             render: (text, record, index) => (
               <div className="operate-btns"> 
                 <Link
-                  to="/inspection/entrance/work/new"
+                  to={`/inspection/entrance/work/edit/${record.id}`}
                   style={{marginRight:'5px'}}
                 >编辑</Link>
                 <Link
-                  to="/inspection/entrance/work/detail"
+                  to={`/inspection/entrance/work/detail/${record.id}`}
                   style={{marginRight:'5px'}}
                 >详情</Link>
                 <Popconfirm

@@ -1,7 +1,8 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Form,Input,Select,Button } from 'antd';
-import { SELECT_HOME_WORK_NUM } from '../../configs'
+import { Form,Input,Select,Button,message } from 'antd';
+import { SELECT_HOME_WORK_NUM } from '../../configs';
+import axios from 'axios';
 import './index.styl'
 
 class EntranceWorkNew extends Component {
@@ -9,18 +10,86 @@ class EntranceWorkNew extends Component {
     super(props);
 
     this.state = {
+      entranceDetail:{}
     };
   }
-
+  componentDidMount(){
+    const {match : { params : { id } }} = this.props
+    if(id){
+      axios.get(`/api/v1/info/entranceWorkById?entranceId=${id}`)
+        .then((res) => {
+          this.setState({entranceDetail:res.data})
+        })
+        .catch( (err) => {
+          console.log(err);
+        });
+    }
+  }
+  //创建入廊作业
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const {
+      form,
+      history,
+      match : { params : { id } },
+    } = this.props
+    const { getFieldValue } = form;
+    console.log(getFieldValue('duration'))
+    const values = form.getFieldsValue()
+    if(!getFieldValue('duration')){
+      message.error('请输入工期')
+    }
+    if(!getFieldValue('work_number')){
+      message.error('请输入施工数量')
+    }
+    if(!getFieldValue('activity_range')){
+      message.error('请选择活动范围')
+    }
+    values.date = new Date()
+    console.log(values)
+    if(id){
+      axios.put('/api/v1/info/entranceWork', values)
+        .then(function (response) {
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/inspection/entrance/work')
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }else{
+      axios.post('/api/v1/info/entranceWork', values)
+        .then(function (response) {
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/inspection/entrance/work')
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    
+  }
   render() {
     const createFormItemLayout = {
       labelCol: {span:8},
       wrapperCol : {span:8},
     }
-    const { form: { getFieldDecorator } } = this.props
+    const { 
+      form: { getFieldDecorator }, 
+      match : { params : { id } }
+    } = this.props
+    console.log(id)
+    const { entranceDetail } = this.state
     return (
       <div>
-        <PageTitle titles={['巡检维护','入廊作业','新建']} />
+        {id ?
+          <PageTitle titles={['巡检维护','入廊作业','编辑']} />
+          :
+          <PageTitle titles={['巡检维护','入廊作业','新建']} />
+        }
         <div className="entrance-work-create-page">
           <Module>
             <Form
@@ -30,7 +99,8 @@ class EntranceWorkNew extends Component {
                 {...createFormItemLayout}
                 label="工期（天）"
               >
-                {getFieldDecorator('time',{
+                {getFieldDecorator('duration',{
+                  initialValue: id && entranceDetail.duration,
                   rules:[{
                     required:true,
                     message:"请输入工期",
@@ -43,7 +113,8 @@ class EntranceWorkNew extends Component {
                 {...createFormItemLayout}
                 label="施工人员数量"
               >
-                {getFieldDecorator('number',{
+                {getFieldDecorator('work_number',{
+                  initialValue: id && entranceDetail.work_number,
                   rules:[{
                     required:true,
                     message:"请输入施工人员数量",
@@ -56,7 +127,8 @@ class EntranceWorkNew extends Component {
                 {...createFormItemLayout}
                 label="活动范围"
               >
-                {getFieldDecorator('ares',{
+                {getFieldDecorator('activity_range',{
+                  initialValue: id && entranceDetail.activity_range,
                   rules:[{
                     required:true,
                     message:"请选择活动区域",
@@ -82,7 +154,7 @@ class EntranceWorkNew extends Component {
                     htmlType="submit"
                     type="primary"
                     size="default"
-                  >创建
+                  >{id ? '编辑' : '新建'}
                   </Button>
                   <Button
                     style={{marginLeft:"28px"}}

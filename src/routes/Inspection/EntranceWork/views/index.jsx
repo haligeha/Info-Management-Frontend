@@ -40,7 +40,17 @@ class EntranceWorkRoute extends Component{
         />
         <Route
           exact
-          path="/inspection/entrance/work/detail"
+          path="/inspection/entrance/work/edit/:id"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Deviwwce" */
+              './Create/index'),
+            loading: Loading
+          })}
+        />
+        <Route
+          exact
+          path="/inspection/entrance/work/detail/:id"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Gis" */
