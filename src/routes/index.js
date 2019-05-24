@@ -53,15 +53,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        <Route
-          path="/inspection/entrance/work"
-          component={Loadable({
-            loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
-              './Inspection/EntranceWork'),
-            loading: Loading
-          })}
-        />
+        
        
         <Route
           path="/emergency/plan"
@@ -73,7 +65,34 @@ class RouteView extends Component{
           })}
         />
         <Route    
-          path="/emergency/resource/work"
+          path="/emergency/resource/material"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Resource" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route    
+          path="/emergency/resource/equipment"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Resource" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route    
+          path="/emergency/resource/team"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Resource" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route    
+          path="/emergency/resource/shelter"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Resource" */
@@ -90,7 +109,17 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        
+
+        <Route
+          path="/emergency/approval/new"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PlanApproval" */
+              './Emergency/PlanApproval'),
+            loading: Loading
+          })}
+        />
+
         <Route    
           path="/entrance/work"
           component={Loadable({

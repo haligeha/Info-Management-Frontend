@@ -4,6 +4,7 @@ import { Tabs } from 'antd';
 import NotApproved from './NotApproved';
 import Approved from './Approval';
 import Results from './Results';
+import ApprovalRoute from './route';
 
 const TabPane = Tabs.TabPane;
 
@@ -14,14 +15,19 @@ class PlanApproval extends Component {
     };
   }
   render() {
+    
     return (
+      
       <div className="plan-approval-list-page">
+        
         <Tabs defaultActiveKey="1">
           <TabPane tab="未审批"
             key="1"
           >
-            <PageTitle titles={['应急指挥','预案审批','未审批']} />
-            <NotApproved />
+            <ApprovalRoute>
+              <PageTitle titles={['应急指挥','预案审批','未审批']} />
+              <NotApproved />
+            </ApprovalRoute>
           </TabPane>
           <TabPane tab="已审批"
             key="2"
@@ -36,8 +42,9 @@ class PlanApproval extends Component {
             <Results />
           </TabPane>
         </Tabs>
+        
       </div>
-
+      
     );
   }
 }

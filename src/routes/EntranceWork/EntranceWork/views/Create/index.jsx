@@ -48,6 +48,8 @@ class EntranceWorkNew extends Component {
     values.date = new Date()
     console.log(values)
     if(id){
+      
+      values.id = id
       axios.put('/api/v1/info/entranceWork', values)
         .then(function (response) {
           if(response.status === 200){
@@ -140,7 +142,7 @@ class EntranceWorkNew extends Component {
                     {SELECT_HOME_WORK_NUM &&
                       SELECT_HOME_WORK_NUM.map(cur => (
                         <Select.Option key={cur.id}
-                          value={cur.id}
+                          value={cur.name}
                         >{cur.name}</Select.Option>
                       ))
 

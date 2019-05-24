@@ -24,7 +24,7 @@ class InspectionPlan extends Component {
 
   componentDidMount(){
     this.getGroupList(FIRST_PAGE);
-   // this.changeTableList();
+    // this.changeTableList();
   }
 
   //获取列表信息
@@ -48,26 +48,26 @@ class InspectionPlan extends Component {
     const { data,dataChange} = this.state;
     for(let i=0;i<data.length;i++){
       let dataChangeObj={};
-     if(data[i].id<Math.round(new Date().getTime()/1000).toString()){
-       if(data[i].state==""&&data[i].summary==""&&data[i].abnoarmal==""&&data[i].maintennance==""){
-        dataChangeObj.judge="超时未处理"
-       }
-       else{
-        dataChangeObj.judge="处理完成"
-       }
-     }
-     else{
-      dataChangeObj.judge="待巡检"
-      dataChangeObj.id=data[i].id
-      dataChangeObj.duty_person = data[i].duty_person;
-      dataChangeObj.inspection_person = data[i].inspection_person;
-      dataChangeObj.create_date = data[i].create_date;
-      dataChangeObj.calendar_date = data[i].calendar_date;
-      dataChangeObj.state = data[i].state;
-      dataChangeObj.summary = data[i].summary;
-      dataChangeObj.abnormal = data[i].abnormal;
-      dataChangeObj.maintenance = data[i].maintenance;
-     }
+      if(data[i].id<Math.round(new Date().getTime()/1000).toString()){
+        if(data[i].state==""&&data[i].summary==""&&data[i].abnoarmal==""&&data[i].maintennance==""){
+          dataChangeObj.judge="超时未处理"
+        }
+        else{
+          dataChangeObj.judge="处理完成"
+        }
+      }
+      else{
+        dataChangeObj.judge="待巡检"
+        dataChangeObj.id=data[i].id
+        dataChangeObj.duty_person = data[i].duty_person;
+        dataChangeObj.inspection_person = data[i].inspection_person;
+        dataChangeObj.create_date = data[i].create_date;
+        dataChangeObj.calendar_date = data[i].calendar_date;
+        dataChangeObj.state = data[i].state;
+        dataChangeObj.summary = data[i].summary;
+        dataChangeObj.abnormal = data[i].abnormal;
+        dataChangeObj.maintenance = data[i].maintenance;
+      }
       dataChange.push(dataChangeObj);
     }
     return dataChange;
@@ -119,8 +119,8 @@ class InspectionPlan extends Component {
           columns={[{
             title: '待检情况',
             key: 'tagJudge', 
-           // className:(record.id === 118?"Judge-Design":"Judge-Unfinish")
-           render: (text, record) => (record.judge && record.judge) || '--',
+            // className:(record.id === 118?"Judge-Design":"Judge-Unfinish")
+            render: (text, record) => (record.judge && record.judge) || '--',
           }, {
             title: '排列序号', 
             key: 'tagId',
