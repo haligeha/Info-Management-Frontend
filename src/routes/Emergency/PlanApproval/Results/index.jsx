@@ -58,10 +58,6 @@ class Results extends Component {
           // }}
           dataSource={data}
           columns={[{
-            title: 'ID',
-            key: 'Id',
-            render: (text, record) => (record.id && record.id) || '--',
-          },{
             title: '预案ID',
             key: 'planId',
             render: (text, record) => (record.planId && record.planId) || '--',

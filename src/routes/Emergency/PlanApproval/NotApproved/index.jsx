@@ -101,7 +101,7 @@ class NotApproved extends Component {
                 style={{ display: 'block' }}
               >
                 <Link 
-                  to={'/emergency/approval/new'}
+                  to={`/emergency/approval/new/${record.id}`}
                   style={{marginRight:'5px'}}
                 >新建审批</Link>
                 

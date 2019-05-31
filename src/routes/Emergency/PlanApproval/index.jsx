@@ -1,4 +1,5 @@
 import React, { Component, } from 'react';
+import {Link} from 'react-router-dom';
 import { PageTitle } from '../../../components';
 import { Tabs } from 'antd';
 import NotApproved from './NotApproved';
@@ -21,7 +22,8 @@ class PlanApproval extends Component {
       <div className="plan-approval-list-page">
         
         <Tabs defaultActiveKey="1">
-          <TabPane tab="未审批"
+          <TabPane 
+            tab={<Link to="/emergency/approval">未审批</Link>}
             key="1"
           >
             <ApprovalRoute>
