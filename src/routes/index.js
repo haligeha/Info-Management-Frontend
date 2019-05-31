@@ -53,6 +53,33 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
+        <Route    
+          path="/inspection/employee"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Indicator" */
+              './Inspection/Employee'),
+            loading: Loading
+          })}
+        />
+           <Route    
+          path="/inspection/calendar"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Indicator" */
+              './Inspection/DailyInspection'),
+            loading: Loading
+          })}
+        />
+         <Route    
+          path="/inspection/pathway"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Indicator" */
+              './Inspection/PathWay'),
+            loading: Loading
+          })}
+        />
         <Route
           path="/inspection/entrance/work"
           component={Loadable({
@@ -62,7 +89,15 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-       
+          <Route
+          path="/inspection/report"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "EntranceWork" */
+              './Inspection/Report'),
+            loading: Loading
+          })}
+        />
         <Route
           path="/emergency/plan"
           component={Loadable({
@@ -72,6 +107,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
+        
         <Route    
           path="/emergency/resource/work"
           component={Loadable({
@@ -109,7 +145,24 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-
+         <Route
+          path="/pipe/area"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PipeGallery" */
+              './PipeGallery/Area'),
+            loading: Loading
+          })}
+        />
+         <Route
+          path="/pipe/management"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PipeGallery" */
+              './PipeGallery/Management'),
+            loading: Loading
+          })}
+        />
       </Switch>
     );
   }

@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class EntranceWorkRoute extends Component{
+class CalendarRoute extends Component{
   constructor(props){
     super(props);
     this.state = {};
@@ -20,7 +20,7 @@ class EntranceWorkRoute extends Component{
       <Switch>
         <Route 
           exact   
-          path="/inspection/plan"
+          path="/inspection/calendar"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "EntranceWork" */
@@ -28,36 +28,15 @@ class EntranceWorkRoute extends Component{
             loading: Loading
           })}
         />
-        <Route
+        {/* <Route
           exact
-          path="/inspection/plan/new"
+          path="/inspection/calendar/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Device" */
               './Create/index'),
             loading: Loading
           })}
-        />
-        <Route
-          exact
-          path="/inspection/plan/detail"
-          component={Loadable({
-            loader: () => import(
-              /* webpackChunkName: "Gis" */
-              './Detail/index'),
-            loading: Loading
-          })}
-        />
-        <Route
-          exact
-          path="/inspection/plan/edit/:id"
-          component={Loadable({
-            loader: () => import(
-              /* webpackChunkName: "Dssevice" */
-              './Create/index'),
-            loading: Loading
-          })}
-        />
+        /> */}
       </Switch>
     );
   }
@@ -65,4 +44,4 @@ class EntranceWorkRoute extends Component{
 }
 
 
-export default EntranceWorkRoute;
+export default CalendarRoute;

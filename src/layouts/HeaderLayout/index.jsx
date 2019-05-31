@@ -44,14 +44,25 @@ class HeaderLayout extends Component {
             },
             {
               id:'22',
-              name:'巡检日志',
-              url:'/inspection/plan'
+              name:'巡检人员信息',
+              url:'/inspection/employee'
             },
             {
               id:'23',
-              name:'巡检报告',
-              url:'/inspection/plan'
+              name:'日常/年度巡检',
+              url:'/inspection/calendar'
             },
+            {
+              id:'24',
+              name:'巡检路线管理',
+              url:'/inspection/pathway'
+            }, 
+            {
+              id:'25',
+              name:'开始巡检',
+              url:'/inspection/report'
+            },
+            
           ]
         },
         {
@@ -90,6 +101,22 @@ class HeaderLayout extends Component {
               id:'42',
               name:'作业审批',
               url:'/entrance/work'
+            },
+          ]
+        }, {
+          id:'5',
+          name:"管廊维护",
+          url:'/pipe',
+          children:[
+            {
+              id:'51',
+              name:'管廊信息',
+              url:'/pipe/management'
+            },
+            {
+              id:'52',
+              name:'管廊区域信息',
+              url:'/pipe/area'
             },
           ]
         }

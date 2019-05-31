@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class EmergencyRoute extends Component{
+class ManagementRoute extends Component{
   constructor(props){
     super(props);
     this.state = {};
@@ -20,41 +20,31 @@ class EmergencyRoute extends Component{
       <Switch>
         <Route 
           exact   
-          path="/emergency/plan"
+          path="/pipe/management"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyPlan" */
+              /* webpackChunkName: "EntranceWork" */
               './Index/index'),
             loading: Loading
           })}
         />
         <Route
           exact
-          path="/emergency/plan/new"
+          path="/pipe/management/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyPlanNew" */
-              './Create/index'),
-            loading: Loading
-          })}
-        />
-          <Route
-          exact
-          path="/emergency/plan/edit/:id"
-          component={Loadable({
-            loader: () => import(
-              /* webpackChunkName: "Deviwwce" */
+              /* webpackChunkName: "Device" */
               './Create/index'),
             loading: Loading
           })}
         />
         <Route
           exact
-          path="/emergency/plan/detail/:id"
+          path="/pipe/management/edit/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyPlanDetail" */
-              './Detail/index'),
+              /* webpackChunkName: "Device" */
+              './Create/index'),
             loading: Loading
           })}
         />
@@ -65,4 +55,4 @@ class EmergencyRoute extends Component{
 }
 
 
-export default EmergencyRoute;
+export default ManagementRoute;

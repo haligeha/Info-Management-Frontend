@@ -5,7 +5,7 @@ import TitleNav from './TitleNav';
 import BasicInfo from './BasicInfo';
 import axios from 'axios';
 import './index.styl';
-import { resolveModuleName } from '_typescript@2.9.2@typescript';
+//import { resolveModuleName } from '_typescript@2.9.2@typescript';
 
 class EntranceWorkDetail extends Component {
   constructor(props) {
