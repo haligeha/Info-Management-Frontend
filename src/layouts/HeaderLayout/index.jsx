@@ -105,7 +105,7 @@ class HeaderLayout extends Component {
           ]
         }, {
           id:'5',
-          name:"管廊维护",
+          name:"运营管理",
           url:'/pipe',
           children:[
             {
@@ -116,6 +116,16 @@ class HeaderLayout extends Component {
             {
               id:'52',
               name:'管廊区域信息',
+              url:'/pipe/area'
+            },
+            {
+              id:'53',
+              name:'设备管理',
+              url:'/pipe/area'
+            },
+            {
+              id:'54',
+              name:'用户操作日志',
               url:'/pipe/area'
             },
           ]

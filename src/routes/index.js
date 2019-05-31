@@ -62,7 +62,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-           <Route    
+        <Route    
           path="/inspection/calendar"
           component={Loadable({
             loader: () => import(
@@ -71,7 +71,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-         <Route    
+        <Route    
           path="/inspection/pathway"
           component={Loadable({
             loader: () => import(
@@ -89,7 +89,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-          <Route
+        <Route
           path="/inspection/report"
           component={Loadable({
             loader: () => import(
@@ -145,7 +145,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-         <Route
+        <Route
           path="/pipe/area"
           component={Loadable({
             loader: () => import(
@@ -154,7 +154,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-         <Route
+        <Route
           path="/pipe/management"
           component={Loadable({
             loader: () => import(
