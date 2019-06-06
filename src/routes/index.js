@@ -130,15 +130,24 @@ class RouteView extends Component{
           })}
         />
         <Route
-          path="/entrance/work/approval"
+          path="/entrance/approval"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "EntranceWork" */
-              './EntranceWork/EntranceWork'),
+              './EntranceWork/WorkApproval/index'),
             loading: Loading
           })}
         />
 
+        <Route
+          path="/entrance/approval/new"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PlanApproval" */
+              './EntranceWork/WorkApproval/index'),
+            loading: Loading
+          })}
+        />
       </Switch>
     );
   }

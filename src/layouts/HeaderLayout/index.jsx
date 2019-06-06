@@ -89,7 +89,7 @@ class HeaderLayout extends Component {
             {
               id:'42',
               name:'作业审批',
-              url:'/entrance/work'
+              url:'/entrance/approval'
             },
           ]
         }

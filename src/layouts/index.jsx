@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import IndexView from '../routes';
+import RouteView from '../routes';
 import HeaderLayout from './HeaderLayout';
 import { Layout,} from 'antd';
 import './index.styl';
@@ -17,7 +17,7 @@ class Layouts extends Component {
       <Layout className={'layout custom-layout'}>
         <HeaderLayout/>
         <Content className={'content-layout'}>
-          <IndexView/>
+          <RouteView/>
         </Content>
       </Layout>
     );

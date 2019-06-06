@@ -26,8 +26,9 @@ class PlanApproval extends Component {
             tab={<Link to="/emergency/approval">未审批</Link>}
             key="1"
           >
+            <PageTitle titles={['应急指挥','预案审批','未审批']} />
+            
             <ApprovalRoute>
-              <PageTitle titles={['应急指挥','预案审批','未审批']} />
               <NotApproved />
             </ApprovalRoute>
           </TabPane>
