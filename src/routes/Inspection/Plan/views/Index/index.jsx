@@ -146,7 +146,7 @@ class InspectionPlan extends Component {
             title: '描述',
             key: 'content',
             render: (text, record) => {
-              return "任务编号: "+((record.number && record.number) || '--')+"描述: "+((record.content && record.content) || '--')
+              return "任务编号: "+((record.number && record.number) || '--')+"   描述: "+((record.content && record.content) || '--')
             }   
           }, {
             title: '创建时间',

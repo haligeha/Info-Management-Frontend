@@ -163,6 +163,14 @@ class Area extends Component {
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
+                 <Link
+                  to={`/pipe/area/${record.id}`}
+                  style={{marginRight:'5px'}}
+                >编辑</Link>
+                <Link
+                  to={`/pipe/area/${record.id}`}
+                  style={{marginRight:'5px'}}
+                >详情</Link>
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={()=> {this.deleteGroup(record)}}

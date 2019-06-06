@@ -35,7 +35,7 @@ class PlanNew extends Component {
   //获取人员信息
   getInspectionPeople=()=>{
     axios.get(`/api/v1/info/allStaff`)
-      .then((res) => {
+    .then((res) => {
         if(res && res.status === 200){
             const personArr=res.data
             const person=[]
@@ -67,6 +67,7 @@ class PlanNew extends Component {
       match : { params : { id } },
     } = this.props
     const { getFieldValue } = form;
+    const { planDetail} = this.state
     const values = form.getFieldsValue()
     if(!getFieldValue('inspection_person')){
       message.error('请输入巡检人员')
@@ -77,11 +78,16 @@ class PlanNew extends Component {
     if(!getFieldValue('content')){
       message.error('请输入描述')
     }
+    if(!getFieldValue('path')){
+      message.error('请输入巡检路线')
+    }
     values.create_date = new Date()
+    values.status = planDetail.status
     values.inspection_date=getFieldValue('inspection_date')._d
     console.log(values)
     if(id){
         values.id=id
+        values.number=planDetail.number
         axios.put('/api/v1/info/plan', values)
         .then(function (response) {
             if(response.status === 200){
@@ -173,7 +179,6 @@ class PlanNew extends Component {
                 {...createFormItemLayout}
                 label="巡检时间"
               >
-                {console.log()}
                 {getFieldDecorator('inspection_date',{
                   initialValue: id && moment(moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'),'YYYY-MM-DD'),
                   rules:[{
@@ -198,7 +203,21 @@ class PlanNew extends Component {
                    // <Input placeholder="请输入巡检时间" />
                 )}  
               </Form.Item>
-              
+              <Form.Item
+                {...createFormItemLayout}
+                label="巡检路线"
+              >
+                {getFieldDecorator('path',{
+                  initialValue: id && planDetail.path,
+                  rules:[{
+                    required:true,
+                    message:"请输入巡检路线",
+                  }]
+                })(
+                  <Input placeholder="请输入巡检路线" />,
+                )}  
+              </Form.Item>
+
               <section className="operator-container">
                 <div style={{textAlign:"center"}}>
                   <Button

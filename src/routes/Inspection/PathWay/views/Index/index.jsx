@@ -3,6 +3,7 @@ import { PageTitle,Module, } from '../../../../../components';
 import { Button,Row,Col,Table,Input, Popconfirm } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import moment from 'moment';
 
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
@@ -17,7 +18,7 @@ class Employee extends Component {
       size: PAGE_SIZE,
       total: 0,  
       data:[],  
-     // name:'',
+      area:'',
       nowCurrent:FIRST_PAGE,
     };
 
@@ -30,8 +31,8 @@ class Employee extends Component {
 
   //获取列表信息
   getGroupList = (page) => {
-    const { size,name } = this.state;
-    axios.get(`/api/v1/user/userByPage?limit=${size}&page=${page}&name=${name}`)
+    const { size,area } = this.state;
+    axios.get(`/api/v1/info/inspectionPathByPage?limit=${size}&page=${page}&area=${area}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -65,7 +66,7 @@ class Employee extends Component {
  selectActivity = (value) => {
      const nameValue=value
     this.setState({
-       name:nameValue
+       area:nameValue
       }) ;
     console.log(this.state)
     this.getGroupList(0)
@@ -150,7 +151,7 @@ class Employee extends Component {
             title: '创建时间',
             key: 'create_date',
             render: (text, record) => {
-              return (record.create_date && record.create_date) || '--'
+              return(moment(parseInt(record.create_date)).format('YYYY-MM-DD HH:mm:ss')) || '--'
             }
           },{
             title: '说明描述',
@@ -164,6 +165,14 @@ class Employee extends Component {
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
+                 <Link
+                  to={`/inspection/pathway/${record.id}`}
+                  style={{marginRight:'5px'}}
+                >编辑</Link>
+                <Link
+                  to={`/inspection/pathway/${record.id}`}
+                  style={{marginRight:'5px'}}
+                >详情</Link>
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={()=> {this.deleteGroup(record)}}
