@@ -72,10 +72,10 @@ class EmergencyPlan extends Component {
               history,
             } = this.props
             history.push('/monitor/device/detail')
-          }}
-          />,<Link to={`/monitor/device/detail`}>
-          <Icon type="ellipsis" />
-        </Link>,]}
+          }}/>,
+          <Link to={`/monitor/device/detail`}>
+             <Icon type="ellipsis" />
+          </Link>,]}
         >
         <Meta
           avatar={<Avatar>DEVICE</Avatar>}

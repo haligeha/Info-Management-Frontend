@@ -51,7 +51,7 @@ class Employee extends Component {
     this.getGroupList(page-1)
   }
 
-//删除
+  //删除
   deleteGroup = (record) => {
     axios.delete(`/api/v1/info/userById?Id=${record.id}`)
     .then(() => {

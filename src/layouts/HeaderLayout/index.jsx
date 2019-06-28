@@ -2,6 +2,7 @@ import React, { Component, } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Layout, Icon, Dropdown, Avatar, } from 'antd';
 
+
 const { Header,} = Layout;
 
 
@@ -176,6 +177,7 @@ class HeaderLayout extends Component {
                 {subMenu.children && subMenu.children.map(item =>
                   <Menu.Item key={item.id}>
                     <Link to={item.url}>{item.name}</Link>
+                    {/* <PrivateRoute path={item.url}>{item.name}</PrivateRoute> */}
                   </Menu.Item>
                 )
                 }

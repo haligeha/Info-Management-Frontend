@@ -2,6 +2,8 @@ import React, { Component, } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
+import Authuser from './PackRoute/Authuser'
+
 const Loading = () => {
   return (
     <div className="loading">
@@ -21,6 +23,15 @@ class RouteView extends Component{
             loader: () => import(
               /* webpackChunkName: "Scene" */
               './Monitor/Scene'),
+            loading: Loading
+          })}
+        />
+         <Route
+          path="/login" 
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Device" */
+              './Login'),
             loading: Loading
           })}
         />

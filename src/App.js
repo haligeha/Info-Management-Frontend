@@ -3,6 +3,8 @@ import { HashRouter, } from 'react-router-dom';
 import Layouts from './layouts';
 import './App.styl';
 
+
+
 class App extends Component {
   render() {
     return (

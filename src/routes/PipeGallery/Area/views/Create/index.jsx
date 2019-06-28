@@ -11,6 +11,7 @@ class AreaNew extends Component {
 
     this.state = {
         pipeDetail:{},
+        pipeBelong:[],
     };
 
   }
@@ -29,6 +30,29 @@ class AreaNew extends Component {
     
   }
  
+  //获取所属管廊信息
+  getpipeBelong=()=>{
+    axios.get(`/api/v1/info/allStaff`)
+    .then((res) => {
+        if(res && res.status === 200){
+            const personArr=res.data
+            const person=[]
+            const children=[]
+            personArr.forEach(function(item){
+                person.push(item.name)
+              })
+            for(var i=0;i<person.length;i++)
+            children.push(<Option value={person[i]}>{person[i]}</Option>)
+            this.setState({pipeBelong:children})
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+  }
+
+
   //创建区域信息
   handleSubmit = (e) => {
     e.preventDefault()
@@ -95,7 +119,7 @@ class AreaNew extends Component {
       match : { params : { id } }
     } = this.props
    
-    const { pipeDetail} = this.state
+    const { pipeDetail,pipeBelong} = this.state
     return (
       <div>
         {id ?
@@ -161,7 +185,13 @@ class AreaNew extends Component {
                     message:"请选择所属管廊",
                   }]
                 })
-                (<Input placeholder="请选择所属管廊"/>)} 
+                (<Select
+                  //  mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="请选择所属管廊"
+                >
+                    {pipeBelong}
+                </Select>,)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}

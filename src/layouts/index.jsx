@@ -1,6 +1,7 @@
 import React, { Component, } from 'react';
 import IndexView from '../routes';
 import HeaderLayout from './HeaderLayout';
+import Login from './Login'
 import { Layout,} from 'antd';
 import './index.styl';
 const { Content, } = Layout;
@@ -15,10 +16,7 @@ class Layouts extends Component {
   render() {
     return (
       <Layout className={'layout custom-layout'}>
-        <HeaderLayout/>
-        <Content className={'content-layout'}>
-          <IndexView/>
-        </Content>
+        <Login />
       </Layout>
     );
   }

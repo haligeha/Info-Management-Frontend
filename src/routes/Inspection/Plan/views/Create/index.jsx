@@ -3,6 +3,7 @@ import { PageTitle,Module } from '../../../../../components';
 import { Form,Input,Select,Button,message,DatePicker } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
+import { stringify } from 'querystring';
 const Option = Select.Option;
 const dateFormat = 'YYYY-MM-DD';
 
@@ -81,10 +82,13 @@ class PlanNew extends Component {
     if(!getFieldValue('path')){
       message.error('请输入巡检路线')
     }
-    values.create_date = new Date()
+    values.create_date =new Date()
+    console.log(values.create_date)
     values.status = planDetail.status
-    values.inspection_date=getFieldValue('inspection_date')._d
-    console.log(values)
+    values.inspection_date = new Date(getFieldValue('inspection_date'))
+   // values.inspection_date=getFieldValue('inspection_date')._d
+    console.log(values.inspection_date)
+
     if(id){
         values.id=id
         values.number=planDetail.number
@@ -180,27 +184,28 @@ class PlanNew extends Component {
                 label="巡检时间"
               >
                 {getFieldDecorator('inspection_date',{
-                  initialValue: id && moment(moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'),'YYYY-MM-DD'),
-                  rules:[{
+               //   initialValue: id && moment(moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'),'YYYY-MM-DD'),
+               initialValue:id && moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'), 
+               rules:[{
                     required:true,
                     message:"请选择巡检时间",
                   }]
                 })(
-                    <DatePicker
-                    dateRender={current => {
-                      const style = {};
-                      if (current.date() === 1) {
-                        style.border = '1px solid #1890ff';
-                        style.borderRadius = '50%';
-                      }
-                      return (
-                        <div className="ant-calendar-date" style={style}>
-                          {current.date()}
-                        </div>
-                      );
-                    }}
-                  />
-                   // <Input placeholder="请输入巡检时间" />
+                  //   <DatePicker
+                  //   dateRender={current => {
+                  //     const style = {};
+                  //     if (current.date() === 1) {
+                  //       style.border = '1px solid #1890ff';
+                  //       style.borderRadius = '50%';
+                  //     }
+                  //     return (
+                  //       <div className="ant-calendar-date" style={style}>
+                  //         {current.date()}
+                  //       </div>
+                  //     );
+                  //   }}
+                  // />
+                    <Input placeholder="请输入巡检时间" />
                 )}  
               </Form.Item>
               <Form.Item

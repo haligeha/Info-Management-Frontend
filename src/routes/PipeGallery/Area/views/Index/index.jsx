@@ -49,7 +49,7 @@ class Area extends Component {
   handlePageChagne = (page) => {
     this.getGroupList(page-1)
   }
-
+ 
 //删除
   deleteGroup = (record) => {
     axios.delete(`/api/v1/info/galleryArea?Id=${record.id}`)
