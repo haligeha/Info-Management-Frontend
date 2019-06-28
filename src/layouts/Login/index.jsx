@@ -8,6 +8,7 @@ import './index.styl'
 import axios from 'axios';
 import Background from './img/1.jpg'
 
+//背景图片的填充
 var sectionStyle = {
   width: "100%",
   height:"700px",
@@ -22,21 +23,51 @@ class Login extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            username:'',
+            password:'',
+            token:'',
             showContent:false,
         }
     }
-    login = () => {
-        this.setState({showContent:true});
+     
+    //设置状态完成跳转
+    login=()=>{
+      this.setState({showContent:true});    
     }
 
+    //设置cookie
+    setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    //获取cookie
+    getCookie(cname){
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) != -1){
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+ 
+    //连接登陆接口并设置username,password和token的cookie
     handleSubmit = (e) => {
       e.preventDefault()
       const {
         form,
-        history,
+        token,
       } = this.props
+      const rea=this
       const { getFieldValue } = form;
-      console.log(getFieldValue('username'))
       const values = form.getFieldsValue()
       if(!getFieldValue('username')){
         message.error('请输入用户名')
@@ -44,15 +75,18 @@ class Login extends React.Component{
       if(!getFieldValue('password')){
         message.error('请输入密码')
       }
+      rea.setCookie("username",values.username,7000)
+      rea.setCookie("password",values.password,7000)
       axios.post('/api/v1/user/login', values)
       .then(function (response) {
         if(response.status === 200){
-          message.info('创建成功')
-          history.push('/inspection/entrance/work')
+          message.info('登陆成功')
+          rea.setCookie("token",response.data.access_token,7000)
+          rea.login()
         }
       })
       .catch(function (error) {
-        console.log(error);
+        message.info("账号或密码错误")
       });
     }
 
@@ -62,45 +96,11 @@ class Login extends React.Component{
         return (
           <div className="content">
             {!showContent &&
-              //   <Form className="login-form">
-              //      <h1>管廊综合管理系统</h1>
-              //   <FormItem>
-              //     {
-              //       getFieldDecorator('userName',{
-              //         rules: [
-              //           {
-              //             required: true,
-              //             message: '请填写用户名！'
-              //           }
-              //         ]
-              //       })(
-              //         <Input prefix={ 
-              //           <Icon type='user' style={{color:'rgba(0,0,0,.25)'}}/>
-              //         } placeholder='userName'></Input>
-              //       )
-              //     }
-              //   </FormItem>
-              //   <FormItem>
-              //     {
-              //       getFieldDecorator('password',{
-              //         rules: [{required: true, message: "请填写密码！"}]
-              //       })(
-              //         <Input prefix={
-              //           <Icon type="lock" style={{color:'rgba(0,0,0,.25)'}}/> } placeholder="password"></Input>
-              //       )
-              //     }
-              //   </FormItem>
-              //   <FormItem>
-              //     <Button type="primary" htmlType="submit" className={"btn"} onClick={this.login}>
-              //       登录
-                    
-              //     </Button>
-              //   </FormItem>
-              // </Form>
               <div className="backgroundPic" style={sectionStyle}>
                 <div className="bg1"></div>
                 <Form className="login-form"
-                 onSubmit={this.handleSubmit}>
+                onSubmit={this.handleSubmit}
+                 >
                 <div className="gyl">
                         管廊综合管理系统
                         
@@ -109,7 +109,7 @@ class Login extends React.Component{
                 <div className="bg">
                   <div className="wel">用户登录</div>			
                       <div className="user">
-                          <div id="yonghu">用户名</div>
+                          <div id="yonghu">用户名&nbsp;</div>
                           <Form.Item
                             >
                               {getFieldDecorator('username',{
@@ -123,7 +123,7 @@ class Login extends React.Component{
                             </Form.Item>
                       </div>
                       <div className="password" >
-                        <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码</div>
+                        <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
                         <Form.Item
                             >
                               {getFieldDecorator('password',{
@@ -136,18 +136,7 @@ class Login extends React.Component{
                               )}  
                             </Form.Item>
                       </div>
-                      <div className="rem" >
-                        <input type="checkbox" name="" id="" value="" />
-                        <div id="reb">
-                          记住密码
-                        </div>
-                      </div>
-                      {/* <div className="fg" >
-                          <div style={"font-size: 11px;margin-top: 11px;"}>
-                            <a style="font-size: 11px;" href="#">忘记密码？</a>
-                          </div>
-                      </div> */}
-                      <Button className="btn" htmlType="submit"  type="primary">登陆</Button>
+                      <Button className="btn" htmlType="submit" type="primary">登陆</Button>
                   </div>
                   </Form>
                 </div>
