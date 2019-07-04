@@ -18,7 +18,7 @@ class ManagementNew extends Component {
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/user/userById?id=${id}`)
+      axios.get(`/api/v1/info/pipeGallery?Id=${id}`)
         .then((res) => {
           this.setState({pipeDetail:res.data})
         })
@@ -39,9 +39,9 @@ class ManagementNew extends Component {
     } = this.props
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
-      if(!getFieldValue('number')){
-        message.error('请输入管廊编号')
-      }
+      // if(!getFieldValue('number')){
+      //   message.error('请输入管廊编号')
+      // }
       if(!getFieldValue('name')){
         message.error('请输入管廊名称')
       }
@@ -62,7 +62,7 @@ class ManagementNew extends Component {
       }
     if(id){
         values.id=id
-        axios.put('/api/v1/user/user', values)
+        axios.put('/api/v1/info/pipeGallery', values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('编辑成功')
@@ -74,7 +74,7 @@ class ManagementNew extends Component {
         });
     }else{
         console.log(values)
-        axios.post('/api/v1/user/user', values)
+        axios.post('/api/v1/info/pipeGallery', values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('创建成功')
@@ -111,20 +111,7 @@ class ManagementNew extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-                <Form.Item
-                {...createFormItemLayout}
-                label="管廊编号"
-              >
-                {getFieldDecorator('number',{
-                  initialValue: id && pipeDetail.number,
-                  rules:[{
-                    required:true,
-                    message:"请输入管廊编号",
-                  }]
-                })(
-                  <Input placeholder="请输入管廊编号" />
-                )}  
-              </Form.Item>
+               
                <Form.Item
                 {...createFormItemLayout}
                 label="管廊名称"
@@ -139,20 +126,7 @@ class ManagementNew extends Component {
                   <Input placeholder="请输入管廊名称" />
                 )}  
               </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="管廊编号"
-              >
-                {getFieldDecorator('number',{
-                  initialValue: id && pipeDetail.number,
-                  rules:[{
-                    required:true,
-                    message:"请输入管廊编号",
-                  }]
-                })(
-                  <Input placeholder="请输入管廊编号" />
-                )}  
-              </Form.Item>
+              
               <Form.Item
                 {...createFormItemLayout}
                 label="管廊长度"

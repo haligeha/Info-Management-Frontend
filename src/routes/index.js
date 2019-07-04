@@ -52,8 +52,6 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-
-        
         <Route    
           path="/inspection/plan"
           component={Loadable({

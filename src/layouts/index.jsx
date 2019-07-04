@@ -16,6 +16,10 @@ class Layouts extends Component {
   render() {
     return (
       <Layout className={'layout custom-layout'}>
+        {/* <HeaderLayout/>
+        <Content className={'content-layout'}>
+          <IndexView/>
+        </Content> */}
         <Login />
       </Layout>
     );

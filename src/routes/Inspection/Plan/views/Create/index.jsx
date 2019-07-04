@@ -13,12 +13,14 @@ class PlanNew extends Component {
 
     this.state = {
       planDetail:{},
-      people:[]
+      people:[],
+      pathBelong:[],
     };
     //this.getInspectionPeople = this.getInspectionPeople.bind(this);
   }
   componentDidMount(){
     this.getInspectionPeople();
+    this.getPath();
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
@@ -30,6 +32,28 @@ class PlanNew extends Component {
           console.log(err);
         });
     }
+    
+  }
+
+  //获取巡检线路信息
+  getPath=()=>{
+    axios.get(`/api/v1/info/allPath`)
+    .then((res) => {
+        if(res && res.status === 200){
+            const pipeArr=res.data.data
+            const pipe=[]
+            const children=[]
+            pipeArr.forEach(function(item){
+                pipe.push(item.name)
+              })
+            for(var i=0;i<pipe.length;i++)
+            children.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
+            this.setState({pathBelong:children})
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     
   }
 
@@ -132,7 +156,7 @@ class PlanNew extends Component {
       form: { getFieldDecorator }, 
       match : { params : { id } }
     } = this.props
-    const { planDetail,people } = this.state
+    const { planDetail,people,pathBelong } = this.state
     return (
       <div>
         {id ?
@@ -219,7 +243,13 @@ class PlanNew extends Component {
                     message:"请输入巡检路线",
                   }]
                 })(
-                  <Input placeholder="请输入巡检路线" />,
+                  <Select
+                      //  mode="multiple"
+                        style={{ width: '100%' }}
+                        placeholder="请选择巡检路线"
+                    >
+                        {pathBelong}
+                    </Select>,
                 )}  
               </Form.Item>
 

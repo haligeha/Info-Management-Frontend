@@ -1,7 +1,12 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../components';
-import { Button,Icon,Dropdown,Menu } from 'antd';
+import { Button,Icon,Dropdown,Menu,Select,Input,Modal,Radio } from 'antd';
 import {BMAP_DRAWING_POLYGON,BMAP_DRAWING_RECTANGLE,BMAP_DRAWING_CIRCLE,} from '../../../common/BMAP_DATA'
+//import './js/DrawingManager.js'
+import LineForm from './createForm/createLine'
+import InspectionForm from './createForm/createInspec'
+
+
 var overlaycomplete=function(e){
   overlays.push(e.overlay);
   label.push(e.label);
@@ -59,6 +64,9 @@ class Gis extends Component {
     super(props);
 
     this.state = {
+      draw:'1',
+      employee:false,
+      visible:false,
     };
  
   }
@@ -156,8 +164,72 @@ class Gis extends Component {
         window.map.addEventListener("click",getPoint);
 
     }
+    
+    //获取绘制模态框中的radio选择
+    modalChange=e=>{
+      this.setState({
+        draw: e.target.value,
+      });
 
+      const draw=this.state.draw
+    
+    }
+    
+    //根据radio选择，返回组件
+    formChoose(){
+      if(this.state.draw==="1"){
+        return(
+         <LineForm ref="getFormVlaue"/>
+        )
+      }
+      else if(this.state.draw==="2"){
+        return(
+        <InspectionForm ref="getFormVlaue"/>
+        )
+      }
+    }
+
+    //绘制模态框显示
+    showModal = () => {
+      this.setState({
+        visible: true,
+      });
+    };
+
+  //绘制模态框叉叉隐藏
+   handleCancel=()=>{
+    this.setState({
+      visible: false,
+    });
+   }
+  
+   //显示巡检模态框
+   showInspection=()=>{
+    this.setState({
+      employee: true,
+    });
+   }
+
+   inspectionChange=()=>{
+
+   }
+
+   //取消后巡检模态框隐藏
+   handleCancelInspection=()=>{
+    this.setState({
+      employee: false,
+    });
+   }
+
+   //确定后巡检模态框隐藏
+   handleOkInspection=()=>{
+    this.setState({
+      employee: false,
+    });
+   }
+   
   render() {
+    const {draw}=this.state
     const menu = (
       <Menu>
         <Menu.Item key="1" onClick={this.rectangleAreaMeasure}>
@@ -176,6 +248,33 @@ class Gis extends Component {
     );
     return (
       <div>
+
+        <Modal
+          title="绘制功能"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          footer={null}
+        >
+          <Radio.Group onChange={this.modalChange} value={draw}>
+            <Radio value="1">绘制管廊</Radio>
+            <Radio value="2">绘制巡检路线</Radio>
+          </Radio.Group>   
+         {this.formChoose()}
+        </Modal>
+
+        <Modal
+          title="添加巡检人员"
+          visible={this.state.employee}
+          onOk={this.handleOkInspection}
+          onCancel={this.handleCancelInspection}
+        >巡检人员：
+        <Select defaultValue="jack" style={{ width: 120 }} onChange={this.inspectionChange}>
+          <Select.Option value="jack">Jack</Select.Option>
+          <Select.Option value="lucy">Lucy</Select.Option>     
+        </Select>
+        </Modal>
+
         <PageTitle titles={['监测预警','GIS地图']} />
         <Module>
           <Dropdown overlay={menu}>
@@ -200,10 +299,12 @@ class Gis extends Component {
           >查看报警事件</Button>
           <Button type="primary"
             style={{marginRight:'8px'}}
+            onClick={this.showModal}
           >绘制功能</Button>
-          {/* <Button type="primary"
+          <Button type="primary"
             style={{marginRight:'8px'}}
-          >巡检功能</Button> */}
+            onClick={this.showInspection}
+          >巡检功能</Button>
         </Module>
         <div id="allmap"
          style={{

@@ -10,18 +10,19 @@ class AreaNew extends Component {
     super(props);
 
     this.state = {
-        pipeDetail:{},
+        areaDetail:{},
         pipeBelong:[],
     };
 
   }
   componentDidMount(){
+    this.getpipeBelong();
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/user/userById?id=${id}`)
+      axios.get(`/api/v1/info/galleryArea?Id=${id}`)
         .then((res) => {
-          this.setState({pipeDetail:res.data})
+          this.setState({areaDetail:res.data})
         })
         .catch( (err) => {
           console.log(err);
@@ -30,19 +31,19 @@ class AreaNew extends Component {
     
   }
  
-  //获取所属管廊信息
+  //获取管廊区域信息
   getpipeBelong=()=>{
-    axios.get(`/api/v1/info/allStaff`)
+    axios.get(`/api/v1/info/pipeGalleryAll`)
     .then((res) => {
         if(res && res.status === 200){
-            const personArr=res.data
-            const person=[]
+            const pipeArr=res.data.AllPipes
+            const pipe=[]
             const children=[]
-            personArr.forEach(function(item){
-                person.push(item.name)
+            pipeArr.forEach(function(item){
+                pipe.push(item.name)
               })
-            for(var i=0;i<person.length;i++)
-            children.push(<Option value={person[i]}>{person[i]}</Option>)
+            for(var i=0;i<pipe.length;i++)
+            children.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
             this.setState({pipeBelong:children})
         }
       })
@@ -83,7 +84,7 @@ class AreaNew extends Component {
     }
     if(id){
         values.id=id
-        axios.put('/api/v1/user/user', values)
+        axios.put('/api/v1/info/galleryArea', values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('编辑成功')
@@ -95,7 +96,7 @@ class AreaNew extends Component {
         });
     }else{
         console.log(values)
-        axios.post('/api/v1/user/user', values)
+        axios.post('/api/v1/info/galleryArea', values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('创建成功')
@@ -119,7 +120,7 @@ class AreaNew extends Component {
       match : { params : { id } }
     } = this.props
    
-    const { pipeDetail,pipeBelong} = this.state
+    const { areaDetail,pipeBelong} = this.state
     return (
       <div>
         {id ?
@@ -138,7 +139,7 @@ class AreaNew extends Component {
                 label="区域名称"
               >
                 {getFieldDecorator('name',{
-                  initialValue: id && pipeDetail.name,
+                  initialValue: id && areaDetail.name,
                   rules:[{
                     required:true,
                     message:"请输入区域名称",
@@ -147,7 +148,7 @@ class AreaNew extends Component {
                   <Input placeholder="请输入区域名称" />
                 )}  
               </Form.Item>
-              <Form.Item
+              {/* <Form.Item
                 {...createFormItemLayout}
                 label="区域编号"
               >
@@ -160,13 +161,13 @@ class AreaNew extends Component {
                 })(
                   <Input placeholder="请输入区域编号" />
                 )}  
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item
                 {...createFormItemLayout}
                 label="区域长度"
               >
                 {getFieldDecorator('length',{
-                  initialValue: id && pipeDetail.length,
+                  initialValue: id && areaDetail.length,
                   rules:[{
                     required:true,
                     message:"请输入区域长度",
@@ -179,7 +180,7 @@ class AreaNew extends Component {
                 label="所属管廊"
               >
                 {getFieldDecorator('pipe_belong',{
-                  initialValue: id && pipeDetail.pipe_belong,
+                  initialValue: id && areaDetail.pipe_belong,
                   rules:[{
                     required:true,
                     message:"请选择所属管廊",
@@ -192,13 +193,14 @@ class AreaNew extends Component {
                 >
                     {pipeBelong}
                 </Select>,)} 
+                {/* //(<Input placeholder="请输入管廊区域"/>)}  */}
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
                 label="起点"
               >
                 {getFieldDecorator('startpoint',{
-                  initialValue: id && pipeDetail.startpoint,
+                  initialValue: id && areaDetail.startpoint,
                   rules:[{
                     required:true,
                     message:"请输入起点",
@@ -211,7 +213,7 @@ class AreaNew extends Component {
                 label="终点"
               >
                 {getFieldDecorator('endpoint',{
-                  initialValue: id && pipeDetail.endpoint,
+                  initialValue: id && areaDetail.endpoint,
                   rules:[{
                     required:true,
                     message:"请输入终点",
@@ -224,7 +226,7 @@ class AreaNew extends Component {
                 label="说明描述"
               >
                 {getFieldDecorator('description',{
-                  initialValue: id && pipeDetail.description,
+                  initialValue: id && areaDetail.description,
                   rules:[{
                     required:true,
                     message:"请输入说明描述",

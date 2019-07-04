@@ -30,7 +30,7 @@ class PathWayRoute extends Component{
         />
         <Route
           exact
-          path="/inspection/plan/new"
+          path="/inspection/pathway/new"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Device" */

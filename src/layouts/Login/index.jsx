@@ -26,7 +26,7 @@ class Login extends React.Component{
             username:'',
             password:'',
             token:'',
-            showContent:false,
+            showContent:true,
         }
     }
      

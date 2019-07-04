@@ -4,7 +4,7 @@ import { Menu, Layout, Icon, Dropdown, Avatar, } from 'antd';
 
 
 const { Header,} = Layout;
-
+const { SubMenu } = Menu; 
 
 class HeaderLayout extends Component {
   constructor(props) {
@@ -86,6 +86,11 @@ class HeaderLayout extends Component {
               name:'预案审批',
               url:'/emergency/approval'
             },
+            {
+              id:'34',
+              name:'电话会议',
+              url:'/emergency/meeting'
+            },
           ]
         },
         {
@@ -134,6 +139,20 @@ class HeaderLayout extends Component {
       ]
     };
   }
+  
+  
+  //设置cookie
+  setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+  }
+  
+  componentDidMount(){
+    this.setCookie("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjIsInVzZXJfaWQiOjMsInVzZXJfbmFtZSI6Iuenn-aIt-euoeeQhuWRmCIsInBlcm1pc3Npb25zIjpbImdldENyZWRlbnRpYWxzQnlJZCIsImluc2VydERhc2hib2FyZCIsImdldE1vZGVscyIsImdldFVzZXJCeVRlbmFudElkIiwiY3JlYXRlQ3VzdG9tZXJVc2VyIiwiZ2V0RGV2aWNlc0J5VGVuYW50SWRBbmRTaXRlSWQiLCJhY3RpdmF0ZURldmljZXMiLCJnZXRNYW51ZmFjdHVyZXJzIiwidXBkYXRlRGV2aWNlU2l0ZUlkIiwidW5hc3NpZ25DdXN0b21lckRldmljZXMiLCJzYXZlQWJpbGl0eUdyb3VwIiwiZ2V0RXZlbnRCeUlkIiwiZmluZEFiaWxpdGllc0J5TW9kZWxJZCIsImdldEVudGl0eUJ5SWQiLCJzdXNwZW5kUnVsZSIsImFzc2lnbkRldmljZVRvU2l0ZSIsImdldEN1c3RvbWVyVXNlcnMiLCJnZXRFbnRpdHlCeVR5cGUiLCJmaW5kQWJpbGl0aWVzQnlUaHJlZVRvdXBsZSIsImdldFRlbmFudERldmljZXNDb3VudEJ5VGV4dFNlYXJjaCIsImdldERldmljZXNCeVNlcnZpY2UiLCJyZW1vdmVBbGxEYXNoYm9hcmQiLCJnZXRBdHRyaWJ1dGVzIiwic2F2ZUdyb3VwIiwiZGVsZXRlRGV2aWNlIiwiZ2V0RGV2aWNlc0J5R3JvdXBJZCIsInJlbW92ZUFsbEVudGl0eSIsImdldEFsbEFiaWxpdHlHcm91cHMiLCJnZXRBbGxEZXZpY2VUeXBlIiwiZ2V0VGVuYW50QnlJZCIsImdldERldmljZXNCeVBhcmVudERldmljZUlkIiwidXBkYXRlRW50aXR5IiwiYWRkUnVsZSIsImdldFJ1bGVCeVRlbmFudElkQW5kVGV4dCIsImNyZWF0ZUNyZWRlbnRpYWxzIiwidXBkYXRlQ3VzdG9tZXIiLCJkZWxldGVVc2VyIiwiZ2V0R3JvdXBzQnlUZW5hbnRJZCIsInVwZGF0ZUNyZWRlbnRpYWxzIiwiZ2V0RGV2aWNlQnlUZW5hbnRJZEFuZE5hbWUiLCJkZWxldGVDcmVkZW50aWFscyIsImRlbGV0ZUFiaWxpdHkiLCJhc3NpZ25EZXZpY2VUb0dyb3VwIiwiZ2V0VXNlckJ5SWQiLCJnZXRQbHVnaW5TdGF0ZSIsImdldERldmljZXNCeVRlbmFudElkQW5kQ3VzdG9tZXJJZCIsImFjdGl2YXRlUnVsZSIsImluc2VydEVudGl0eSIsImdldERhc2hib2FyZHMiLCJnZXRSdWxlQnlUZW5hbnRJZCIsImdldERldmljZVN0YXR1cyIsInNhdmVEZXZpY2VUeXBlIiwiZ2V0RGV2aWNlVHlwZXMiLCJwbHVnaW5NZXRyaWNzIiwiZmluZEFsbEtleXMiLCJ1bmFzc2lnbkRldmljZXNGcm9tR3JvdXAiLCJnZXRBbGxFbnRpdHkiLCJnZXRsYXRlc3REYXRhIiwiZ2V0Q3VzdG9tZXJCeUlkIiwiZGVsZXRlRGV2aWNlVHlwZSIsImdldEFsbERhdGEiLCJnZXRBbGxBdHRyaWJ1dGVzIiwiZ2V0QXR0cmlidXRlIiwicmVtb3ZlUnVsZSIsImRlbGV0ZUdyb3VwIiwiZ2V0QVJ1bGUiLCJyZW1vdmVBbGxBdHRyaWJ1dGVzIiwiZ2V0RGV2aWNlcyIsImFzc2lnbkRldmljZVRvQ3VzdG9tZXIiLCJnZXRBbGxQbHVnaW5zIiwiZ2V0Q3VzdG9tZXJzIiwiY3JlYXRlQ3VzdG9tZXIiLCJzdXNwZW5kRGV2aWNlcyIsImZpbmRDdXN0b21lck5hbWUiLCJ1bmFzc2lnbkRldmljZUJ5R3JvdXBJZCIsInNhdmVEZXZpY2UiLCJ1cGRhdGVVc2VyIiwiZGVsZXRlQ3VzdG9tZXIiLCJ1bmFzc2lnbkRldmljZUZyb21DdXN0b21lciIsInNlbmRScGNDb21tYW5kVG9EZXZpY2UiLCJyZW1vdmVEYXNoYm9hcmRCeUlkIiwicmVtb3ZlRW50aXR5Iiwic2F2ZUFiaWxpdHkiLCJwbHVnaW5SUENVcmxzIiwiZ2V0Q3JlZGVudGlhbHNCeVRva2VuIiwiZ2V0RGV2aWNlQnlJZCIsImRlbGV0ZUFiaWxpdHlHcm91cCIsImdldEFsbEVudGl0eUJ5RGFzaGJvYXJkSWQiLCJnZXREYXNoYm9hcmRCeUlkIl0sInNjb3BlIjpbInNlbGVjdCJdLCJhdXRob3JpdHkiOiJURU5BTlRfQURNSU4iLCJleHAiOjE1NjIxMjYwMzMsImN1c3RvbWVyX2lkIjoxLCJhdXRob3JpdGllcyI6WyJURU5BTlRfQURNSU4iXSwianRpIjoiOGI1MTA1YTYtYzA0Ni00YmZmLTg5NTEtOTJhODQ4YjFlNjFmIiwiaXNzdWVyIjoiYnVwdC5lZHUuY24iLCJjbGllbnRfaWQiOiJjbGllbnRfMiJ9.sMX_3WLjSrPP650T-15_81ZclZTEelP8z5DTdrBj1xA",7000)
+    this.setCookie("tenant_id",2,7000)
+  }
 
   render() {
     const menu = (
@@ -143,7 +162,7 @@ class HeaderLayout extends Component {
         </Menu.Item>
       </Menu>
     );
-
+  
     return (
       <Header className="custom-header">
         <Link to="/"><div className={'logo'}>信息管理系统</div></Link>
@@ -177,7 +196,6 @@ class HeaderLayout extends Component {
                 {subMenu.children && subMenu.children.map(item =>
                   <Menu.Item key={item.id}>
                     <Link to={item.url}>{item.name}</Link>
-                    {/* <PrivateRoute path={item.url}>{item.name}</PrivateRoute> */}
                   </Menu.Item>
                 )
                 }
@@ -186,7 +204,22 @@ class HeaderLayout extends Component {
 
           })
           }
+          {/*为实现向外部跳转，单独罗列出的导航部分 */}
+            <SubMenu
+            key="sub1"
+            className="custom-sub-menu"
+            title={
+              <span>
+                <span>更多</span>
+              </span>
+            }
+          >
+            <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank"></a>视频通话</Menu.Item>
+            <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank"></a>大数据平台</Menu.Item>
+            <Menu.Item key="7"><a href="http://39.104.189.84:8800/baidu?id=2" target="_blank"></a>物管理</Menu.Item>
+          </SubMenu>
         </Menu>
+       
       </Header>
     );
   }

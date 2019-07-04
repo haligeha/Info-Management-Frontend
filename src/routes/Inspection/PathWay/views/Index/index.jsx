@@ -9,7 +9,7 @@ const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
 
-class Employee extends Component {
+class PathWay extends Component {
   constructor(props) {
     super(props);
 
@@ -54,7 +54,7 @@ class Employee extends Component {
 
 //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/userById?Id=${record.id}`)
+    axios.delete(`/api/v1/info/inspection?id=${record.id}`)
     .then(() => {
         this.getGroupList(this.state.nowCurrent)
     })
@@ -166,13 +166,13 @@ class Employee extends Component {
                 style={{ display: 'block' }}
               >
                  <Link
-                  to={`/inspection/pathway/${record.id}`}
+                  to={`/inspection/pathway/edit/${record.id}`}
                   style={{marginRight:'5px'}}
                 >编辑</Link>
-                <Link
+                {/* <Link
                   to={`/inspection/pathway/${record.id}`}
                   style={{marginRight:'5px'}}
-                >详情</Link>
+                >详情</Link> */}
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={()=> {this.deleteGroup(record)}}
@@ -192,4 +192,4 @@ class Employee extends Component {
   }
 }
 
-export default Employee;
+export default PathWay;

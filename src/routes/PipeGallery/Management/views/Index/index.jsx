@@ -16,7 +16,7 @@ class Management extends Component {
       size: PAGE_SIZE,
       total: 0,  
       data:[],  
-      name:'',
+      unit:'',
       nowCurrent:FIRST_PAGE,
     };
 
@@ -29,8 +29,8 @@ class Management extends Component {
 
   //获取列表信息
   getGroupList = (page) => {
-    const { size,name } = this.state;
-    axios.get(`/api/v1/user/userByPage?limit=${size}&page=${page}&name=${name}`)
+    const { size,unit } = this.state;
+    axios.get(`/api/v1/info/pipeByPage?limit=${size}&page=${page}&unit=${unit}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -52,7 +52,7 @@ class Management extends Component {
 
 //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/userById?Id=${record.id}`)
+    axios.delete(`/api/v1/info/pipeGallery?Id=${record.id}`)
     .then(() => {
         this.getGroupList(this.state.nowCurrent)
     })
@@ -62,9 +62,9 @@ class Management extends Component {
   }
  //搜索
  selectActivity = (value) => {
-     const nameValue=value
-    this.setState({
-       name:nameValue
+      //const nameValue=value
+      this.setState({
+        unit:value
       }) ;
     console.log(this.state)
     this.getGroupList(0)
@@ -93,10 +93,10 @@ class Management extends Component {
         </PageTitle>
         <Module>
         <Row>
-            <Col span={2}>管廊名称：</Col>
+            <Col span={2}>所属公司：</Col>
             <Col span={4}>        
               <Search
-                placeholder="请输入管廊名称"
+                placeholder="请输入所属公司名称"
                 enterButton
                 onSearch={value => this.selectActivity(value)}
                 />
@@ -164,11 +164,11 @@ class Management extends Component {
                 style={{ display: 'block' }}
               >
                  <Link
-                  to={`/pipe/management/${record.id}`}
+                  to={`/pipe/management/edit/${record.id}`}
                   style={{marginRight:'5px'}}
                 >编辑</Link>
                 <Link
-                  to={`/pipe/management/${record.id}`}
+                  to={`/pipe/management/detail/${record.id}`}
                   style={{marginRight:'5px'}}
                 >详情</Link>
                 <Popconfirm
