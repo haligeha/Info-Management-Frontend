@@ -1,11 +1,10 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../components';
 import { Button,Icon,Dropdown,Menu,Select,Input,Modal,Radio } from 'antd';
-import {BMAP_DRAWING_POLYGON,BMAP_DRAWING_RECTANGLE,BMAP_DRAWING_CIRCLE,} from '../../../common/BMAP_DATA'
-//import './js/DrawingManager.js'
+import {BMAP_DRAWING_POLYGON,BMAP_DRAWING_RECTANGLE,BMAP_DRAWING_CIRCLE,BMAP_DRAWING_POLYLINE} from '../../../common/BMAP_DATA'
+// import './JS/DrawingManager.js'
 import LineForm from './createForm/createLine'
 import InspectionForm from './createForm/createInspec'
-
 
 var overlaycomplete=function(e){
   overlays.push(e.overlay);
@@ -70,6 +69,7 @@ class Gis extends Component {
     };
  
   }
+  
   componentDidMount(){
     
     var BMap = window.BMap//取出window中的BMap对象
@@ -165,6 +165,16 @@ class Gis extends Component {
 
     }
     
+    drawPipe()
+    {
+      var drawingManager=window.drawingManager;
+        drawingManager.open()
+        drawingManager.enableCalculate()
+        //添加鼠标绘制工具监听事件，用于获取绘制结果
+        drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+        drawingManager.setDrawingMode(BMAP_DRAWING_POLYLINE);
+
+    }
     //获取绘制模态框中的radio选择
     modalChange=e=>{
       this.setState({
@@ -179,7 +189,8 @@ class Gis extends Component {
     formChoose(){
       if(this.state.draw==="1"){
         return(
-         <LineForm ref="getFormVlaue"/>
+        //  <LineForm ref="getFormVlaue"/>
+         <LineForm wrappedComponentRef={(form) => this.formRef = form} />
         )
       }
       else if(this.state.draw==="2"){
@@ -228,6 +239,14 @@ class Gis extends Component {
     });
    }
    
+   //绘制模态框隐藏
+   handleOk=()=>{
+    this.setState({
+      visible: false,
+    });
+    this.drawPipe();
+   }
+
   render() {
     const {draw}=this.state
     const menu = (
@@ -254,7 +273,6 @@ class Gis extends Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          footer={null}
         >
           <Radio.Group onChange={this.modalChange} value={draw}>
             <Radio value="1">绘制管廊</Radio>

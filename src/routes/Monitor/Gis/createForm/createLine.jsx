@@ -60,9 +60,9 @@ class Line extends Component {
               )}  
             </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          {/* <Button type="primary" htmlType="submit">
             确认
-          </Button>
+          </Button> */}
         </Form.Item>
       </Form>
     );
