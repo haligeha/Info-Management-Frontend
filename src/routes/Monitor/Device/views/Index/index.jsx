@@ -63,19 +63,29 @@ class EmergencyPlan extends Component {
         <Card
           style={{ width: 300, marginTop: 16 }}
           actions={[         
-          <Link to={`/monitor/device/edit/${data.DeivceId}`}>
+          // <Link to={`/monitor/device/edit/${data.DeivceId}`}>
+          //   <Icon type="edit"/>
+          // </Link>,     
+          <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
             <Icon type="edit"/>
-          </Link>,
-          <Icon type="delete"
-            onClick={()=> {
-            const {
-              history,
-            } = this.props
-            history.push('/monitor/device/detail')
-          }}/>,
-          <Link to={`/monitor/device/detail`}>
-             <Icon type="ellipsis" />
-          </Link>,]}
+          </a>,     
+          // <Icon type="delete"
+          //   onClick={()=> {
+          //   const {
+          //     history,
+          //   } = this.props
+          //   history.push('/monitor/device/detail')
+          // }}/>,
+          <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
+            <Icon type="delete"/>
+          </a>, 
+           <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
+           <Icon type="ellipsis"/>
+          </a>, 
+          // <Link to={`/monitor/device/detail`}>
+          //    <Icon type="ellipsis" />
+          // </Link>,
+          ]}
         >
         <Meta
           avatar={<Avatar>DEVICE</Avatar>}
