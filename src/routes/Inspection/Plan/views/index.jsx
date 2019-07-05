@@ -50,7 +50,7 @@ class EntranceWorkRoute extends Component{
         />
         <Route
           exact
-          path="/inspection/plan/edit:id"
+          path="/inspection/plan/edit/:id"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Dssevice" */
