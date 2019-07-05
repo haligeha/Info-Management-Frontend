@@ -86,11 +86,6 @@ class HeaderLayout extends Component {
               name:'预案审批',
               url:'/emergency/approval'
             },
-            {
-              id:'34',
-              name:'电话会议',
-              url:'/emergency/meeting'
-            },
           ]
         },
         {
@@ -124,11 +119,11 @@ class HeaderLayout extends Component {
               name:'管廊区域信息',
               url:'/pipe/area'
             },
-            {
-              id:'53',
-              name:'设备管理',
-              url:'/pipe/area'
-            },
+            // {
+            //   id:'53',
+            //   name:'设备管理',
+            //   url:'/pipe/area'
+            // },
             {
               id:'54',
               name:'用户操作日志',
@@ -216,7 +211,7 @@ class HeaderLayout extends Component {
           >
             <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank"></a>视频通话</Menu.Item>
             <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank"></a>大数据平台</Menu.Item>
-            <Menu.Item key="7"><a href="http://39.104.189.84:8800/baidu?id=2" target="_blank"></a>物管理</Menu.Item>
+            <Menu.Item key="7"><a href="http://39.104.84.131/thingsTenantManager#/homePage" target="_blank"></a>物管理平台</Menu.Item>
           </SubMenu>
         </Menu>
        

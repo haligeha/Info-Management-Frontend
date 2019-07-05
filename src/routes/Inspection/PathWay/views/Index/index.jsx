@@ -31,8 +31,8 @@ class PathWay extends Component {
 
   //获取列表信息
   getGroupList = (page) => {
-    const { size,area } = this.state;
-    axios.get(`/api/v1/info/inspectionPathByPage?limit=${size}&page=${page}&area=${area}`)
+    const { size,area_belong } = this.state;
+    axios.get(`/api/v1/info/inspectionPathByPage?limit=${size}&page=${page}&area_belong=${area_belong}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -66,7 +66,7 @@ class PathWay extends Component {
  selectActivity = (value) => {
      const nameValue=value
     this.setState({
-       area:nameValue
+       area_belong:nameValue
       }) ;
     console.log(this.state)
     this.getGroupList(0)
@@ -125,15 +125,15 @@ class PathWay extends Component {
           }, {
             title: '所属区域',
             width:200,
-            key: 'area',
+            key: 'area_belong',
             render: (text, record) => {
-              return (record.area && record.area) || '--'
+              return (record.area_belong && record.area_belong) || '--'
             }
           }, {
             title: '所属管廊',
-            key: 'pipe_gallery',
+            key: 'pipe_belong',
             render: (text, record) => {
-              return (record.pipe_gallery && record.pipe_gallery) || '--'
+              return (record.pipe_belong && record.pipe_belong) || '--'
             }
           },,{
             title: '起点',

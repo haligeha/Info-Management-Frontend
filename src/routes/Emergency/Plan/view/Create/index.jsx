@@ -10,7 +10,9 @@ class EmergencyNew extends Component {
     super(props);
     this.state = {
       planDetail:{},
-      loading:false,
+      fileList:[],   
+      uploadFiles:'',
+      url:'',
     };
   }
 
@@ -34,6 +36,7 @@ class EmergencyNew extends Component {
       history,
       match : { params : {id } },
     } = this.props
+    console.log(this.props)
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
     if(!getFieldValue('level')){
@@ -61,9 +64,9 @@ class EmergencyNew extends Component {
       message.error('请输入签发人')
     }
     values.release_date = new Date()
-    console.log(values.release_date)
     if(id){
       values.emergency_id=id
+      values.content=this.state.url
       axios.put('/api/v1/info/emergency', values)
         .then(function (response) {
           if(response.status === 200){
@@ -75,6 +78,7 @@ class EmergencyNew extends Component {
           console.log(error);
         });
     }else{
+      values.content=this.state.url
       axios.post('/api/v1/info/emergency', values)
         .then(function (response) {
           if(response.status === 200){
@@ -88,7 +92,7 @@ class EmergencyNew extends Component {
     }
     
   }
-  
+
   // beforeUpload=(file)=>{
   //   const{size}=file
   //   const fileSize = size/(1024*1024)
@@ -137,39 +141,44 @@ class EmergencyNew extends Component {
       wrapperCol : {span:8},
     }
     const { 
-      form: { getFieldDecorator }, 
+      form: { getFieldDecorator,getFieldValue }, 
       match : { params : { id } }
     } = this.props
-    console.log(id)
     const { planDetail} = this.state
-    // const uploadProps={
-    //   action:`/api/v1/info/uploadFile?type=0&id=${id}`,
-    //   data: function(){
-    //     $.ajax({
-    //       url:'/api/v1/info/uploadFile?type=0&id=${id}',
-    //       type: 'GET',
-    //       dataType: 'json',
-    //       data: values,
-    //       async:false,
-    //       success: function(map){
-    //         token = map.data.token;
-    //         key = map.data.filename;
-    //       }
-    //     });
-    //     axios.post(`/api/v1/info/emergencyById?emergencyId=${id}`)
-    //     .then((res) => {
-    //       this.setState({planDetail:res.data})
-    //     })
-    //     .catch( (err) => {
-    //       console.log(err);
-    //     });
-    //     return{
-    //         key: key,
-    //         token: token
-    //     }
-    // },
-    //   onChange:this.handleChange
-    // };
+    // const filename=this.props.form.getFieldValue('name')
+    // const fileName={id?filename:}
+    const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail. name 
+    console.log(fileName)
+    const uploadProps={
+      action:`/api/v1/info/uploadFile?type=0&name=${fileName}`,
+      onChange:(info)=>{
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        } if (info.file.status === 'done') {
+        message.success(`${info.file.name} 上传成功！`);
+           this.setState({
+             file:info.file,
+             fileList:info.fileList,
+             url:fileName/0/info.file.name,
+           })
+       }
+
+      },
+      onRemove:()=>{
+        this.setState({
+          fileList:[],
+          uploadPath : ''
+        })
+        axios.delete(`/api/v1/info/delete/${fileName}/0/${this.file.name}/doc`)
+        .then(() => {
+          this.getGroupList(this.state.nowCurrent)
+        })
+        .catch( (err) => {
+          console.log(err);
+        });
+    }   
+  };
+  
     
     return (
       <div>
@@ -221,6 +230,7 @@ class EmergencyNew extends Component {
                 })(
                   <Input placeholder="请输入预案名称" />
                 )}  
+
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -261,19 +271,22 @@ class EmergencyNew extends Component {
                     message:"请输入预案内容",
                   }]
                 })(
-                  // <Upload
-                  // className="upload"
-                  // accept="text/csv,text/plain"
-                  // {...uploadProps}
-                  // defaultFileList={this.state.uploadFiles}
-                  // beforeUpload={this.beforeUpload}
-                  // showUploadList={false}
-                  // >
-                  //   <Button>
-                  //     <Icon type="upload"/>上传文件
-                  //   </Button>
-                  // </Upload>
-                  <Input placeholder="请输入发布单位" />
+                  <Upload
+                  className="upload"
+                  accept=".pdf,.doc"
+                  {...uploadProps}
+                  defaultFileList={this.state.uploadFiles} 
+                  beforeUpload={this.beforeUpload}
+                  previewFile={this.preview}
+                  // onRemove = {this.removeFile}   //移除文件事件
+                  >
+                    {/* <Popconfirm placement="top" title={text} onConfirm={this.replace} okText="Yes" cancelText="No"> */}
+                      <Button>
+                        <Icon type="upload" />上传文件
+                      </Button>
+                    {/* </Popconfirm> */}
+                  </Upload>
+                  // <Input placeholder="请输入发布单位" />
                 )}  
               </Form.Item>
               <Form.Item

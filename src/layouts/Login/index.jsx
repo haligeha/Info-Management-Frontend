@@ -102,7 +102,7 @@ class Login extends React.Component{
                 onSubmit={this.handleSubmit}
                  >
                 <div className="gyl">
-                        管廊综合管理系统
+                        智慧管廊管理系统
                         
                     <div className="gy2" >打造国内最具规模的、最专业的管廊管理服务平台 </div>   
                 </div>

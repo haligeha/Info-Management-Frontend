@@ -246,7 +246,13 @@ class Gis extends Component {
     });
     this.drawPipe();
    }
-
+ 
+   //跳转
+   jump=()=>{
+     return(
+       <a href="http://39.104.189.84:8800/baidu?id=2" target="_blank"/>
+     )
+   }
   render() {
     const {draw}=this.state
     const menu = (
@@ -323,6 +329,10 @@ class Gis extends Component {
             style={{marginRight:'8px'}}
             onClick={this.showInspection}
           >巡检功能</Button>
+          <Button type="primary"
+          style={{marginRight:'8px'}}
+          // onClick={this.jump}
+          ><a href="http://39.104.189.84:8800/baidu?id=2" target="_blank">进入场景</a></Button>
         </Module>
         <div id="allmap"
          style={{
