@@ -2,7 +2,16 @@ import React, { Component, } from 'react';
 import { Button, Form, Row, Col, Input, Icon, } from 'antd';
 import { PageTitle,Module } from '../../../components';
 import './index.styl';
-
+import {
+  Player,
+  ControlBar,
+  ReplayControl,
+  ForwardControl,
+  CurrentTimeDisplay,
+  TimeDivider,
+  PlaybackRateMenuButton,
+  VolumeMenuButton
+} from 'video-react';
 //import echartTheme from './../themeLight'
 import echarts from 'echarts/lib/echarts'
 //导入折线图
@@ -13,6 +22,9 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 const FormItem = Form.Item;
+
+
+
 class SceneView extends Component {
   constructor(props) {
     super(props);
@@ -480,7 +492,19 @@ class SceneView extends Component {
           <ReactEcharts option={this.getOption3()} theme="Immoc" style={{height:'240px'}}/>
         </div>
         <div className="video-1">
-        video-1
+          <Player>
+            <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" />
+            <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" />
+
+            <ControlBar>
+              <ReplayControl seconds={10} order={1.1} />
+              <ForwardControl seconds={30} order={1.2} />
+              <CurrentTimeDisplay order={4.1} />
+              <TimeDivider order={4.2} />
+              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+              <VolumeMenuButton disabled />
+            </ControlBar>
+          </Player>
         </div>
         <div className="video-2">
         video-2
