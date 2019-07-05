@@ -1,11 +1,14 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module, } from '../../../../../components';
-import { Button,Row,Col,DatePicker,Table  } from 'antd';
+import { Button,Row,Col,DatePicker,Table,Input,Popconfirm  } from 'antd';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 import './index.styl'
+import moment from 'moment';
 const { RangePicker } = DatePicker;
-const FIRST_PAGE = 1;
+const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
+const Search = Input.Search;
 
 class InspectionPlan extends Component {
   constructor(props) {
@@ -17,26 +20,29 @@ class InspectionPlan extends Component {
       total: 0,  
       data:[],  
       dataChange:[],
+      inspection_person:'',
+      nowCurrent:FIRST_PAGE,
+  
     };
 
     this.getGroupList = this.getGroupList.bind(this);
   }
 
   componentDidMount(){
-    this.getGroupList(FIRST_PAGE);
-    // this.changeTableList();
+    this.getGroupList(FIRST_PAGE);    
   }
 
   //获取列表信息
   getGroupList = (page) => {
-    const { size } = this.state;
-    axios.get(`/api/v1/info/allReport?limit=${size}&page=${page}`)
+    const { size,inspection_person } = this.state;
+    axios.get(`/api/v1/info/inspectionPlanByPage?limit=${size}&page=${page}&inspection_person=${inspection_person}`)
       .then((res) => {
         if(res && res.status === 200){
-          console.log(res);
           this.setState({
             data: res.data,
+            nowCurrent:res.data.page
           }) ;
+          console.log(this.state.data)
         }
       })
       .catch(function (error) {
@@ -44,112 +50,155 @@ class InspectionPlan extends Component {
       });
   }
 
-  changeTableList = () => {
-    const { data,dataChange} = this.state;
-    for(let i=0;i<data.length;i++){
-      let dataChangeObj={};
-      if(data[i].id<Math.round(new Date().getTime()/1000).toString()){
-        if(data[i].state==""&&data[i].summary==""&&data[i].abnoarmal==""&&data[i].maintennance==""){
-          dataChangeObj.judge="超时未处理"
-        }
-        else{
-          dataChangeObj.judge="处理完成"
-        }
-      }
-      else{
-        dataChangeObj.judge="待巡检"
-        dataChangeObj.id=data[i].id
-        dataChangeObj.duty_person = data[i].duty_person;
-        dataChangeObj.inspection_person = data[i].inspection_person;
-        dataChangeObj.create_date = data[i].create_date;
-        dataChangeObj.calendar_date = data[i].calendar_date;
-        dataChangeObj.state = data[i].state;
-        dataChangeObj.summary = data[i].summary;
-        dataChangeObj.abnormal = data[i].abnormal;
-        dataChangeObj.maintenance = data[i].maintenance;
-      }
-      dataChange.push(dataChangeObj);
+  setRowClassName = (record) => {
+    var now = new Date().getTime();
+    if(now>record.inspection_date){
+      return 'redback'
     }
-    return dataChange;
+    else{
+      return 'blueback'
+    }
+  }
+  //搜索
+ selectActivity = (value) => {
+  const nameValue=value
+  this.setState({
+    inspection_person:nameValue
+   }) ;
+ console.log(this.state)
+ this.getGroupList(0)
+}
+  //分页
+  handlePageChange = (page) => {
+    this.getGroupList(page-1)
   }
 
+  //删除
+  deleteGroup = (record) => {
+    axios.delete(`/api/v1/info/plan?id=${record.id}`)
+    .then(() => {
+        this.getGroupList(this.state.nowCurrent)
+    })
+    .catch( (err) => {
+        console.log(err);
+    });
+  }
   render() {
     const {
-      data,
-      current,
-      total,
-      size,
+      data:{
+        data,
+        allCount,
+        limit,
+        page,
+      },
     } = this.state;
-    let dataChangeArr=this.changeTableList();
+    const total = allCount
+    const current = page+1
+    const size = limit
+ 
     return (
       <div>
         <PageTitle titles={['巡检维护','巡检计划']}>
           {
+            <Link to={"/inspection/plan/new"}>
             <Button type="primary">+ 新建巡检计划</Button>
+            </Link>
           }
         </PageTitle>
         <Module>
-          <DatePicker
-            dateRender={(current) => {
-              const style = {};
-              if (current.date() === 1) {
-                style.border = '1px solid #1890ff';
-                style.borderRadius = '50%';
-              }
-              return (
-                <div className="ant-calendar-date"
-                  style={style}
-                >
-                  {current.date()}
-                </div>
-              );
-            }}
-          />
+        <Row>
+            <Col span={2}>巡检人姓名：</Col>
+            <Col span={4}>
+            <Search
+                placeholder="请输入巡检人姓名"
+                enterButton
+                onSearch={value => this.selectActivity(value)}
+                />
+            </Col>
+          </Row> 
         </Module>
         <Table
           className="group-list-module"
           bordered
+          showHeader={false}
           pagination={{
             current,
             total,
             pageSize: size,
             onChange: this.handlePageChange,
+            showTotal: () => `共${allCount} 条数据`
           }}
-          dataSource={dataChangeArr}
+          rowClassName={this.setRowClassName}
+          dataSource={data}
           columns={[{
-            title: '待检情况',
-            key: 'tagJudge', 
-            // className:(record.id === 118?"Judge-Design":"Judge-Unfinish")
-            render: (text, record) => (record.judge && record.judge) || '--',
+            key: 'inspectState', 
+            width:50,
+            render: (text, record) => {
+              var now = new Date().getTime();
+              if(now>record.inspection_date){
+                return "已超时"
+              }
+              else{
+                return "待巡检"
+              }
+            }
           }, {
-            title: '排列序号', 
-            key: 'tagId',
-            render: (text, record) => (record.id && record.id) || '--',
-          }, {
-            title: '工期',
-            key: 'tagName',
-            render: (text, record) => (record.duty_person && record.duty_person) || '--',
+            title: '描述',
+            key: 'content',
+            render: (text, record) => {
+              return "任务编号: "+((record.number && record.number) || '--')+"   描述: "+((record.content && record.content) || '--')
+            }   
           }, {
             title: '创建时间',
-            key: 'tagType',
-            render: (text, record) => (record.inspection_person && record.inspection_person) || '--',
+            width:200,
+            key: 'create_date',
+            render: (text, record) => {
+              var date= moment(parseInt(record.create_date)).format('YYYY-MM-DD')
+              return "创建时间: "+(date && date) || '--'
+            }
           }, {
-            title: '活动范围',
-            dataIndex: 'creatorNameZh',
-            render: (text, record) => `${record.create_date || ''}`,
+            title: '计划巡检时间',
+            key: 'inspection_date',
+            render: (text, record) => {
+              var date= moment(parseInt(record.inspection_date)).format('YYYY-MM-DD')
+              return "计划巡检时间: "+(date && date) || '--'
+            }
           }, {
-            title: '评价',
-            key: 'createTime',
-            render: (text, record) => `${record.calendar_date}`,
-          }, {
+            title: '巡检执行人',
+            key: 'inspection_person',
+            render: (text, record) => {
+              return "巡检执行人: "+(record.inspection_person && record.inspection_person) || '--'
+            }
+          },{
+            title: '巡检完成状态',
+            key: 'status',
+            render: (text, record) => {
+              return "巡检完成状态: "+(record.status && record.status) || '--'
+            }
+          },{
             title: '操作',
+            width:350,
             render: (text, record, index) => (
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
-                <Button type="simple">编辑</Button>
-                <Button type="simple">详情</Button>
-                <Button type="simple">删除</Button>
+                <div className="firstColBtn">
+                  <Button type="simple" className="btns" style={{marginRight:'5px'}}>查看巡检报告</Button>
+                  <Button type="simple" className="btns" style={{marginTop:'2px'}}>查看详情</Button>  
+                </div>
+                <div className="SecondColBtn">
+                  <Link
+                    to={`/inspection/plan/edit/${record.id}`}
+                  >                  
+                    <Button type="simple" className="btns" style={{marginRight:'5px'}}>编辑</Button>
+                  </Link>
+                  <Popconfirm
+                  title="确定要删除吗？"
+                  onConfirm={()=> {this.deleteGroup(record)}}
+                >
+                  <Button type="simple" className="deleteBtns" style={{marginTop:'2px'}}>删除</Button>  
+                 </Popconfirm>
+                </div>    
               </div>
             ),
           }]}

@@ -1,6 +1,7 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Form,Input,Select,Button } from 'antd';
+import { Form,Input,Select,Button,message, Upload, notification,Icon } from 'antd';
+import { SELECT_EMERGENCY_PLAN_LEVEL } from '../../config';
 import axios from 'axios';
 import './index.styl'
 
@@ -8,106 +9,237 @@ class EmergencyNew extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      param:props.location.state,
-      data:[],
+      planDetail:{},
+      fileList:[],   
+      uploadFiles:'',
+      url:'',
     };
-  //  console.log("state-----:",this.props.location.state.id)
-  //  this.getInfoById = this.getInfoById .bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
-   // this.getInfoById();
+    const {match : { params : { id } }} = this.props
+    if(id){
+      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}`)
+        .then((res) => {
+          this.setState({planDetail:res.data})
+        })
+        .catch( (err) => {
+          console.log(err);
+        });
+    }
+  }
+  //创建入廊作业
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const {
+      form,
+      history,
+      match : { params : {id } },
+    } = this.props
+    console.log(this.props)
+    const { getFieldValue } = form;
+    const values = form.getFieldsValue()
+    if(!getFieldValue('level')){
+      message.error('请选择预案级别')
+    }
+    if(!getFieldValue('name')){
+      message.error('请输入预案名称')
+    }
+    if(!getFieldValue('category')){
+      message.error('请输入预案类别')
+    }
+    if(!getFieldValue('associated_event_type')){
+      message.error('请输入预案关联事件类型')
+    }
+    if(!getFieldValue('associated_event_type')){
+      message.error('请输入编制单位/部门')
+    }
+    if(!getFieldValue('release_number')){
+      message.error('请输入发布文号')
+    }
+    if(!getFieldValue('issued')){
+      message.error('请输入发布单位')
+    }
+    if(!getFieldValue('signer')){
+      message.error('请输入签发人')
+    }
+    values.release_date = new Date()
+    if(id){
+      values.emergency_id=id
+      values.content=this.state.url
+      axios.put('/api/v1/info/emergency', values)
+        .then(function (response) {
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/emergency/plan')
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }else{
+      values.content=this.state.url
+      axios.post('/api/v1/info/emergency', values)
+        .then(function (response) {
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/emergency/plan')
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    
   }
 
-  // getInfoById=()=>{
-  //   const { param } = this.state;
-  //   if(param.id === undefined || param.id ===null){
-
+  // beforeUpload=(file)=>{
+  //   const{size}=file
+  //   const fileSize = size/(1024*1024)
+  //   if(fileSize>30){
+  //     message.error("文件大小不能超过30M")
+  //     return false;
   //   }
   //   else{
-  //     axios.get(`/api/v1/info/emergencyById?emergencyId=${param.id}`)
-  //     .then((res) => {
-  //       if(res && res.status === 200){
-  //         console.log(res);
-  //         this.setState({
-  //           searchContent: res.data,
-  //         });
-  //         const { searchContent } = this.state;
-  //         const {getFieldDecorator} = this.props.form;
-  //         getFieldDecorator=searchContent
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
+  //     return true;
   //   }
   // }
 
-  handleSubmit=()=>{
-    let emergencyPlanNew = this.props.form.getFieldsValue();
-   // this.props.form.validateFields((err,values)=>{
-    //    if(!err){
-            let dataAdd={}
-            dataAdd=emergencyPlanNew;
-       //     let dataAddObj=JSON.stringify(dataAdd);
-       //     console.log(dataAddObj)
-            axios.post(`http://10.112.217.199:8100/api/v1/info/emergency`,dataAdd,{
-              headers: {
-                  'Content-Type':'application/json; charset=UTF-8'
-                }
-            })
-            .then(res=>{
-              if(res && res.status === 200){
-                console.log(res);   
-              }         
-            }) 
-            .catch(function (error) {
-              console.log(error);
-            });
-  //      }
-  //  })
-  }
+  // deleteFile = ()=>{
+  //   this.setState({uploadFilesName:'还未选择文件'})
+  // }
+  
+  // handleChange = info => {
+  //   const file = info.file
+  //   console.log(this.state)
+  //   if(file.status == 'uploading' && this.state.loading == false){
+  //     this.setState({ loading:true })
+  //   }
+  //   if(file.status == 'done'){
+  //     if(file.response && file.response.status== 10000){
+  //       notification.succss({
+  //         message:`${file.name}上传成功`,
+  //       })
+  //       this.setState({userTagId:file.response.data.upLoadFileId,uploadFilesName:file.name})
+  //     }else{
+  //       notification.error({
+  //         message:`${file.name}上传失败`
+  //       })
+  //     }
+  //     this.setState({loading:false})
+  //   }else if(info.file.status == 'error'){
+  //     this.setState({loading:false})
+  //     notification.error({
+  //       message:`${file.name}上传失败`
+  //     })
+  //   }
+  // }
 
   render() {
-
     const createFormItemLayout = {
       labelCol: {span:8},
       wrapperCol : {span:8},
     }
-    const {param} = this.state
-   
-    const { form: { getFieldDecorator } } = this.props
+    const { 
+      form: { getFieldDecorator,getFieldValue }, 
+      match : { params : { id } }
+    } = this.props
+    const { planDetail} = this.state
+    // const filename=this.props.form.getFieldValue('name')
+    // const fileName={id?filename:}
+    const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail. name 
+    console.log(fileName)
+    const uploadProps={
+      action:`/api/v1/info/uploadFile?type=0&name=${fileName}`,
+      onChange:(info)=>{
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        } if (info.file.status === 'done') {
+        message.success(`${info.file.name} 上传成功！`);
+           this.setState({
+             file:info.file,
+             fileList:info.fileList,
+             url:fileName/0/info.file.name,
+           })
+       }
+
+      },
+      onRemove:()=>{
+        this.setState({
+          fileList:[],
+          uploadPath : ''
+        })
+        axios.delete(`/api/v1/info/delete/${fileName}/0/${this.file.name}/doc`)
+        .then(() => {
+          this.getGroupList(this.state.nowCurrent)
+        })
+        .catch( (err) => {
+          console.log(err);
+        });
+    }   
+  };
+  
+    
     return (
       <div>
-        <PageTitle titles={['应急指挥','应急预案','新建']} />
+        {id ?
+          <PageTitle titles={['应急指挥','应急预案','编辑']} />
+          :
+          <PageTitle titles={['应急指挥','应急预案','新建']} />
+        }
         <div className="entrance-work-create-page">
           <Module>
             <Form
               onSubmit={this.handleSubmit}
             >
+                <Form.Item
+                {...createFormItemLayout}
+                label="预案级别"
+              >
+                {getFieldDecorator('level',{
+                  initialValue: id && planDetail.level,
+                  rules:[{
+                    required:true,
+                    message:"请选择预案级别",
+                  }]
+                })(
+                  <Select placeholder="请选择预案级别"
+                    allowClear
+                  >
+                    {SELECT_EMERGENCY_PLAN_LEVEL &&
+                      SELECT_EMERGENCY_PLAN_LEVEL.map(cur => (
+                        <Select.Option key={cur.id}
+                          value={cur.id}
+                        >{cur.name}</Select.Option>
+                      ))
+
+                    }
+                  </Select>
+                )}  
+              </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
                 label="预案名称"
               >
                 {getFieldDecorator('name',{
-                  initialValue:'',
+                  initialValue: id && planDetail.name,
                   rules:[{
-                 //   required:true,
+                    required:true,
                     message:"请输入预案名称",
                   }]
                 })(
                   <Input placeholder="请输入预案名称" />
                 )}  
+
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
                 label="预案类别"
               >
                 {getFieldDecorator('category',{
-                  initialValue:'',
+                   initialValue: id && planDetail.category,
                   rules:[{
-                  //  required:true,
+                    required:true,
                     message:"请输入预案类别",
                   }]
                 })(
@@ -116,26 +248,12 @@ class EmergencyNew extends Component {
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
-                label="预案级别"
-              >
-                {getFieldDecorator('level',{
-                  initialValue:'',
-                  rules:[{
-                 //   required:true,
-                    message:"请输入预案级别",
-                  }]
-                })(
-                  <Input placeholder="请输入预案级别" />
-                )}  
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
                 label="预案关联事件类型"
               >
                 {getFieldDecorator('associated_event_type',{
-                  initialValue:'',
+                  initialValue: id && planDetail.associated_event_type,
                   rules:[{
-            //        required:true,
+                    required:true,
                     message:"请输入预案关联事件类型",
                   }]
                 })(
@@ -147,13 +265,28 @@ class EmergencyNew extends Component {
                 label="预案内容"
               >
                 {getFieldDecorator('content',{
-                  initialValue:'',
+                  initialValue: id && planDetail.content,
                   rules:[{
                  //   required:true,
                     message:"请输入预案内容",
                   }]
                 })(
-                  <Input placeholder="请输入预案内容" />
+                  <Upload
+                  className="upload"
+                  accept=".pdf,.doc"
+                  {...uploadProps}
+                  defaultFileList={this.state.uploadFiles} 
+                  beforeUpload={this.beforeUpload}
+                  previewFile={this.preview}
+                  // onRemove = {this.removeFile}   //移除文件事件
+                  >
+                    {/* <Popconfirm placement="top" title={text} onConfirm={this.replace} okText="Yes" cancelText="No"> */}
+                      <Button>
+                        <Icon type="upload" />上传文件
+                      </Button>
+                    {/* </Popconfirm> */}
+                  </Upload>
+                  // <Input placeholder="请输入发布单位" />
                 )}  
               </Form.Item>
               <Form.Item
@@ -161,9 +294,9 @@ class EmergencyNew extends Component {
                 label="编制单位/部门"
               >
                 {getFieldDecorator('department',{
-                  initialValue:'',
+                  initialValue: id && planDetail.department,
                   rules:[{
-            //        required:true,
+                    required:true,
                     message:"请输入编制单位/部门",
                   }]
                 })(
@@ -172,26 +305,12 @@ class EmergencyNew extends Component {
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
-                label="发布日期"
-              >
-                {getFieldDecorator('release_date',{
-                  initialValue:'',
-                  rules:[{
-            //        required:true,
-                    message:"请输入发布日期",
-                  }]
-                })(
-                  <Input placeholder="请输入发布日期" />
-                )}  
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
                 label="发布文号"
               >
                 {getFieldDecorator('release_number',{
-                  initialValue:'',
+                  initialValue: id && planDetail.release_number,
                   rules:[{
-                //    required:true,
+                    required:true,
                     message:"请输入发布文号",
                   }]
                 })(
@@ -203,9 +322,9 @@ class EmergencyNew extends Component {
                 label="发布单位"
               >
                 {getFieldDecorator('issued',{
-                  initialValue:'',
+                  initialValue: id && planDetail.issued,
                   rules:[{
-                    //required:true,
+                    required:true,
                     message:"请输入发布单位",
                   }]
                 })(
@@ -217,9 +336,9 @@ class EmergencyNew extends Component {
                 label="请输入签发人"
               >
                 {getFieldDecorator('signer',{
-                  initialValue:'',
+                  initialValue:id && planDetail.signer,
                   rules:[{
-                  //  required:true,
+                    required:true,
                     message:"请输入签发人",
                   }]
                 })(
@@ -231,7 +350,7 @@ class EmergencyNew extends Component {
                 label="相关附件"
               >
                 {getFieldDecorator('file',{
-                  initialValue:'',
+                  initialValue: id && planDetail.file,
                   rules:[{
                   //  required:true,
                     message:"请输入相关附件",
@@ -246,8 +365,7 @@ class EmergencyNew extends Component {
                     htmlType="submit"
                     type="primary"
                     size="default"
-                    onClick={this.handleSubmit}
-                  >创建
+                  >{id ? '编辑' : '新建'}
                   </Button>
                   <Button
                     style={{marginLeft:"28px"}}
@@ -256,7 +374,7 @@ class EmergencyNew extends Component {
                       const {
                         history,
                       } = this.props
-                      history.push('/inspection/entrance/work')
+                      history.push('/emergency/plan')
                     }}
                   >取消
                   </Button>

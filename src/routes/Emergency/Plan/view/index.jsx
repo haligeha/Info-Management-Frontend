@@ -38,9 +38,19 @@ class EmergencyRoute extends Component{
             loading: Loading
           })}
         />
+          <Route
+          exact
+          path="/emergency/plan/edit/:id"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "Deviwwce" */
+              './Create/index'),
+            loading: Loading
+          })}
+        />
         <Route
           exact
-          path="/emergency/plan/detail"
+          path="/emergency/plan/detail/:id"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "EmergencyPlanDetail" */
