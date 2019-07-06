@@ -81,7 +81,7 @@ class EmergencyPlan extends Component {
             //   history.push('/monitor/device/detail')
             // }}/>,
             <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
-_target="blank">
+              _target="blank">
               <Icon type="delete"/>
             </a>, 
             <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
