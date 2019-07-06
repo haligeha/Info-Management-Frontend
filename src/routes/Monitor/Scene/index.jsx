@@ -492,23 +492,24 @@ class SceneView extends Component {
           <ReactEcharts option={this.getOption3()} theme="Immoc" style={{height:'240px'}}/>
         </div>
         <div className="video-1">
-          <Player>
-            <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" />
-            <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" />
-
-            <ControlBar>
-              <ReplayControl seconds={10} order={1.1} />
-              <ForwardControl seconds={30} order={1.2} />
-              <CurrentTimeDisplay order={4.1} />
-              <TimeDivider order={4.2} />
-              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
-              <VolumeMenuButton disabled />
-            </ControlBar>
-          </Player>
+          
         </div>
         <div className="video-2">
         video-2
         </div>
+        <Player>
+          <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" />
+          <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" />
+
+          <ControlBar>
+            <ReplayControl seconds={10} order={1.1} />
+            <ForwardControl seconds={30} order={1.2} />
+            <CurrentTimeDisplay order={4.1} />
+            <TimeDivider order={4.2} />
+            <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+            <VolumeMenuButton disabled />
+          </ControlBar>
+        </Player>
       </div>
 
     );

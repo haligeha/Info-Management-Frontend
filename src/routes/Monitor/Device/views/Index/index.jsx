@@ -44,9 +44,12 @@ class EmergencyPlan extends Component {
       <div>
         <PageTitle titles={['监督预测','设备信息']}>
           {
-            <Link to={"/monitor/device/new"}>
-            <Button type="primary">+ 新建设备信息</Button>
-            </Link>
+           
+            <a href="http://39.104.84.131/thingsTenantManager#/deviceList" 
+              _target="blank"
+            >
+              <Button>+新建设备</Button>
+            </a>
           }
         </PageTitle>
         <Module>
@@ -66,32 +69,36 @@ class EmergencyPlan extends Component {
           // <Link to={`/monitor/device/edit/${data.DeivceId}`}>
           //   <Icon type="edit"/>
           // </Link>,     
-          <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
+          <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
+            _target="blank">
             <Icon type="edit"/>
           </a>,     
-          // <Icon type="delete"
-          //   onClick={()=> {
-          //   const {
-          //     history,
-          //   } = this.props
-          //   history.push('/monitor/device/detail')
-          // }}/>,
-          <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
-            <Icon type="delete"/>
-          </a>, 
-           <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
-           <Icon type="ellipsis"/>
-          </a>, 
+            // <Icon type="delete"
+            //   onClick={()=> {
+            //   const {
+            //     history,
+            //   } = this.props
+            //   history.push('/monitor/device/detail')
+            // }}/>,
+            <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
+_target="blank">
+              <Icon type="delete"/>
+            </a>, 
+            <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
+              _target="blank"
+            >
+              <Icon type="ellipsis"/>
+            </a>, 
           // <Link to={`/monitor/device/detail`}>
           //    <Icon type="ellipsis" />
           // </Link>,
           ]}
         >
-        <Meta
-          avatar={<Avatar>DEVICE</Avatar>}
-          title={data.deviceName}
-          description={content}
-        />
+          <Meta
+            avatar={<Avatar>DEVICE</Avatar>}
+            title={data.deviceName}
+            description={content}
+          />
         </Card>
       </div>
 
