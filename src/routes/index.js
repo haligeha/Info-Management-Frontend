@@ -2,7 +2,6 @@ import React, { Component, } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
-
 const Loading = () => {
   return (
     <div className="loading">
@@ -25,7 +24,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-         {/* <Route
+        {/* <Route
           path="/login" 
           component={Loadable({
             loader: () => import(
