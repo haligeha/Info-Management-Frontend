@@ -111,7 +111,7 @@ class EmergencyNew extends Component {
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
     console.log(values.content)
-    window.open('/api/v1/info/download/'+values.content+'?user_id=6');
+    window.open('/api/v1/info/download/'+values.content+'?user_id='+value);
   }
   // beforeUpload=(file)=>{
   //   const{size}=file
@@ -146,7 +146,7 @@ class EmergencyNew extends Component {
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
     console.log(values.content)
-    axios.delete(`/api/v1/info/delete/`+values.content+'?user_id=6')
+    axios.delete(`/api/v1/info/delete/`+values.content+'?user_id='+value)
       .then(() => {
         message.success(`删除成功！`);
       })
@@ -167,7 +167,7 @@ class EmergencyNew extends Component {
     const { planDetail} = this.state
     const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail. name 
     const uploadProps={
-      action:`/api/v1/info/uploadFile?type=0&name=${fileName}&user_id=6`,
+      action:`/api/v1/info/uploadFile?type=0&name=${fileName}&user_id=${value}`,
       onChange:(info)=>{
         // if (info.file.status !== 'uploading') {
         //   console.log(info.file, info.fileList);

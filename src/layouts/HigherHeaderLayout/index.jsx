@@ -165,6 +165,7 @@ class HeaderLayout extends Component {
                 />
               </Avatar>
               <span style={{ color: 'white', }}>{username}</span>
+              {console.log(username)}
             </span>
           </Dropdown>
         </div>
