@@ -10,6 +10,7 @@ import './index.styl'
 
 let dateList=[];
 let reportList=[]
+var user_id=window.sessionStorage.getItem("user_id")
 class DailyInspection extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class DailyInspection extends Component {
 
   //获取全部巡检信息
   getAllReport=()=>{
-    axios.get(`/api/v1/info/allReport`)
+    axios.get(`/api/v1/info/allReport?user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -110,7 +111,7 @@ class DailyInspection extends Component {
     const select= this.getdate(selectedValue)+" 0:0:0"
     console.log(select)
     const selected=Math.round(new Date(select).getTime()/1000).toString()  
-    axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0`)
+    axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           console.log(res.data.data)

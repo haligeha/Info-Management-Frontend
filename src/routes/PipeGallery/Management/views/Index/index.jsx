@@ -30,7 +30,7 @@ class Management extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size,unit } = this.state;
-    axios.get(`/api/v1/info/pipeByPage?limit=${size}&page=${page}&unit=${unit}`)
+    axios.get(`/api/v1/info/pipeByPage?limit=${size}&page=${page}&unit=${unit}&user_id=6`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({

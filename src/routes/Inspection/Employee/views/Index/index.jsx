@@ -7,7 +7,7 @@ import './index.styl'
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
-
+var user_id=window.sessionStorage.getItem("user_id")
 class Employee extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class Employee extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size,name } = this.state;
-    axios.get(`/api/v1/user/userByPage?limit=${size}&page=${page}&name=${name}`)
+    axios.get(`/api/v1/user/userByPage?limit=${size}&page=${page}&name=${name}&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -53,7 +53,7 @@ class Employee extends Component {
 
   //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/userById?Id=${record.id}`)
+    axios.delete(`/api/v1/info/userById?Id=${record.id}&user_id=${user_id}`)
     .then(() => {
         this.getGroupList(this.state.nowCurrent)
     })

@@ -60,7 +60,7 @@ class Inspec extends Component {
               )}  
             </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" onClick={()=>this.props.onClick({visible:false})}>
             确认
           </Button>
         </Form.Item>

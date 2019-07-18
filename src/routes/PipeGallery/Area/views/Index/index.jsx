@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
-
+var user_id=window.sessionStorage.getItem("user_id")
 class Area extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +30,7 @@ class Area extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size,pipe_belong } = this.state;
-    axios.get(`/api/v1/info/galleryAreaByPage?limit=${size}&page=${page}&pipe_belong=${pipe_belong}`)
+    axios.get(`/api/v1/info/galleryAreaByPage?limit=${size}&page=${page}&pipe_belong=${pipe_belong}&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -52,7 +52,7 @@ class Area extends Component {
  
 //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/galleryArea?Id=${record.id}`)
+    axios.delete(`/api/v1/info/galleryArea?Id=${record.id}&user_id=${user_id}`)
     .then(() => {
         this.getGroupList(this.state.nowCurrent)
     })

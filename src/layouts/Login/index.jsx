@@ -3,12 +3,14 @@ import {Button,Form,Input,Select,Icon,message} from 'antd';
 import { Link } from 'react-router-dom';
 import IndexView from '../../routes';
 import HeaderLayout from '../HeaderLayout';
-//import LowerHeaderLayout from '../LowerHeaderLayout';
+import LowerHeaderLayout from '../LowerHeaderLayout';
+import HigherHeaderLayout from '../HigherHeaderLayout';
 import { Layout,} from 'antd';
 import './index.styl'
 import axios from 'axios';
 import Background from './img/1.jpg'
 
+var user_id=window.sessionStorage.getItem("user_id")
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
@@ -30,6 +32,7 @@ class Login extends React.Component{
       showContent:false,
     }
   }
+  
      
     //设置状态完成跳转
     login=()=>{
@@ -88,7 +91,6 @@ class Login extends React.Component{
             //    rea.setCookie("token",response.data.access_token,7000)
             window.sessionStorage.setItem("token",response.data.access_token);
             window.sessionStorage.setItem("user_id",response.data.user_id);
-            console.log(response.data.user_id)
             //      rea.setCookie("user_id",values.user_id,7000)
             rea.login()
           }
@@ -101,6 +103,7 @@ class Login extends React.Component{
     render() {
       const { getFieldDecorator } = this.props.form;
       const { showContent } = this.state;
+      const condition='user_id===8';
       return (
         <div className="content">
           {!showContent &&
@@ -151,20 +154,31 @@ class Login extends React.Component{
           }
              
           {showContent &&
-            // {}
-            <div>
-              <HeaderLayout/>
-              <Content className={'content-layout'}>
-                <IndexView/>
-              </Content>
-            </div>
+              (condition?<div>
+                <HigherHeaderLayout/>
+                <Content className={'content-layout'}>
+                  <IndexView/>
+                </Content>
+              </div>:<div>
+                <LowerHeaderLayout/>
+                <Content className={'content-layout'}>
+                  <IndexView/>
+                </Content>
+              </div>)
+            // <div>
+            //     <HeaderLayout/>
+            //         <Content className={'content-layout'}>
+            //             <IndexView/>
+            //     </Content>
+            // </div>
                 
           }
         </div>
           
-      )
+      );
     }
-    
+  
 }
+
 
 export default Form.create()(Login);

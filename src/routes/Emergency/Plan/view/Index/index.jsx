@@ -9,10 +9,10 @@ import {
   SELECT_EMERGENCY_PLAN_LEVEL,
 }from '../../config';
 
+var user_id=window.sessionStorage.getItem("user_id")
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 7;
 const Search = Input.Search;
-const user_id = window.sessionStorage.getItem("user_id");
 class EmergencyPlan extends Component {
   constructor(props) {
     super(props);

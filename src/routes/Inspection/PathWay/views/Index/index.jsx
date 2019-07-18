@@ -32,7 +32,7 @@ class PathWay extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size,area_belong } = this.state;
-    axios.get(`/api/v1/info/inspectionPathByPage?limit=${size}&page=${page}&area_belong=${area_belong}`)
+    axios.get(`/api/v1/info/inspectionPathByPage?limit=${size}&page=${page}&area_belong=${area_belong}&user_id=6`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
