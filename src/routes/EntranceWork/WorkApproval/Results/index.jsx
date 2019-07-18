@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
+const user_id = window.sessionStorage.getItem("user_id");
 class Results extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ class Results extends Component {
     this.getGroupList();
   }
   getGroupList = ()=>{
-    axios.get('/api/v1/user/planAudit')
+    axios.get(`/api/v1/user/planAudit?user_id=${user_id}`)
       .then((res)=>{
         if(res&&res.status === 200){
           console.log(res);

@@ -11,7 +11,7 @@ import moment from 'moment';
 const FormItem = Form.Item;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
-  
+const user_id = window.sessionStorage.getItem("user_id"); 
 class Homework extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class Homework extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size ,range} = this.state;
-    axios.get(`/api/v1/info/entranceWorkByPage?limit=${size}&page=${page}&range=${range}`)
+    axios.get(`/api/v1/info/entranceWorkByPage?limit=${size}&page=${page}&range=${range}&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -54,7 +54,7 @@ class Homework extends Component {
   }
   //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/entranceWorkById?WorkId=${record.id}`)
+    axios.delete(`/api/v1/info/entranceWorkById?WorkId=${record.id}&user_id=${user_id}`)
       .then(() => {
         this.getGroupList(this.state.nowCurrent)
       })

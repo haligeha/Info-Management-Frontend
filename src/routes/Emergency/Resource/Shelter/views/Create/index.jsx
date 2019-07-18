@@ -4,6 +4,7 @@ import {Button,Form,Input,Select,message} from 'antd';
 import { SELECT_SHELTER_CATEGORY } from '../../configs';
 import './index.styl'
 import axios from 'axios';
+const user_id = window.sessionStorage.getItem("user_id");
 class ShelterNew extends Component{
   constructor(props){
     super(props);
@@ -16,7 +17,7 @@ class ShelterNew extends Component{
   componentDidMount() {
     const {match : {params : {id}}} = this.props
     if(id){
-      axios.get(`/api/v1/info/place?placeId=${id}`)
+      axios.get(`/api/v1/info/place?placeId=${id}&user_id=${user_id}`)
         .then((res)=>{
           this.setState({shelterDetail:res.data})
         })
@@ -58,7 +59,7 @@ class ShelterNew extends Component{
         .then(function(response){
           if(response.status === 200){
             message.info('编辑成功')
-            history.push('/emergency/resource/shelter')
+            history.push(`/emergency/resource/shelter?user_id=${user_id}`)
           }
         })
         .catch(function(error){
@@ -69,7 +70,7 @@ class ShelterNew extends Component{
         .then(function(response){
           if(response.status === 200){
             message.info('创建成功')
-            history.push('/emergency/resource/shelter')
+            history.push(`/emergency/resource/shelter?user_id=${user_id}`)
           }
         })
         .catch(function(error){

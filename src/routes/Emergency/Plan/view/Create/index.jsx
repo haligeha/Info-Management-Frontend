@@ -4,7 +4,7 @@ import { Form,Input,Select,Button,message, Upload, notification,Icon } from 'ant
 import { SELECT_EMERGENCY_PLAN_LEVEL } from '../../config';
 import axios from 'axios';
 import './index.styl'
-
+const user_id = window.sessionStorage.getItem("user_id");
 class EmergencyNew extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,7 @@ class EmergencyNew extends Component {
   componentDidMount(){
     const {match : { params : { id } }} = this.props
     if(id){
-      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}`)
+      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({planDetail:res.data})
         })
@@ -67,7 +67,7 @@ class EmergencyNew extends Component {
     if(id){
       values.emergency_id=id
       values.content=this.state.url
-      axios.put('/api/v1/info/emergency', values)
+      axios.put(`/api/v1/info/emergency?user_id=${user_id}`, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('编辑成功')
@@ -79,7 +79,7 @@ class EmergencyNew extends Component {
         });
     }else{
       values.content=this.state.url
-      axios.post('/api/v1/info/emergency', values)
+      axios.post(`/api/v1/info/emergency?user_id=${user_id}`, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('创建成功')
@@ -150,7 +150,7 @@ class EmergencyNew extends Component {
     const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail. name 
     console.log(fileName)
     const uploadProps={
-      action:`/api/v1/info/uploadFile?type=0&name=${fileName}`,
+      action:`/api/v1/info/uploadFile?type=0&name=${fileName}&user_id=${user_id}`,
       onChange:(info)=>{
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
