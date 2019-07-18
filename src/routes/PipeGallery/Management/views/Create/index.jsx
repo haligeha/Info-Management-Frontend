@@ -18,7 +18,7 @@ class ManagementNew extends Component {
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/info/pipeGallery?Id=${id}`)
+      axios.get(`/api/v1/info/pipeGallery?Id=${id}&user_id=6`)
         .then((res) => {
           this.setState({pipeDetail:res.data})
         })

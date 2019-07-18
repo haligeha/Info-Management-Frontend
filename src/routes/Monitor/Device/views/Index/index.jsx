@@ -3,7 +3,7 @@ import { Input,Row,Col,Button, Form, Icon,Skeleton,Avatar,Card } from 'antd';
 import { PageTitle,Module  } from '../../../../../components';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-
+var user_id=window.sessionStorage.getItem("user_id")
 const Search = Input.Search;
 const { Meta } = Card;
 class EmergencyPlan extends Component {
@@ -20,7 +20,7 @@ class EmergencyPlan extends Component {
   }
   //获取列表信息
   getGroupList = () => {
-    axios.get(`/api/v1/info/allDevice`)
+    axios.get(`/api/v1/info/allDevice?user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({

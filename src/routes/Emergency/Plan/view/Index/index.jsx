@@ -9,6 +9,7 @@ import {
   SELECT_EMERGENCY_PLAN_LEVEL,
 }from '../../config';
 
+var user_id=window.sessionStorage.getItem("user_id")
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 7;
 const Search = Input.Search;
@@ -33,7 +34,7 @@ class EmergencyPlan extends Component {
 
   getTotalPage= (page) => {
     const { size,level } = this.state;
-    axios.get(`/api/v1/info/emergencyPlanByPage?limit=${size}&page=${page}&level=${level}`)
+    axios.get(`/api/v1/info/emergencyPlanByPage?limit=${size}&page=${page}&level=${level}&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           console.log(res);
@@ -57,7 +58,7 @@ class EmergencyPlan extends Component {
   }
   //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/emergency?id=${record.emergency_id}`)
+    axios.delete(`/api/v1/info/emergency?id=${record.emergency_id}&user_id=${user_id}`)
       .then(() => {
         this.getTotalPage(this.state.nowCurrent)
       })

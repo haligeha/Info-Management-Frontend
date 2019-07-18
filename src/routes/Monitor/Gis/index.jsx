@@ -67,7 +67,8 @@ class Gis extends Component {
       employee:false,
       visible:false,
     };
- 
+    //子组件触发模态框的关闭
+    //this.updateParent= this.updateParent.bind(this);
   }
   
   componentDidMount(){
@@ -100,7 +101,451 @@ class Gis extends Component {
       strokeStyle: 'solid' //边线的样式，solid或dashed。
   }
 
+
+
+  ///xiajia
+  
+//   $.ajax({
+//     url: '/api/v1/map/pipeAll',
+//     type: 'get',
+//     async : false,
+//     dataType: 'json',
+//     contentType: 'application/json;',
+
+//     error:function(){
+//         Message.error({message: '获取管廊失败'});
+//     },
+//     success: function(req) {
+//         console.log(req)
+//         for (var i = 0; i < req.length; i++) {
+//             pipeIdArray.push(req[i].id);
+//             pipeNameArray.push(req[i].name);
+//             pipeColorArray.push(req[i].pipecolor);
+//             pipeWidthArray.push(req[i].pipewidth);
+//             pipeTypeArray.push(req[i].pipetype);
+//             pipeDataArray.push(vm.timestamp(req[i].createdat));
+//             //console.log($.parseJSON(req.pipes[i].drawpoint).point)
+//             //console.log(req[i].drawpoint.point)
+//             polylinePointSum.push(req[i].drawpoint.point);
+//     }
+//     //console.log(polylinePointSum)
+//     pipeShow(1,polylinePointSum,pipeIdArray,pipeNameArray,pipeColorArray,pipeWidthArray,pipeTypeArray,pipeDataArray);
+
+//     }
+//    });
+
+// $.ajax({
+//     url: '/api/v1/map/patroltrackAll',
+//     type: 'get',
+//     async : false,
+//     dataType: 'json',
+//     contentType: 'application/json;',
+
+//     error:function(){
+//         Message.error({message: '获取巡检线路失败'});
+//     },
+//     success: function(req) {
+//         console.log(req)
+//         for (var i = 0; i < req.length; i++) {
+//             trackpipeIdArray.push(req[i].id);
+//             trackpipeNameArray.push(req[i].name);
+//             trackpipeColorArray.push(req[i].pipecolor);
+//             trackpipeWidthArray.push(req[i].pipewidth);
+//             trackpipeTypeArray.push(req[i].pipetype);
+//             trackpipeDataArray.push(vm.timestamp(req[i].createdat));
+//             //console.log($.parseJSON(req.pipes[i].drawPoint).point)
+//             trackpolylinePointSum.push(req[i].drawpoint.point);
+//     }
+//     //console.log(trackpolylinePointSum)
+//     pipeShow(2,trackpolylinePointSum,trackpipeIdArray,trackpipeNameArray,trackpipeColorArray,trackpipeWidthArray,trackpipeTypeArray,trackpipeDataArray);
+
+//     }
+//    });
+// // }
+
+
+
+// function pipeShow(type,polylinePointSum,pipeIdArray,pipeNameArray,pipeColorArray,pipeWidthArray,pipeTypeArray,pipeDataArray)
+// {
+//     switch(type)
+//     {
+//     case 1:
+//         for(var i=0;i<polylinePointSum.length;i++)
+//         {
+//             drawPoint=[]
+//             for(var j=0;j<polylinePointSum[i].length;j++)
+//             {
+//                 polylinePoint=new BMap.Point(polylinePointSum[i][j].lng,polylinePointSum[i][j].lat)
+//                 //console.log(polylinePoint)
+//                 drawPoint.push(polylinePoint)
+//                 //console.log(drawPoint)
+//             }
+//             //console.log(drawPoint)
+//             function openInfo(content,e){
+//                 var p = e.target;
+//                  console.log(e.target)
+//                 var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+//                 var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+//                 map.openInfoWindow(infoWindow,point); //开启信息窗口
+//             }
+
+//             function addClickHandler(content,marker){
+//                 marker.addEventListener("click",function(e){
+//                     openInfo(content,e)
+//                     openIfoID=marker;
+//                     });
+//             }
+
+//             var opts = {
+//                 width : 150,     // 信息窗口宽度
+//                 height: 50,     // 信息窗口高度
+//                 enableAutoPan:true,
+//                 enableMessage:true//设置允许信息窗发送短息
+//             };
+//             var content =
+//                         '<div >'+
+//                         ' <table>'+
+//                         ' <tr>'+
+//                         ' <td>'+'用户id:'+'</td>'+
+//                         '<td>'+tenantId+
+//                         '</td>'+
+//                         '</tr>'+
+//                         ' <tr>'+
+//                         ' <td>'+'管廊名称:'+'</td>'+
+//                         '<td>'+pipeNameArray[i]+
+//                         '</td>'+
+//                         '</tr>'+
+//                         '<tr>'+
+//                         '<td>'+'创建时间:'+'</td>'+
+//                         '<td>'+pipeDataArray[i]+
+//                         '</tr>'+
+//                         '</table> '
+//             //起点
+//             var myIcon = new BMap.Icon("../static/baidu/img/us_mk_icon.png", new BMap.Size(23, 20), {
+//                                     anchor: new BMap.Size(5, 20), // 指定定位位置
+//                                     imageOffset: new BMap.Size(0, -45) // 设置图片偏移
+//                                 });
+//             var marker = new BMap.Marker(drawPoint[0],{icon:myIcon}); // 创建点
+//             map.addOverlay(marker);
+//             var label = new BMap.Label(pipeNameArray[i],{offset:new BMap.Size(20,-10)});
+//             marker.setLabel(label);
+//             addClickHandler(content,marker);
+//             //终点
+//             var myIcon = new BMap.Icon("../static/baidu/img/us_mk_icon.png", new BMap.Size(21, 21), {
+//                                     anchor: new BMap.Size(5, 20), // 指定定位位置
+//                                     imageOffset: new BMap.Size(-46, -45) // 设置图片偏移
+//                                 });
+//             var marker = new BMap.Marker(drawPoint[drawPoint.length-1],{icon:myIcon}); // 创建点
+//             map.addOverlay(marker);
+
+//             var styleOptions = {
+//                         strokeColor:pipeColorArray[i],    //边线颜色。
+//                         fillColor:"",      //填充颜色。当参数为空时，圆形将没有填充效果。
+//                         strokeWeight: pipeWidthArray[i],       //边线的宽度，以像素为单位。
+//                         strokeOpacity: 0.8,    //边线透明度，取值范围0 - 1。
+//                         fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+//                         strokeStyle: pipeTypeArray[i] //边线的样式，solid或dashed。
+//                     }
+
+//             //////////////////////////////删除站点//////////////////////////////
+//             function removePolyline(e,ee,polyline){
+//                 MessageBox.confirm('确认删除管廊?', '提示', {
+//                   confirmButtonText: '确定',
+//                   cancelButtonText: '取消',
+//                   type: 'warning'
+//                 }).then(() => {
+//                     for(i=0;i<polylinePointSum.length;i++)
+//                     {
+//                         if(JSON.stringify(polylinePointSum[i]) == JSON.stringify(polyline.getPath()))
+//                         {
+//                             idSign=pipeIdArray[i]
+//                         }
+//                     }
+//                     console.log('http://10.112.17.185:8101/api/v1/map/pipe?pipeId='+idSign)
+//                     $.ajax({
+//                         url: '/api/v1/map/pipe?pipeId='+idSign,
+//                         type: 'delete',
+//                         //dataType: 'json',
+//                         //contentType: 'application/json;',
+//                         error:function(error){
+//                             console.log(error)
+//                             toastr.error('删除失败');
+//                         },
+//                         success: function(req) {
+//                             //toastr.warning('修改完成')
+//                             window.location.reload();
+//                         }
+//                     });
+//                 }).catch(() => {
+//                   Message({message: '已取消删除'});
+//                 });
+//                 // var mymessage=confirm("确认删除站点？");
+//                 // if(mymessage==true)
+//                 // {
+
+//                 // }
+//                 // else if(mymessage==false)
+//                 // {
+
+//                 // }
+//             }
+//             function alterPolyline(e,ee,polyline){
+//                 polyline.enableEditing()
+//                 for(i=0;i<polylinePointSum.length;i++)
+//                 {
+//                     if(JSON.stringify(polylinePointSum[i]) == JSON.stringify(polyline.getPath()))
+//                     {
+//                         idSign=pipeIdArray[i]
+//                     }
+//                 }
+//                 //console.log(idSign)
+//             }
+//             function savePolyline(e,ee,polyline){
+//                 polyline.disableEditing()
+//                    $.ajax({
+//                         url: '/api/v1/map/pipe?pipeId='+idSign,
+//                         type: 'get',
+//                         async : false,
+//                         dataType: 'json',
+//                         contentType: 'application/json;',
+
+//                         error:function(){
+//                             Message.error({message: '失败'});
+//                         },
+//                         success: function(req) {
+//                             console.log(req)
+//                             var draw={point:polyline.getPath()}
+//                             var draw1=JSON.stringify(draw)
+//                             console.log(draw1)
+//                             console.log(JSON.stringify({id:req.id,name:req.name,tenantid:req.tenantid,pipecolor:req.pipecolor,pipewidth:req.pipewidth,pipetype:req.pipetype,drawpoint:draw1,createdat:req.createdat}))
+//                             $.ajax({
+//                                 url:'/api/v1/map/pipe',
+//                                 data:JSON.stringify({id:req.id,name:req.name,tenantid:req.tenantid,pipecolor:req.pipecolor,pipewidth:req.pipewidth,pipetype:req.pipetype,drawpoint:draw1,createdat:req.createdat}),
+//                                 type:'put',//提交方式
+//                                 //dataType: 'json',
+//                                 contentType: "application/json",
+
+//                                 success: function(req){
+//                                    console.log(req)
+//                                    window.location.reload();
+//                                 },
+//                                 error:function(error)
+//                                 {
+//                                     console.log(error)
+//                                     Message.error({message: '错误'});
+//                                 }
+//                             });
+//                         }
+//                        });
+
+//             }
+//             //console.log(drawPoint)
+//             var polyline = new BMap.Polyline(drawPoint,styleOptions);
+//             map.addOverlay(polyline);   //增加折线
+//             //addPolylineClickHandler(polyline)
+//             var polylineMenu=new BMap.ContextMenu();
+//             polylineMenu.addItem(new BMap.MenuItem('删除',removePolyline.bind(polyline)));
+//             polylineMenu.addItem(new BMap.MenuItem('修改',alterPolyline.bind(polyline)));
+//             polylineMenu.addItem(new BMap.MenuItem('保存',savePolyline.bind(polyline)));
+//             polyline.addContextMenu(polylineMenu);
+
+//         }
+//     break;
+//     case 2:
+//         for(i=0;i<polylinePointSum.length;i++)
+//         {
+//             drawPoint=[]
+//             for(j=0;j<polylinePointSum[i].length;j++)
+//             {
+//                 polylinePoint=new BMap.Point(polylinePointSum[i][j].lng,polylinePointSum[i][j].lat)
+//                 //console.log(polylinePoint)
+//                 drawPoint.push(polylinePoint)
+//             }
+
+//             function openInfo(content,e){
+//                 var p = e.target;
+//                  console.log(e.target)
+//                 var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+//                 var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+//                 map.openInfoWindow(infoWindow,point); //开启信息窗口
+//             }
+
+//             function addClickHandler(content,marker){
+//                 marker.addEventListener("click",function(e){
+//                     openInfo(content,e)
+//                     openIfoID=marker;
+//                     });
+//             }
+
+//             var opts = {
+//                 width : 225,     // 信息窗口宽度
+//                 height: 50,     // 信息窗口高度
+//                 enableAutoPan:true,
+//                 enableMessage:true//设置允许信息窗发送短息
+//             };
+//             var content =
+//                         '<div >'+
+//                         ' <table>'+
+//                         ' <tr>'+
+//                         ' <td>'+'用户id:'+'</td>'+
+//                         '<td>'+tenantId+
+//                         '</td>'+
+//                         '</tr>'+
+//                         ' <tr>'+
+//                         ' <td>'+'巡检线路名称:'+'</td>'+
+//                         '<td>'+pipeNameArray[i]+
+//                         '</td>'+
+//                         '</tr>'+
+//                         '<tr>'+
+//                         '<td>'+'创建时间:'+'</td>'+
+//                         '<td>'+pipeDataArray[i]+'</td>'+
+//                         '</tr>'+
+//                         '</table> '
+//             var myIcon = new BMap.Icon("../static/baidu/img/us_mk_icon.png", new BMap.Size(23, 20), {
+//                                     anchor: new BMap.Size(5, 20), // 指定定位位置
+//                                     imageOffset: new BMap.Size(0, 0) // 设置图片偏移
+//                                 });
+//             var marker = new BMap.Marker(drawPoint[0],{icon:myIcon}); // 创建点
+//             map.addOverlay(marker);
+//             var label = new BMap.Label(pipeNameArray[i],{offset:new BMap.Size(20,-10)});
+//             marker.setLabel(label);
+//             addClickHandler(content,marker);
+
+//             var myIcon = new BMap.Icon("../static/baidu/img/us_mk_icon.png", new BMap.Size(21, 21), {
+//                                     anchor: new BMap.Size(5, 20), // 指定定位位置
+//                                     imageOffset: new BMap.Size(-46, 0) // 设置图片偏移
+//                                 });
+//             var marker = new BMap.Marker(drawPoint[drawPoint.length-1],{icon:myIcon}); // 创建点
+//             map.addOverlay(marker);
+
+//             //////////////////////////////删除巡检线路//////////////////////////////
+//             function removeTrackPolyline(e,ee,polyline){
+//                 MessageBox.confirm('确认删除巡检线路?', '提示', {
+//                   confirmButtonText: '确定',
+//                   cancelButtonText: '取消',
+//                   type: 'warning'
+//                 }).then(() => {
+//                     for(i=0;i<polylinePointSum.length;i++)
+//                     {
+//                         if(JSON.stringify(polylinePointSum[i]) == JSON.stringify(polyline.getPath()))
+//                         {
+//                             idSign=pipeIdArray[i]
+//                         }
+//                     }
+//                     $.ajax({
+//                         url: '/api/v1/map/patroltrack/?trackId='+idSign,
+//                         type: 'delete',
+//                         error:function(){
+//                             Message.error({message: '删除失败'});
+//                         },
+//                         success: function(req) {
+//                             //toastr.warning('修改完成')
+//                             window.location.reload();
+//                         }
+//                     });
+
+//                 }).catch(() => {
+//                   Message({message: '已取消删除'});
+//                 });
+//                 // var mymessage=confirm("确认删除站点？");
+//                 // if(mymessage==true)
+//                 // {
+
+//                 // }
+//                 // else if(mymessage==false)
+//                 // {
+
+//                 // }
+//             }
+//             function alterTrackPolyline(e,ee,polyline){
+//                 polyline.enableEditing()
+//                 for(i=0;i<polylinePointSum.length;i++)
+//                 {
+//                     if(JSON.stringify(polylinePointSum[i]) == JSON.stringify(polyline.getPath()))
+//                     {
+//                         idSign=pipeIdArray[i]
+//                     }
+//                 }
+//             }
+//             function saveTrackPolyline(e,ee,polyline){
+//                 polyline.disableEditing()
+//                  $.ajax({
+//                         url: '/api/v1/map/patroltrack?trackId='+idSign,
+//                         type: 'get',
+//                         async : false,
+//                         dataType: 'json',
+//                         contentType: 'application/json;',
+
+//                         error:function(){
+//                             Message.error({message: '保存失败'});
+//                         },
+//                         success: function(req) {
+//                             console.log(req)
+//                             var draw={point:polyline.getPath()}
+//                             var draw1=JSON.stringify(draw)
+//                             console.log(draw1)
+//                             console.log(JSON.stringify({id:req.id,name:req.name,tenantid:req.tenantid,pipecolor:req.pipecolor,pipewidth:req.pipewidth,pipetype:req.pipetype,drawpoint:draw1,createdat:req.createdat}))
+//                             $.ajax({
+//                                 url:'/api/v1/map/patroltrack',
+//                                 data:JSON.stringify({id:req.id,name:req.name,tenantid:req.tenantid,pipecolor:req.pipecolor,pipewidth:req.pipewidth,pipetype:req.pipetype,drawpoint:draw1,createdat:req.createdat}),
+//                                 type:'put',//提交方式
+//                                 //dataType: 'json',
+//                                 contentType: "application/json",
+
+//                                 success: function(req){
+//                                    console.log(req)
+//                                    window.location.reload();
+//                                 },
+//                                 error:function(error)
+//                                 {
+//                                     console.log(error)
+//                                     Message.error({message: '保存错误'});
+//                                 }
+//                             });
+//                         }
+//                        });
+
+//             }
+//             var styleOptions = {
+//                         strokeColor:pipeColorArray[i],    //边线颜色。
+//                         fillColor:"",      //填充颜色。当参数为空时，圆形将没有填充效果。
+//                         strokeWeight: pipeWidthArray[i],       //边线的宽度，以像素为单位。
+//                         strokeOpacity: 0.8,    //边线透明度，取值范围0 - 1。
+//                         fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+//                         //icons:[icons],
+//                         strokeStyle: pipeTypeArray[i] //边线的样式，solid或dashed。
+//             }
+
+//             var polyline = new BMap.Polyline(drawPoint,styleOptions);
+//             map.addOverlay(polyline);   //增加折线
+//             //addPolylineClickHandler(polyline)
+//             var polylineMenu=new BMap.ContextMenu();
+//             polylineMenu.addItem(new BMap.MenuItem('删除',removeTrackPolyline.bind(polyline)));
+//             polylineMenu.addItem(new BMap.MenuItem('修改',alterTrackPolyline.bind(polyline)));
+//             polylineMenu.addItem(new BMap.MenuItem('保存',saveTrackPolyline.bind(polyline)));
+//             polyline.addContextMenu(polylineMenu);
+
+//         }
+//     break;
+
+//     }
+
+
+// }
+
+
+
+
+
   }
+  //子组件关闭模态框
+  closeModal=()=>{
+    this.setState({
+      visible:false
+    })
+    console.log(this.state.visible)
+  }
+
   measure()
   {
       var BMapLib = window.BMapLib//取出window中的BMap对象
@@ -190,12 +635,12 @@ class Gis extends Component {
       if(this.state.draw==="1"){
         return(
         //  <LineForm ref="getFormVlaue"/>
-         <LineForm wrappedComponentRef={(form) => this.formRef = form} />
+         <LineForm wrappedComponentRef={(form) => this.formRef = form} onClick={this.closeModal.bind(this)}/>
         )
       }
       else if(this.state.draw==="2"){
         return(
-        <InspectionForm ref="getFormVlaue"/>
+        <InspectionForm ref="getFormVlaue" onClick={this.closeModal.bind(this)}/>
         )
       }
     }
@@ -219,10 +664,6 @@ class Gis extends Component {
     this.setState({
       employee: true,
     });
-   }
-
-   inspectionChange=()=>{
-
    }
 
    //取消后巡检模态框隐藏
@@ -279,10 +720,11 @@ class Gis extends Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+
         >
           <Radio.Group onChange={this.modalChange} value={draw}>
             <Radio value="1">绘制管廊</Radio>
-            <Radio value="2">绘制巡检路线</Radio>
+            {/* <Radio value="2">绘制巡检路线</Radio> */}
           </Radio.Group>   
          {this.formChoose()}
         </Modal>

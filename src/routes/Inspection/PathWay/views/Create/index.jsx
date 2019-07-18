@@ -22,7 +22,7 @@ class PathWayNew extends Component{
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/info/inspectionPath?id=${id}`)
+      axios.get(`/api/v1/info/inspectionPath?id=${id}&user_id=6`)
         .then((res) => {
           this.setState({planWayDetail:res.data})
         })
@@ -43,10 +43,10 @@ class PathWayNew extends Component{
     } = this.props
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
-    if(!getFieldValue('area')){
+    if(!getFieldValue('area_belong')){
       message.error('请选择所属区域')
     }
-    if(!getFieldValue('pipe_gallery')){
+    if(!getFieldValue('pipe_belong')){
       message.error('请选择所属管廊')
     }
     if(!getFieldValue('startpoint')){
@@ -159,7 +159,7 @@ class PathWayNew extends Component{
                 label="所属区域"
               >
                 {getFieldDecorator('area',{
-                  initialValue: id && planWayDetail.area,
+                  initialValue: id && planWayDetail.area_belong,
                   rules:[{
                     required:true,
                     message:"请选择所属区域",
@@ -178,7 +178,7 @@ class PathWayNew extends Component{
                 label="所属管廊"
               >
                 {getFieldDecorator('pipe_gallery',{
-                  initialValue: id && planWayDetail.pipe_gallery,
+                  initialValue: id && planWayDetail.pipe_belong,
                   rules:[{
                     required:true,
                     message:"请选择所属管廊",

@@ -9,7 +9,7 @@ const { RangePicker } = DatePicker;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
 const Search = Input.Search;
-
+var user_id=window.sessionStorage.getItem("user_id")
 class InspectionPlan extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +35,7 @@ class InspectionPlan extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size,inspection_person } = this.state;
-    axios.get(`/api/v1/info/inspectionPlanByPage?limit=${size}&page=${page}&inspection_person=${inspection_person}`)
+    axios.get(`/api/v1/info/inspectionPlanByPage?limit=${size}&page=${page}&inspection_person=${inspection_person}&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -75,7 +75,7 @@ class InspectionPlan extends Component {
 
   //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/plan?id=${record.id}`)
+    axios.delete(`/api/v1/info/plan?id=${record.id}&user_id=${user_id}`)
     .then(() => {
         this.getGroupList(this.state.nowCurrent)
     })

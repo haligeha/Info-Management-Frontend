@@ -3,11 +3,14 @@ import {Button,Form,Input,Select,Icon,message} from 'antd';
 import { Link } from 'react-router-dom';
 import IndexView from '../../routes';
 import HeaderLayout from '../HeaderLayout';
+import LowerHeaderLayout from '../LowerHeaderLayout';
+import HigherHeaderLayout from '../HigherHeaderLayout';
 import { Layout,} from 'antd';
 import './index.styl'
 import axios from 'axios';
 import Background from './img/1.jpg'
 
+var user_id=window.sessionStorage.getItem("user_id")
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
@@ -26,7 +29,7 @@ class Login extends React.Component{
             username:'',
             password:'',
             token:'',
-            showContent:true,
+            showContent:false,
         }
     }
      
@@ -35,29 +38,29 @@ class Login extends React.Component{
       this.setState({showContent:true});    
     }
 
-    //设置cookie
-    setCookie(cname, cvalue, exdays) {
-      var d = new Date();
-      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-      var expires = "expires=" + d.toUTCString();
-      document.cookie = cname + "=" + cvalue + "; " + expires;
-    }
+    // //设置cookie
+    // setCookie(cname, cvalue, exdays) {
+    //   var d = new Date();
+    //   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    //   var expires = "expires=" + d.toUTCString();
+    //   document.cookie = cname + "=" + cvalue + "; " + expires;
+    // }
 
-    //获取cookie
-    getCookie(cname){
-      var name = cname + "=";
-      var ca = document.cookie.split(';');
+    // //获取cookie
+    // getCookie(cname){
+    //   var name = cname + "=";
+    //   var ca = document.cookie.split(';');
 
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
+    //   for (var i = 0; i < ca.length; i++) {
+    //     var c = ca[i];
 
-        while (c.charAt(0) == ' ') c = c.substring(1);
-        if (c.indexOf(name) != -1){
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
+    //     while (c.charAt(0) == ' ') c = c.substring(1);
+    //     if (c.indexOf(name) != -1){
+    //       return c.substring(name.length, c.length);
+    //     }
+    //   }
+    //   return "";
+    // }
  
     //连接登陆接口并设置username,password和token的cookie
     handleSubmit = (e) => {
@@ -75,13 +78,19 @@ class Login extends React.Component{
       if(!getFieldValue('password')){
         message.error('请输入密码')
       }
-      rea.setCookie("username",values.username,7000)
-      rea.setCookie("password",values.password,7000)
+   //   rea.setCookie("username",values.username,7000)
+      window.sessionStorage.setItem("username",values.username);
+  //    rea.setCookie("password",values.password,7000)
+      window.sessionStorage.setItem("password",values.password);
+
       axios.post('/api/v1/user/login', values)
       .then(function (response) {
         if(response.status === 200){
           message.info('登陆成功')
-          rea.setCookie("token",response.data.access_token,7000)
+      //    rea.setCookie("token",response.data.access_token,7000)
+          window.sessionStorage.setItem("token",response.data.access_token);
+          window.sessionStorage.setItem("user_id",response.data.user_id);
+    //      rea.setCookie("user_id",values.user_id,7000)
           rea.login()
         }
       })
@@ -93,6 +102,7 @@ class Login extends React.Component{
     render() {
         const { getFieldDecorator } = this.props.form;
         const { showContent } = this.state;
+        const condition='user_id===8';
         return (
           <div className="content">
             {!showContent &&
@@ -143,12 +153,23 @@ class Login extends React.Component{
             }
              
             {showContent &&
-            <div>
-                <HeaderLayout/>
-                    <Content className={'content-layout'}>
-                        <IndexView/>
-                </Content>
-            </div>
+              (condition?<div>
+                     <HigherHeaderLayout/>
+                         <Content className={'content-layout'}>
+                             <IndexView/>
+                     </Content>
+                 </div>:<div>
+                <LowerHeaderLayout/>
+                     <Content className={'content-layout'}>
+                         <IndexView/>
+                 </Content>
+             </div>)
+            // <div>
+            //     <HeaderLayout/>
+            //         <Content className={'content-layout'}>
+            //             <IndexView/>
+            //     </Content>
+            // </div>
                 
             }
           </div>

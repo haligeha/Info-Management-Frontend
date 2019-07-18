@@ -6,7 +6,7 @@ import moment from 'moment';
 import { stringify } from 'querystring';
 const Option = Select.Option;
 const dateFormat = 'YYYY-MM-DD';
-
+var user_id=window.sessionStorage.getItem("user_id")
 class PlanNew extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class PlanNew extends Component {
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/info/planById?id=${id}`)
+      axios.get(`/api/v1/info/planById?id=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({planDetail:res.data})
         })
@@ -37,18 +37,18 @@ class PlanNew extends Component {
 
   //获取巡检线路信息
   getPath=()=>{
-    axios.get(`/api/v1/info/allPath`)
+    axios.get(`/api/v1/info/allPath?user_id=${user_id}`)
     .then((res) => {
         if(res && res.status === 200){
-            const pipeArr=res.data.data
+            const pipeArr=res.data
             const pipe=[]
-            const children=[]
-            pipeArr.forEach(function(item){
-                pipe.push(item.name)
+            const childPipe=[]
+            pipeArr.forEach(function(items){
+                pipe.push(items.number)
               })
             for(var i=0;i<pipe.length;i++)
-            children.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
-            this.setState({pathBelong:children})
+            childPipe.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
+            this.setState({pathBelong:childPipe})
         }
       })
       .catch(function (error) {
@@ -59,7 +59,7 @@ class PlanNew extends Component {
 
   //获取人员信息
   getInspectionPeople=()=>{
-    axios.get(`/api/v1/info/allStaff`)
+    axios.get(`/api/v1/info/allStaff?&user_id=${user_id}`)
     .then((res) => {
         if(res && res.status === 200){
             const personArr=res.data
@@ -116,7 +116,7 @@ class PlanNew extends Component {
     if(id){
         values.id=id
         values.number=planDetail.number
-        axios.put('/api/v1/info/plan', values)
+        axios.put('/api/v1/info/plan?user_id='+user_id, values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('编辑成功')
@@ -128,7 +128,7 @@ class PlanNew extends Component {
         });
     }else{
         values.status = '未完成'
-        axios.post('/api/v1/info/plan', values)
+        axios.post('/api/v1/info/plan?user_id='+user_id, values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('创建成功')
@@ -208,28 +208,28 @@ class PlanNew extends Component {
                 label="巡检时间"
               >
                 {getFieldDecorator('inspection_date',{
-               //   initialValue: id && moment(moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'),'YYYY-MM-DD'),
-               initialValue:id && moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'), 
+                  initialValue: id && moment(moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'),'YYYY-MM-DD'),
+              // initialValue:id && moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'), 
                rules:[{
                     required:true,
                     message:"请选择巡检时间",
                   }]
                 })(
-                  //   <DatePicker
-                  //   dateRender={current => {
-                  //     const style = {};
-                  //     if (current.date() === 1) {
-                  //       style.border = '1px solid #1890ff';
-                  //       style.borderRadius = '50%';
-                  //     }
-                  //     return (
-                  //       <div className="ant-calendar-date" style={style}>
-                  //         {current.date()}
-                  //       </div>
-                  //     );
-                  //   }}
-                  // />
-                    <Input placeholder="请输入巡检时间" />
+                    <DatePicker
+                    dateRender={current => {
+                      const style = {};
+                      if (current.date() === 1) {
+                        style.border = '1px solid #1890ff';
+                        style.borderRadius = '50%';
+                      }
+                      return (
+                        <div className="ant-calendar-date" style={style}>
+                          {current.date()}
+                        </div>
+                      );
+                    }}
+                  />
+                  // <Input placeholder="请输入巡检时间" />
                 )}  
               </Form.Item>
               <Form.Item

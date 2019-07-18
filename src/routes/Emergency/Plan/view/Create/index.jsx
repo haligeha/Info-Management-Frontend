@@ -1,10 +1,11 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Form,Input,Select,Button,message, Upload, notification,Icon } from 'antd';
+import { Form,Input,Select,Button,message, Upload, notification,Icon,Popconfirm, } from 'antd';
 import { SELECT_EMERGENCY_PLAN_LEVEL } from '../../config';
 import axios from 'axios';
 import './index.styl'
 
+var value=window.sessionStorage.getItem("user_id")
 class EmergencyNew extends Component {
   constructor(props) {
     super(props);
@@ -18,8 +19,10 @@ class EmergencyNew extends Component {
 
   componentDidMount(){
     const {match : { params : { id } }} = this.props
+   
+    console.log(value)
     if(id){
-      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}`)
+      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}&user_id=${value}`)
         .then((res) => {
           this.setState({planDetail:res.data})
         })
@@ -28,6 +31,7 @@ class EmergencyNew extends Component {
         });
     }
   }
+  
   //创建入廊作业
   handleSubmit = (e) => {
     e.preventDefault()
@@ -39,6 +43,8 @@ class EmergencyNew extends Component {
     console.log(this.props)
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
+    var path=this.state.url
+    var str1 = path.replace('.', '/');
     if(!getFieldValue('level')){
       message.error('请选择预案级别')
     }
@@ -66,8 +72,8 @@ class EmergencyNew extends Component {
     values.release_date = new Date()
     if(id){
       values.emergency_id=id
-      values.content=this.state.url
-      axios.put('/api/v1/info/emergency', values)
+      values.content=str1
+      axios.put('/api/v1/info/emergency?user_id='+value, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('编辑成功')
@@ -77,9 +83,10 @@ class EmergencyNew extends Component {
         .catch(function (error) {
           console.log(error);
         });
+        console.log(this.state.fileList)
     }else{
-      values.content=this.state.url
-      axios.post('/api/v1/info/emergency', values)
+      values.content=str1
+      axios.post('/api/v1/info/emergency?user_id='+value, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('创建成功')
@@ -90,9 +97,22 @@ class EmergencyNew extends Component {
           console.log(error);
         });
     }
-    
   }
 
+  //文件下载
+  downLoadFile=()=>{
+    const {
+      form,
+      history,
+    } = this.props
+    var path=this.state.url
+    var str1 = path.replace('.', '/');
+    console.log(str1)
+    const { getFieldValue } = form;
+    const values = form.getFieldsValue()
+    console.log(values.content)
+    window.open('/api/v1/info/download/'+values.content+'?user_id=6');
+  }
   // beforeUpload=(file)=>{
   //   const{size}=file
   //   const fileSize = size/(1024*1024)
@@ -105,35 +125,35 @@ class EmergencyNew extends Component {
   //   }
   // }
 
-  // deleteFile = ()=>{
-  //   this.setState({uploadFilesName:'还未选择文件'})
+  //文件展示
+  // showFile=(i)=>{
+  //   axios.get('/api/v1/info/showFile/'+i+'/0')
+  //   .then((res) => {
+  //     console.log(res.data.filenames);
+  //     return (
+  //       <Icon type="file">{res.data.filenames}</Icon>
+  //     )
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
   // }
-  
-  // handleChange = info => {
-  //   const file = info.file
-  //   console.log(this.state)
-  //   if(file.status == 'uploading' && this.state.loading == false){
-  //     this.setState({ loading:true })
-  //   }
-  //   if(file.status == 'done'){
-  //     if(file.response && file.response.status== 10000){
-  //       notification.succss({
-  //         message:`${file.name}上传成功`,
-  //       })
-  //       this.setState({userTagId:file.response.data.upLoadFileId,uploadFilesName:file.name})
-  //     }else{
-  //       notification.error({
-  //         message:`${file.name}上传失败`
-  //       })
-  //     }
-  //     this.setState({loading:false})
-  //   }else if(info.file.status == 'error'){
-  //     this.setState({loading:false})
-  //     notification.error({
-  //       message:`${file.name}上传失败`
-  //     })
-  //   }
-  // }
+
+  removeFile=()=>{
+    const {
+      form,
+    } = this.props
+    const { getFieldValue } = form;
+    const values = form.getFieldsValue()
+    console.log(values.content)
+    axios.delete(`/api/v1/info/delete/`+values.content+'?user_id=6')
+      .then(() => {
+        message.success(`删除成功！`);
+      })
+      .catch( (err) => {
+        message.error(`请上传文件！`);
+      });
+  }
 
   render() {
     const createFormItemLayout = {
@@ -145,38 +165,44 @@ class EmergencyNew extends Component {
       match : { params : { id } }
     } = this.props
     const { planDetail} = this.state
-    // const filename=this.props.form.getFieldValue('name')
-    // const fileName={id?filename:}
     const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail. name 
-    console.log(fileName)
     const uploadProps={
-      action:`/api/v1/info/uploadFile?type=0&name=${fileName}`,
+      action:`/api/v1/info/uploadFile?type=0&name=${fileName}&user_id=6`,
       onChange:(info)=>{
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        } if (info.file.status === 'done') {
-        message.success(`${info.file.name} 上传成功！`);
-           this.setState({
-             file:info.file,
-             fileList:info.fileList,
-             url:fileName/0/info.file.name,
-           })
+        // if (info.file.status !== 'uploading') {
+        //   console.log(info.file, info.fileList);
+        // } 
+        if (info.file.status == 'uploading') {
+            console.log(info.file, info.fileList);
+            this.setState({
+              file:info.file,
+              fileList:info.fileList,
+              url:fileName+"/0/"+info.file.name,
+            })
+        } 
+        else if (info.file.status === 'done') {
+        
+       } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} 上传失败！`);
        }
-
+       else{
+         console.log(info.file.status)
+       }
+       return  uploadProps;
       },
-      onRemove:()=>{
-        this.setState({
-          fileList:[],
-          uploadPath : ''
-        })
-        axios.delete(`/api/v1/info/delete/${fileName}/0/${this.file.name}/doc`)
-        .then(() => {
-          this.getGroupList(this.state.nowCurrent)
-        })
-        .catch( (err) => {
-          console.log(err);
-        });
-    }   
+    //   onRemove:()=>{
+    //     this.setState({
+    //       fileList:[],
+    //       uploadPath : ''
+    //     })
+    //     axios.delete(`/api/v1/info/delete/${fileName}/0/${this.file.name}/doc`)
+    //     .then(() => {
+    //       this.getGroupList(this.state.nowCurrent)
+    //     })
+    //     .catch( (err) => {
+    //       console.log(err);
+    //     });
+    // }   
   };
   
     
@@ -270,23 +296,28 @@ class EmergencyNew extends Component {
                  //   required:true,
                     message:"请输入预案内容",
                   }]
-                })(
-                  <Upload
-                  className="upload"
-                  accept=".pdf,.doc"
-                  {...uploadProps}
-                  defaultFileList={this.state.uploadFiles} 
-                  beforeUpload={this.beforeUpload}
-                  previewFile={this.preview}
-                  // onRemove = {this.removeFile}   //移除文件事件
-                  >
-                    {/* <Popconfirm placement="top" title={text} onConfirm={this.replace} okText="Yes" cancelText="No"> */}
+                })(    
+                  <div>         
+                    <Upload
+                    className="upload"
+                    accept=".pdf,.doc"
+                    {...uploadProps}
+                    defaultFileList={this.state.uploadFiles} 
+                    previewFile={this.preview}
+                    onRemove = {this.removeFile}   //移除文件事件
+                    // fileList={this.state.fileList}
+                    >
                       <Button>
-                        <Icon type="upload" />上传文件
-                      </Button>
-                    {/* </Popconfirm> */}
-                  </Upload>
-                  // <Input placeholder="请输入发布单位" />
+                       <Icon type="upload"/>上传文件
+                      </Button>      
+                    </Upload>
+                    <Button onClick={this.downLoadFile}>
+                      <Icon type="download"/>下载文件
+                    </Button>
+                    <Button onClick={this.removeFile}>
+                      <Icon type="delete"/>文件删除
+                    </Button>
+                 </div>
                 )}  
               </Form.Item>
               <Form.Item
