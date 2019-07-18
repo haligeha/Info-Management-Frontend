@@ -1,0 +1,14 @@
+export const SELECT_SHELTER_CATEGORY_ONE = '0';
+export const SELECT_SHELTER_CATEGORY_TWO = '1';
+export const SELECT_SHELTER_CATEGORY_THREE = '2';
+
+export const SELECT_SHELTER_CATEGORY_MAP ={
+  [SELECT_SHELTER_CATEGORY_ONE]: '基础设备',
+  [SELECT_SHELTER_CATEGORY_TWO]: '干粉灭火器',
+  [SELECT_SHELTER_CATEGORY_THREE]: '泡沫灭火器'
+}
+
+export const SELECT_SHELTER_CATEGORY = Object.keys(SELECT_SHELTER_CATEGORY_MAP).map(cur => ({
+  id:cur,
+  name:SELECT_SHELTER_CATEGORY_MAP[cur]
+}));

@@ -10,7 +10,7 @@ import axios from 'axios';
 import moment from 'moment';
 const FormItem = Form.Item;
 const FIRST_PAGE = 0;
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
   
 class Homework extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class Homework extends Component {
       });
   }
   //分页
-  handlePageChagne = (page) => {
+  handlePageChange = (page) => {
     this.getGroupList(page-1)
   }
   //搜索
@@ -76,7 +76,7 @@ class Homework extends Component {
     const size = limit
     return (
       <div className="report-page">
-        <PageTitle titles={['巡检维护','入廊作业']}>
+        <PageTitle titles={['入廊作业','入廊作业']}>
           {
             <Link to="/entrance/work/new">
               <Button type="primary"> + 添加入廊作业</Button>
@@ -116,7 +116,7 @@ class Homework extends Component {
             current,
             total,
             pageSize: size,
-            onChange: this.handlePageChagne,
+            onChange: this.handlePageChange,
             showTotal: () => `共${allCount} 条数据`
           }}
           dataSource={data}

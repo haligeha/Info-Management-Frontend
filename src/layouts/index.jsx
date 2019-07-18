@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import IndexView from '../routes';
+import RouteView from '../routes';
 import HeaderLayout from './HeaderLayout';
 import Login from './Login'
 import { Layout,} from 'antd';

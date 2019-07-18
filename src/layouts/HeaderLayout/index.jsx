@@ -79,7 +79,7 @@ class HeaderLayout extends Component {
             {
               id:'32',
               name:'应急资源',
-              url:'/emergency/resource/work'
+              url:'/emergency/resource/material'
             },
             {
               id:'33',
@@ -101,7 +101,7 @@ class HeaderLayout extends Component {
             {
               id:'42',
               name:'作业审批',
-              url:'/entrance/work'
+              url:'/entrance/approval'
             },
           ]
         }, {

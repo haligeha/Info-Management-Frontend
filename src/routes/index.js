@@ -93,7 +93,7 @@ class RouteView extends Component{
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "EntranceWork" */
-              './Inspection/EntranceWork'),
+              './EntranceWork/EntranceWork'),
             loading: Loading
           })}
         />
