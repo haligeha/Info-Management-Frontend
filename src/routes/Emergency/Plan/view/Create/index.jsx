@@ -155,13 +155,13 @@ class EmergencyNew extends Component {
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
         } if (info.file.status === 'done') {
-        message.success(`${info.file.name} 上传成功！`);
-           this.setState({
-             file:info.file,
-             fileList:info.fileList,
-             url:fileName/0/info.file.name,
-           })
-       }
+          message.success(`${info.file.name} 上传成功！`);
+          this.setState({
+            file:info.file,
+            fileList:info.fileList,
+            url:fileName/0/info.file.name,
+          })
+        }
 
       },
       onRemove:()=>{
@@ -170,14 +170,14 @@ class EmergencyNew extends Component {
           uploadPath : ''
         })
         axios.delete(`/api/v1/info/delete/${fileName}/0/${this.file.name}/doc`)
-        .then(() => {
-          this.getGroupList(this.state.nowCurrent)
-        })
-        .catch( (err) => {
-          console.log(err);
-        });
-    }   
-  };
+          .then(() => {
+            this.getGroupList(this.state.nowCurrent)
+          })
+          .catch( (err) => {
+            console.log(err);
+          });
+      }   
+    };
   
     
     return (
@@ -192,7 +192,7 @@ class EmergencyNew extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-                <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="预案级别"
               >
@@ -237,7 +237,7 @@ class EmergencyNew extends Component {
                 label="预案类别"
               >
                 {getFieldDecorator('category',{
-                   initialValue: id && planDetail.category,
+                  initialValue: id && planDetail.category,
                   rules:[{
                     required:true,
                     message:"请输入预案类别",
@@ -267,23 +267,23 @@ class EmergencyNew extends Component {
                 {getFieldDecorator('content',{
                   initialValue: id && planDetail.content,
                   rules:[{
-                 //   required:true,
+                    //   required:true,
                     message:"请输入预案内容",
                   }]
                 })(
                   <Upload
-                  className="upload"
-                  accept=".pdf,.doc"
-                  {...uploadProps}
-                  defaultFileList={this.state.uploadFiles} 
-                  beforeUpload={this.beforeUpload}
-                  previewFile={this.preview}
+                    className="upload"
+                    accept=".pdf,.doc"
+                    {...uploadProps}
+                    defaultFileList={this.state.uploadFiles} 
+                    beforeUpload={this.beforeUpload}
+                    previewFile={this.preview}
                   // onRemove = {this.removeFile}   //移除文件事件
                   >
                     {/* <Popconfirm placement="top" title={text} onConfirm={this.replace} okText="Yes" cancelText="No"> */}
-                      <Button>
-                        <Icon type="upload" />上传文件
-                      </Button>
+                    <Button>
+                      <Icon type="upload" />上传文件
+                    </Button>
                     {/* </Popconfirm> */}
                   </Upload>
                   // <Input placeholder="请输入发布单位" />

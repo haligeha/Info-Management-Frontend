@@ -49,7 +49,7 @@ class EmergencyDetail extends Component {
       dataSource.push(release_number)
       dataSource.push(issued)
       dataSource.push(signer)
-     return dataSource;
+      return dataSource;
     }
     const Title = ({ title }) => (
       <div className="title-container">
@@ -62,12 +62,12 @@ class EmergencyDetail extends Component {
       <div>
         <PageTitle titles={['应急指挥','应急预案','详情']} />
         <div className="listBox">
-        <Title title="基本信息"></Title>
-        <List
-          size="large"
-          dataSource={data(planDetail)}
-          renderItem={item => <List.Item>{item}</List.Item>}
-        />
+          <Title title="基本信息"></Title>
+          <List
+            size="large"
+            dataSource={data(planDetail)}
+            renderItem={item => <List.Item>{item}</List.Item>}
+          />
         </div>
       </div>
     );

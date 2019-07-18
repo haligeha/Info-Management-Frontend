@@ -69,10 +69,9 @@ class EmergencyPlan extends Component {
           // <Link to={`/monitor/device/edit/${data.DeivceId}`}>
           //   <Icon type="edit"/>
           // </Link>,     
-          <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
-            _target="blank">
-            <Icon type="edit"/>
-          </a>,     
+            <a href="http://39.104.84.131/thingsTenantManager#/deviceList" _target="blank">
+              <Icon type="edit"/>
+            </a>,     
             // <Icon type="delete"
             //   onClick={()=> {
             //   const {
