@@ -51,14 +51,14 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        {/* <Route
+        <Route
           path="/monitor/video"
           component={Loadable({
             loader: () => import(
               './Monitor/Video'),
             loading: Loading
           })}
-        /> */}
+        />
         <Route    
           path="/inspection/plan"
           component={Loadable({
