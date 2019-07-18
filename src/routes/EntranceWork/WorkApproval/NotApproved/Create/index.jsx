@@ -3,7 +3,7 @@ import {PageTitle,Module} from '../../../../../components' ;
 import axios from 'axios';
 import {Button,Form,Input,message} from 'antd';
 
-
+const user_id = window.sessionStorage.getItem("user_id");
 class ApprovedNew extends Component{
   constructor(props) {
     super(props);
@@ -36,7 +36,7 @@ class ApprovedNew extends Component{
       .then(function(response){
         if(response.status === 200){
           message.info('新建审批成功')
-          axios.put(`/api/v1/user/agreeReservePlan?id=${values.planId}`)
+          axios.put(`/api/v1/user/agreeReservePlan?id=${values.planId}&user_id=${user_id}`)
             .then(function(respose){
               message.info('审批成功')
               history.push('/entrance/approval')
@@ -79,7 +79,7 @@ class ApprovedNew extends Component{
       .then(function(response){
         if(response.status === 200){
           message.info('新建审批成功')
-          axios.put(`/api/v1/user/disagreeReservePlan?id=${values.planId}`)
+          axios.put(`/api/v1/user/disagreeReservePlan?id=${values.planId}&user_id=${user_id}`)
             .then(function(respose){
               message.info('审批成功')
               history.push('/entrance/approval')

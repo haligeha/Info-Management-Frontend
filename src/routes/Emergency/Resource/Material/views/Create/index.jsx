@@ -4,6 +4,7 @@ import {Button,Form,Input,Select,message} from 'antd';
 import { SELECT_MATERIAL_CATEGORY } from '../../configs';
 import './index.styl'
 import axios from 'axios';
+const user_id = window.sessionStorage.getItem("user_id");
 class MaterialNew extends Component{
   constructor(props){
     super(props);
@@ -16,7 +17,7 @@ class MaterialNew extends Component{
   componentDidMount() {
     const {match : {params : {id}}} = this.props
     if(id){
-      axios.get(`/api/v1/info/supplies?supplyId=${id}`)
+      axios.get(`/api/v1/info/supplies?supplyId=${id}&user_id=${user_id}`)
         .then((res)=>{
           this.setState({materialDetail:res.data})
         })

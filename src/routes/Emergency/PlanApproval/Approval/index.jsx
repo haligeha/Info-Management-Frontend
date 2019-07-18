@@ -4,6 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 const FIRST_PAGE = 1;
 const PAGE_SIZE = 10;
+const user_id = window.sessionStorage.getItem("user_id");
 class Approved extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,7 @@ class Approved extends Component {
     this.getGroupList();
   }
   getGroupList = () => {
-    axios.get('/api/v1/user/alreadyReservePlan')
+    axios.get('/api/v1/user/alreadyReservePlan?user_id='+user_id)
       .then((res)=>{
         if(res&&res.status === 200){
           console.log('====================================');

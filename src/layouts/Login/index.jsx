@@ -15,7 +15,7 @@ var user_id=window.sessionStorage.getItem("user_id")
 var sectionStyle = {
   width: "100%",
   height:"700px",
-// makesure here is String确保这里是一个字符串，以下是es6写法
+  // makesure here is String确保这里是一个字符串，以下是es6写法
   backgroundImage: `url(${Background})`,
 
 };
@@ -31,7 +31,7 @@ class Login extends React.Component{
             token:'',
             showContent:false,
         }
-    }
+  }
      
     //设置状态完成跳转
     login=()=>{
@@ -109,48 +109,48 @@ class Login extends React.Component{
               <div className="backgroundPic" style={sectionStyle}>
                 <div className="bg1"></div>
                 <Form className="login-form"
-                onSubmit={this.handleSubmit}
-                 >
-                <div className="gyl">
+                  onSubmit={this.handleSubmit}
+                >
+                  <div className="gyl">
                         智慧管廊管理系统
                         
                     <div className="gy2" >打造国内最具规模的、最专业的管廊管理服务平台 </div>   
-                </div>
-                <div className="bg">
-                  <div className="wel">用户登录</div>			
-                      <div className="user">
-                          <div id="yonghu">用户名&nbsp;</div>
-                          <Form.Item
-                            >
-                              {getFieldDecorator('username',{
-                                rules:[{
-                                  required:true,
-                                  message:"请输入用户名",
-                                }]
-                              })(
-                                <Input className="inputClass" type="text"/>
-                              )}  
-                            </Form.Item>
-                      </div>
-                      <div className="password" >
-                        <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
-                        <Form.Item
-                            >
-                              {getFieldDecorator('password',{
-                                rules:[{
-                                  required:true,
-                                  message:"请输入密码",
-                                }]
-                              })(
-                                <Input className="inputClass" type="password"/>
-                              )}  
-                            </Form.Item>
-                      </div>
-                      <Button className="btn" htmlType="submit" type="primary">登陆</Button>
                   </div>
-                  </Form>
-                </div>
-            }
+                  <div className="bg">
+                    <div className="wel">用户登录</div>			
+                    <div className="user">
+                      <div id="yonghu">用户名&nbsp;</div>
+                      <Form.Item
+                      >
+                        {getFieldDecorator('username',{
+                          rules:[{
+                            required:true,
+                            message:"请输入用户名",
+                          }]
+                        })(
+                          <Input className="inputClass" type="text"/>
+                        )}  
+                      </Form.Item>
+                    </div>
+                    <div className="password" >
+                      <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
+                      <Form.Item
+                      >
+                        {getFieldDecorator('password',{
+                          rules:[{
+                            required:true,
+                            message:"请输入密码",
+                          }]
+                        })(
+                          <Input className="inputClass" type="password"/>
+                        )}  
+                      </Form.Item>
+                    </div>
+                    <Button className="btn" htmlType="submit" type="primary">登陆</Button>
+                  </div>
+                </Form>
+              </div>
+          }
              
             {showContent &&
               (condition?<div>
@@ -171,11 +171,11 @@ class Login extends React.Component{
             //     </Content>
             // </div>
                 
-            }
-          </div>
+          }
+        </div>
           
-        )
-      }
+      )
+    }
     
 }
 

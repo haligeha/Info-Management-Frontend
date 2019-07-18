@@ -6,7 +6,7 @@ import BasicInfo from './BasicInfo';
 import axios from 'axios';
 import './index.styl';
 //import { resolveModuleName } from '_typescript@2.9.2@typescript';
-
+const user_id = window.sessionStorage.getItem("user_id");
 class EntranceWorkDetail extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,7 @@ class EntranceWorkDetail extends Component {
     const {
       match : { params : { id } } 
     }= this.props
-    axios.get(`/api/v1/info/entranceWorkById?entranceId=${id}`)
+    axios.get(`/api/v1/info/entranceWorkById?entranceId=${id}&user_id=${user_id}`)
       .then((res) => {
         const arr = []
         arr.push(res.data)

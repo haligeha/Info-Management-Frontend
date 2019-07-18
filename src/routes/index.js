@@ -2,7 +2,6 @@ import React, { Component, } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
-
 const Loading = () => {
   return (
     <div className="loading">
@@ -25,7 +24,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-         {/* <Route
+        {/* <Route
           path="/login" 
           component={Loadable({
             loader: () => import(
@@ -49,6 +48,14 @@ class RouteView extends Component{
             loader: () => import(
               /* webpackChunkName: "Gis" */
               './Monitor/Gis'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/monitor/video"
+          component={Loadable({
+            loader: () => import(
+              './Monitor/Video'),
             loading: Loading
           })}
         />
@@ -116,15 +123,15 @@ class RouteView extends Component{
           })}
         />
         
-        <Route    
+        {/* <Route    
           path="/emergency/resource/work"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Resource" */
+              
               './Emergency/Resource'),
             loading: Loading
           })}
-        />
+        /> */}
         <Route
           path="/emergency/approval"
           component={Loadable({
@@ -134,7 +141,51 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        
+        <Route
+          path="/emergency/resource/material"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PlanApproval" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/emergency/resource/equipment"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PlanApproval" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/emergency/resource/team"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PlanApproval" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/emergency/resource/shelter"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PlanApproval" */
+              './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        {/* <Route
+          path="/emergency/alarm"
+          component={Loadable({
+            loader: () => import(
+             
+              './Emergency/Alarm'),
+            loading: Loading
+          })}
+        /> */}
         <Route    
           path="/entrance/work"
           component={Loadable({
@@ -145,11 +196,11 @@ class RouteView extends Component{
           })}
         />
         <Route
-          path="/entrance/work/approval"
+          path="/entrance/approval"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "EntranceWork" */
-              './EntranceWork/EntranceWork'),
+              './EntranceWork/WorkApproval'),
             loading: Loading
           })}
         />

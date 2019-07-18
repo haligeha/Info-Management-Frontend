@@ -4,6 +4,7 @@ import {Button,Form,Input,Select,message} from 'antd';
 import { SELECT_EQUIPMENT_CATEGORY } from '../../configs';
 import './index.styl'
 import axios from 'axios';
+const user_id = window.sessionStorage.getItem("user_id");
 class EquipmentNew extends Component{
   constructor(props){
     super(props);
@@ -16,7 +17,7 @@ class EquipmentNew extends Component{
   componentDidMount() {
     const {match : {params : {id}}} = this.props
     if(id){
-      axios.get(`/api/v1/info/equis?equisId=${id}`)
+      axios.get(`/api/v1/info/equis?equisId=${id}&user_id=${user_id}`)
         .then((res)=>{
           this.setState({equipmentDetail:res.data})
         })

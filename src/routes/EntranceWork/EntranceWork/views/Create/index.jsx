@@ -4,7 +4,7 @@ import { Form,Input,Select,Button,message } from 'antd';
 import { SELECT_HOME_WORK_NUM } from '../../configs';
 import axios from 'axios';
 import './index.styl'
-
+const user_id = window.sessionStorage.getItem("user_id");
 class EntranceWorkNew extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,7 @@ class EntranceWorkNew extends Component {
   componentDidMount(){
     const {match : { params : { id } }} = this.props
     if(id){
-      axios.get(`/api/v1/info/entranceWorkById?entranceId=${id}`)
+      axios.get(`/api/v1/info/entranceWorkById?entranceId=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({entranceDetail:res.data})
         })
@@ -50,7 +50,7 @@ class EntranceWorkNew extends Component {
     if(id){
       
       values.id = id
-      axios.put('/api/v1/info/entranceWork', values)
+      axios.put(`/api/v1/info/entranceWork?user_id=${user_id}`, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('编辑成功')
@@ -61,7 +61,7 @@ class EntranceWorkNew extends Component {
           console.log(error);
         });
     }else{
-      axios.post('/api/v1/info/entranceWork', values)
+      axios.post(`/api/v1/info/entranceWork?user_id=${user_id}`, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('创建成功')

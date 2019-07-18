@@ -4,7 +4,7 @@ import { Button,List } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import './index.styl'
-
+const user_id = window.sessionStorage.getItem("user_id");
 class EmergencyDetail extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,7 @@ class EmergencyDetail extends Component {
   componentDidMount(){
     const {match : { params : { id } }} = this.props
     if(id){
-      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}`)
+      axios.get(`/api/v1/info/emergencyById?emergencyId=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({planDetail:res.data})
         })

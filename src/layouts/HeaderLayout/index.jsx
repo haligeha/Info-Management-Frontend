@@ -23,11 +23,16 @@ class HeaderLayout extends Component {
             },
             {
               id:'12',
+              name:"实时监控",
+              url:'/monitor/video'
+            },
+            {
+              id:'13',
               name:'GIS地图',
               url:'/monitor/gis'
             },
             {
-              id:'13',
+              id:'14',
               name:'设备信息',
               url:'/monitor/device'
             }
@@ -73,8 +78,8 @@ class HeaderLayout extends Component {
           children:[
             {
               id:'31',
-              name:'应急预案',
-              url:'/emergency/plan'
+              name:"告警处理",
+              url:'/emergency/alarm'
             },
             {
               id:'32',
@@ -83,6 +88,12 @@ class HeaderLayout extends Component {
             },
             {
               id:'33',
+              name:'应急预案',
+              url:'/emergency/plan'
+            },
+            
+            {
+              id:'34',
               name:'预案审批',
               url:'/emergency/approval'
             },
@@ -190,7 +201,7 @@ class HeaderLayout extends Component {
           })
           }
           {/*为实现向外部跳转，单独罗列出的导航部分 */}
-            <SubMenu
+          <SubMenu
             key="sub1"
             className="custom-sub-menu"
             title={

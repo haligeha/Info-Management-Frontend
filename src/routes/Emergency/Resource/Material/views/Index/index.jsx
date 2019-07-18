@@ -8,7 +8,7 @@ import {Button,Table,Form,Row,Col,Select,Popconfirm} from 'antd';
 const FormItem = Form.Item;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
-
+const user_id = window.sessionStorage.getItem("user_id");
 
 class Material extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class Material extends Component {
   //配合分页和筛选条件获取信息
   getGroupList = (page)=>{
     const { size,category } = this.state;
-    axios.get(`/api/v1/info/emergencySuppliesByPage?limit=${size}&page=${page}&category=${category}`)
+    axios.get(`/api/v1/info/emergencySuppliesByPage?limit=${size}&page=${page}&category=${category}&user_id=${user_id}`)
       .then((res)=>{
         if(res&&res.status === 200){
           console.log(res);
@@ -54,7 +54,7 @@ class Material extends Component {
   }
   //删除
   deleteGroup = (record) =>{
-    axios.delete(`/api/v1/info/supplies?id=${record.supply_id}`)
+    axios.delete(`/api/v1/info/supplies?id=${record.supply_id}&user_id=${user_id}`)
       .then(()=>{
         this.getGroupList(this.state.nowCurrent)
       })

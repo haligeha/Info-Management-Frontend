@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import RouteView from '../routes';
 import HeaderLayout from './HeaderLayout';
+import RouteView from '../routes';
 import Login from './Login'
 import { Layout,} from 'antd';
 import './index.styl';
