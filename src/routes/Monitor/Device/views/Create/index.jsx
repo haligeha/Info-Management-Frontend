@@ -41,16 +41,16 @@ class DeviceNew extends Component {
       message.error('请输入设备编号')
     }
     if(!getFieldValue('PipeGallery')){
-        message.error('请选择管廊区域')
-      }
+      message.error('请选择管廊区域')
+    }
     if(!getFieldValue('Latitude')){
-        message.error('请输入设备经度')
+      message.error('请输入设备经度')
     }
     if(!getFieldValue('Longitude')){
-        message.error('请输入设备纬度')
+      message.error('请输入设备纬度')
     }
     if(!getFieldValue('Description')){
-        message.error('请输入描述说明')
+      message.error('请输入描述说明')
     }
     values.date = new Date()
     console.log(values)
@@ -66,7 +66,7 @@ class DeviceNew extends Component {
           console.log(error);
         });
     }else{
-        values.id=id
+      values.id=id
       axios.post('/api/v1/info/entranceWork', values)
         .then(function (response) {
           if(response.status === 200){

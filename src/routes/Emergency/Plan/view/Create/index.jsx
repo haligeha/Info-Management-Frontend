@@ -83,7 +83,7 @@ class EmergencyNew extends Component {
         .catch(function (error) {
           console.log(error);
         });
-        console.log(this.state.fileList)
+      console.log(this.state.fileList)
     }else{
       values.content=str1
       axios.post('/api/v1/info/emergency?user_id='+value, values)
@@ -173,22 +173,22 @@ class EmergencyNew extends Component {
         //   console.log(info.file, info.fileList);
         // } 
         if (info.file.status == 'uploading') {
-            console.log(info.file, info.fileList);
-            this.setState({
-              file:info.file,
-              fileList:info.fileList,
-              url:fileName+"/0/"+info.file.name,
-            })
+          console.log(info.file, info.fileList);
+          this.setState({
+            file:info.file,
+            fileList:info.fileList,
+            url:fileName+"/0/"+info.file.name,
+          })
         } 
         else if (info.file.status === 'done') {
-        
-       } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} 上传失败！`);
-       }
-       else{
-         console.log(info.file.status)
-       }
-       return  uploadProps;
+          console.log("done")
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} 上传失败！`);
+        }
+        else{
+          console.log(info.file.status)
+        }
+        return  uploadProps;
       },
     //   onRemove:()=>{
     //     this.setState({
@@ -203,7 +203,7 @@ class EmergencyNew extends Component {
     //       console.log(err);
     //     });
     // }   
-  };
+    };
   
     
     return (
@@ -218,7 +218,7 @@ class EmergencyNew extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-                <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="预案级别"
               >
@@ -263,7 +263,7 @@ class EmergencyNew extends Component {
                 label="预案类别"
               >
                 {getFieldDecorator('category',{
-                   initialValue: id && planDetail.category,
+                  initialValue: id && planDetail.category,
                   rules:[{
                     required:true,
                     message:"请输入预案类别",
@@ -293,22 +293,22 @@ class EmergencyNew extends Component {
                 {getFieldDecorator('content',{
                   initialValue: id && planDetail.content,
                   rules:[{
-                 //   required:true,
+                    //   required:true,
                     message:"请输入预案内容",
                   }]
                 })(    
                   <div>         
                     <Upload
-                    className="upload"
-                    accept=".pdf,.doc"
-                    {...uploadProps}
-                    defaultFileList={this.state.uploadFiles} 
-                    previewFile={this.preview}
-                    onRemove = {this.removeFile}   //移除文件事件
+                      className="upload"
+                      accept=".pdf,.doc"
+                      {...uploadProps}
+                      defaultFileList={this.state.uploadFiles} 
+                      previewFile={this.preview}
+                      onRemove = {this.removeFile}   //移除文件事件
                     // fileList={this.state.fileList}
                     >
                       <Button>
-                       <Icon type="upload"/>上传文件
+                        <Icon type="upload"/>上传文件
                       </Button>      
                     </Upload>
                     <Button onClick={this.downLoadFile}>
@@ -317,7 +317,7 @@ class EmergencyNew extends Component {
                     <Button onClick={this.removeFile}>
                       <Icon type="delete"/>文件删除
                     </Button>
-                 </div>
+                  </div>
                 )}  
               </Form.Item>
               <Form.Item

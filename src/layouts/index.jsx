@@ -16,6 +16,7 @@ class Layouts extends Component {
   render() {
     return (
       <Layout className={'layout custom-layout'}>
+
         <Login />
       </Layout>
     );

@@ -23,15 +23,16 @@ var sectionStyle = {
 const FormItem =  Form.Item;
 const { Content, } = Layout;
 class Login extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            username:'',
-            password:'',
-            token:'',
-            showContent:false,
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      username:'',
+      password:'',
+      token:'',
+      showContent:false,
+    }
   }
+  
      
     //设置状态完成跳转
     login=()=>{
@@ -86,81 +87,85 @@ class Login extends React.Component{
       if(!getFieldValue('password')){
         message.error('请输入密码')
       }
-   //   rea.setCookie("username",values.username,7000)
+      //   rea.setCookie("username",values.username,7000)
       window.sessionStorage.setItem("username",values.username);
-  //    rea.setCookie("password",values.password,7000)
+      //    rea.setCookie("password",values.password,7000)
       window.sessionStorage.setItem("password",values.password);
 
       axios.post('/api/v1/user/login', values)
-      .then(function (response) {
-        if(response.status === 200){
-          message.info('登陆成功')
-      //    rea.setCookie("token",response.data.access_token,7000)
-          window.sessionStorage.setItem("token",response.data.access_token);
-          window.sessionStorage.setItem("user_id",response.data.user_id);
-    //      rea.setCookie("user_id",values.user_id,7000)
-          rea.login()
-        }
-      })
-      .catch(function (error) {
-        message.info("账号或密码错误")
-      });
+        .then(function (response) {
+          if(response.status === 200){
+            message.info('登陆成功')
+            //    rea.setCookie("token",response.data.access_token,7000)
+            window.sessionStorage.setItem("token",response.data.access_token);
+            window.sessionStorage.setItem("user_id",response.data.user_id);
+            //      rea.setCookie("user_id",values.user_id,7000)
+            rea.login()
+          }
+        })
+        .catch(function (error) {
+          message.info("账号或密码错误")
+        });
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
-        const { showContent } = this.state;
-        const condition='user_id===8';
-        return (
-          <div className="content">
-            {!showContent &&
-              <div className="backgroundPic" style={sectionStyle}>
-                <div className="bg1"></div>
-                <Form className="login-form"
-                  onSubmit={this.handleSubmit}
-                >
-                  <div className="gyl">
+      const { getFieldDecorator } = this.props.form;
+      const { showContent } = this.state;
+      const condition='user_id===8';
+      return (
+        <div className="content">
+          {!showContent &&
+            <div className="backgroundPic" style={sectionStyle}>
+              <div className="bg1"></div>
+              <Form className="login-form"
+                onSubmit={this.handleSubmit}
+              >
+                <div className="gyl">
                         智慧管廊管理系统
                         
-                    <div className="gy2" >打造国内最具规模的、最专业的管廊管理服务平台 </div>   
+                  <div className="gy2" >打造国内最具规模的、最专业的管廊管理服务平台 </div>   
+                </div>
+                <div className="bg">
+                  <div className="wel">用户登录</div>			
+                  <div className="user">
+                    <div id="yonghu">用户名&nbsp;</div>
+                    <Form.Item
+                    >
+                      {getFieldDecorator('username',{
+                        rules:[{
+                          required:true,
+                          message:"请输入用户名",
+                        }]
+                      })(
+                        <Input className="inputClass"
+                          type="text"/>
+                      )}  
+                    </Form.Item>
                   </div>
-                  <div className="bg">
-                    <div className="wel">用户登录</div>			
-                    <div className="user">
-                      <div id="yonghu">用户名&nbsp;</div>
-                      <Form.Item
-                      >
-                        {getFieldDecorator('username',{
-                          rules:[{
-                            required:true,
-                            message:"请输入用户名",
-                          }]
-                        })(
-                          <Input className="inputClass" type="text"/>
-                        )}  
-                      </Form.Item>
-                    </div>
-                    <div className="password" >
-                      <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
-                      <Form.Item
-                      >
-                        {getFieldDecorator('password',{
-                          rules:[{
-                            required:true,
-                            message:"请输入密码",
-                          }]
-                        })(
-                          <Input className="inputClass" type="password"/>
-                        )}  
-                      </Form.Item>
-                    </div>
-                    <Button className="btn" htmlType="submit" type="primary">登陆</Button>
+                  <div className="password" >
+                    <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
+                    <Form.Item
+                    >
+                      {getFieldDecorator('password',{
+                        rules:[{
+                          required:true,
+                          message:"请输入密码",
+                        }]
+                      })(
+                        <Input className="inputClass"
+                          type="password"/>
+                      )}  
+                    </Form.Item>
                   </div>
-                </Form>
-              </div>
+                  <Button className="btn"
+                    htmlType="submit"
+                    type="primary">登陆</Button>
+                </div>
+              </Form>
+            </div>
           }
              
-            {showContent &&
+          {showContent &&
               (condition?<div>
                      <HigherHeaderLayout onClick={this.Logout.bind(this)}/>
                          <Content className={'content-layout'}>
@@ -168,10 +173,10 @@ class Login extends React.Component{
                      </Content>
                  </div>:<div>
                 <LowerHeaderLayout/>
-                     <Content className={'content-layout'}>
-                         <IndexView/>
-                 </Content>
-             </div>)
+                <Content className={'content-layout'}>
+                  <IndexView/>
+                </Content>
+              </div>)
             // <div>
             //     <HeaderLayout/>
             //         <Content className={'content-layout'}>
@@ -182,9 +187,10 @@ class Login extends React.Component{
           }
         </div>
           
-      )
+      );
     }
-    
+  
 }
+
 
 export default Form.create()(Login);

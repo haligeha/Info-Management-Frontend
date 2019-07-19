@@ -82,12 +82,12 @@ class EmergencyPlan extends Component {
         <PageTitle titles={['应急指挥','应急预案']}>
           {
             <Link to={{pathname:"/emergency/plan/new"}}>
-            <Button type="primary">+ 新建预案</Button>
+              <Button type="primary">+ 新建预案</Button>
             </Link>
           }
         </PageTitle>
         <Module>
-        <Row>
+          <Row>
             <Col span={2}>预案等级：</Col>
             <Col span={4}>
               <Select placeholder="请选择预案等级"
@@ -177,7 +177,7 @@ class EmergencyPlan extends Component {
                   onConfirm={()=> {this.deleteGroup(record)}}
                 >
                   <Button type="simple"
-                  style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
                   >删除</Button>
                 </Popconfirm>
               </div>

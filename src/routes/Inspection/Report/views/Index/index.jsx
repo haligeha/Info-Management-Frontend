@@ -51,16 +51,16 @@ class Report extends Component {
     }
     values.create_date =new Date()
     values.inspection_date = new Date(getFieldValue('calendar_date'))
-        axios.post('/api/v1/info/inspection?user_id='+user_id, values)
-        .then(function (response) {
-            if(response.status === 200){
-                message.info('创建成功')
-                history.push('/')
-          }
-        })
-        .catch(function (error) {
-             console.log(error);
-        });
+    axios.post('/api/v1/info/inspection?user_id='+user_id, values)
+      .then(function (response) {
+        if(response.status === 200){
+          message.info('创建成功')
+          history.push('/')
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     
     
   }
@@ -100,7 +100,7 @@ class Report extends Component {
       form: { getFieldDecorator }, 
     } = this.props
     // const {abnormal,treatment}=this.state
-   const {reportDetail}=this.state
+    const {reportDetail}=this.state
     return (
       <div>
         <PageTitle titles={['巡检维护','开始巡检']}>
@@ -115,18 +115,17 @@ class Report extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-               <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="巡检时间"
               >
                 {getFieldDecorator('calender_date',{
-                 // initialValue: id && reportDetail.calender_date,
+                  // initialValue: id && reportDetail.calender_date,
                   rules:[{
                     required:true,
                     message:"请选择巡检时间",
                   }]
-                })  
-                ( <DatePicker
+                })  ( <DatePicker
                   dateRender={current => {
                     const style = {};
                     if (current.date() === 1) {
@@ -142,7 +141,7 @@ class Report extends Component {
                 />)} 
                   
               </Form.Item>
-                <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="值班人"
               >
@@ -152,11 +151,10 @@ class Report extends Component {
                     required:true,
                     message:"请输入值班人",
                   }]
-                })  
-                (<Input placeholder="请输入值班人员"/>)} 
+                })  (<Input placeholder="请输入值班人员"/>)} 
                   
               </Form.Item>
-                <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="巡检人员"
               >
@@ -178,8 +176,7 @@ class Report extends Component {
                     required:true,
                     message:"请输入巡检总况",
                   }]
-                })
-                (<Input placeholder="请输入巡检总况"/>)} 
+                })(<Input placeholder="请输入巡检总况"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -191,8 +188,7 @@ class Report extends Component {
                     required:true,
                     message:"请输入异常项",
                   }]
-                })
-                (<Input placeholder="请输入异常项"/>)} 
+                })(<Input placeholder="请输入异常项"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -204,8 +200,7 @@ class Report extends Component {
                     required:true,
                     message:"请输入维护信息",
                   }]
-                })
-                (<Input placeholder="请输入维护信息"/>)} 
+                }) (<Input placeholder="请输入维护信息"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -217,8 +212,7 @@ class Report extends Component {
                     required:true,
                     message:"请输入巡检内容总结",
                   }]
-                })
-                (<Input placeholder="请输入巡检内容总结"/>)} 
+                })(<Input placeholder="请输入巡检内容总结"/>)} 
               </Form.Item>  
               <section className="operator-container">
                 <div style={{textAlign:"center"}}>

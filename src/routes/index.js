@@ -123,15 +123,6 @@ class RouteView extends Component{
           })}
         />
         
-        {/* <Route    
-          path="/emergency/resource/work"
-          component={Loadable({
-            loader: () => import(
-              
-              './Emergency/Resource'),
-            loading: Loading
-          })}
-        /> */}
         <Route
           path="/emergency/approval"
           component={Loadable({
