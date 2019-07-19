@@ -16,13 +16,7 @@ class Layouts extends Component {
   render() {
     return (
       <Layout className={'layout custom-layout'}>
-<<<<<<< HEAD
-        {/* <HeaderLayout/>
-        <Content className={'content-layout'}>
-          <RouteView/>
-        </Content> */}
-=======
->>>>>>> b3f59ee0817d10666d290827e5493d99939a32f9
+
         <Login />
       </Layout>
     );

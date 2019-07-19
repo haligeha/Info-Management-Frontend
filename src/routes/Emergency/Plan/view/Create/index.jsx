@@ -4,7 +4,8 @@ import { Form,Input,Select,Button,message, Upload, notification,Icon,Popconfirm,
 import { SELECT_EMERGENCY_PLAN_LEVEL } from '../../config';
 import axios from 'axios';
 import './index.styl'
-const value = window.sessionStorage.getItem("user_id");
+
+var value=window.sessionStorage.getItem("user_id")
 class EmergencyNew extends Component {
   constructor(props) {
     super(props);
@@ -71,8 +72,8 @@ class EmergencyNew extends Component {
     values.release_date = new Date()
     if(id){
       values.emergency_id=id
-      values.content=this.state.url
-      axios.put(`/api/v1/info/emergency?user_id=${value}`, values)
+      values.content=str1
+      axios.put('/api/v1/info/emergency?user_id='+value, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('编辑成功')
@@ -84,8 +85,8 @@ class EmergencyNew extends Component {
         });
       console.log(this.state.fileList)
     }else{
-      values.content=this.state.url
-      axios.post(`/api/v1/info/emergency?user_id=${value}`, values)
+      values.content=str1
+      axios.post('/api/v1/info/emergency?user_id='+value, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('创建成功')

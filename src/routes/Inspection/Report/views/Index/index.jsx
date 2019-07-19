@@ -348,10 +348,10 @@ class Report extends Component {
                 </Form.Item>  
               </Form>
             </div>
-         </div>
-        </Drawer> */}
+          </div>
+        </Drawer>*/}
       </div>
-
+ 
     );
   }
 }

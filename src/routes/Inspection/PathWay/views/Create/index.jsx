@@ -4,7 +4,7 @@ import {Button,Form,Input,Select,message} from 'antd';
 import axios from 'axios';
 
 const Option = Select.Option;
-
+var user_id=window.sessionStorage.getItem("user_id")
 class PathWayNew extends Component{
     constructor(props) {
         super(props);   
@@ -22,7 +22,7 @@ class PathWayNew extends Component{
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/info/inspectionPath?id=${id}&user_id=6`)
+      axios.get(`/api/v1/info/inspectionPath?id=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({planWayDetail:res.data})
         })
@@ -60,7 +60,7 @@ class PathWayNew extends Component{
       }
     if(id){
         values.id=id
-        axios.put('/api/v1/info/inspectionPath', values)
+        axios.put('/api/v1/info/inspectionPath?user_id='+user_id, values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('编辑成功')
@@ -72,7 +72,7 @@ class PathWayNew extends Component{
         });
     }else{
         console.log(values)
-        axios.post('/api/v1/info/inspectionPath', values)
+        axios.post('/api/v1/info/inspectionPath?user_id='+user_id, values)
         .then(function (response) {
             if(response.status === 200){
                 message.info('创建成功')
@@ -89,7 +89,8 @@ class PathWayNew extends Component{
 
   //获取管廊信息
   getpipeBelong=()=>{
-    axios.get(`/api/v1/info/pipeGalleryAll`)
+    console.log(user_id)
+    axios.get(`/api/v1/info/pipeGalleryAll?user_id=${user_id}`)
     .then((res) => {
         if(res && res.status === 200){
             const pipeArr=res.data.AllPipes
@@ -111,7 +112,7 @@ class PathWayNew extends Component{
 
   //获取区域信息
   getAreaBelong=()=>{
-    axios.get(`/api/v1/info/galleryAreaAll`)
+    axios.get(`/api/v1/info/galleryAreaAll?user_id=${user_id}`)
     .then((res) => {
         if(res && res.status === 200){
             const pipeArr=res.data.AllArea
