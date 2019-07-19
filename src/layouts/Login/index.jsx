@@ -61,7 +61,15 @@ class Login extends React.Component{
     //   }
     //   return "";
     // }
- 
+    
+    //子组件设置父组件状态
+    Logout=()=>{
+      this.setState({
+        showContent:false
+      })
+    }
+
+
     //连接登陆接口并设置username,password和token的cookie
     handleSubmit = (e) => {
       e.preventDefault()
@@ -154,7 +162,7 @@ class Login extends React.Component{
              
             {showContent &&
               (condition?<div>
-                     <HigherHeaderLayout/>
+                     <HigherHeaderLayout onClick={this.Logout.bind(this)}/>
                          <Content className={'content-layout'}>
                              <IndexView/>
                      </Content>

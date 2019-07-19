@@ -136,17 +136,16 @@ class HeaderLayout extends Component {
 
   //退出登录
   handleExit=()=>{
-    console.log("123")
-    window.sessionStorage.clear()
+    console.log("123") 
     console.log(window.sessionStorage.getItem('username'))
-    window.location.reload();
+    window.sessionStorage.clear()
   };
 
   render() {
     const menu = (
       <Menu className={'menu'}>
         <Menu.Item key="logout">
-          <Icon type="logout" onClick={this.handleExit}/>退出登录
+          <Icon type="logout" onClick={this.handleExit} onClick={()=>this.props.onClick({showContent:false})}/>退出登录
         </Menu.Item>
       </Menu>
     );

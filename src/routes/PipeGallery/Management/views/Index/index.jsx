@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
-
+var user_id=window.sessionStorage.getItem("user_id")
 class Management extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +30,7 @@ class Management extends Component {
   //获取列表信息
   getGroupList = (page) => {
     const { size,unit } = this.state;
-    axios.get(`/api/v1/info/pipeByPage?limit=${size}&page=${page}&unit=${unit}&user_id=6`)
+    axios.get(`/api/v1/info/pipeByPage?limit=${size}&page=${page}&unit=${unit}&user_id=${user_id}`)
       .then((res) => {
         if(res && res.status === 200){
           this.setState({
@@ -52,7 +52,7 @@ class Management extends Component {
 
 //删除
   deleteGroup = (record) => {
-    axios.delete(`/api/v1/info/pipeGallery?Id=${record.id}`)
+    axios.delete(`/api/v1/info/pipeGallery?Id=${record.id}&user_id=${user_id}`)
     .then(() => {
         this.getGroupList(this.state.nowCurrent)
     })

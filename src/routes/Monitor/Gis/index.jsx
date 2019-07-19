@@ -66,6 +66,7 @@ class Gis extends Component {
       draw:'1',
       employee:false,
       visible:false,
+      formValue:{},
     };
     //子组件触发模态框的关闭
     //this.updateParent= this.updateParent.bind(this);
@@ -613,6 +614,7 @@ class Gis extends Component {
     drawPipe()
     {
       var drawingManager=window.drawingManager;
+    //  window.drawPara=this.state.form
         drawingManager.open()
         drawingManager.enableCalculate()
         //添加鼠标绘制工具监听事件，用于获取绘制结果
@@ -630,17 +632,17 @@ class Gis extends Component {
     
     }
     
+    //获取表单内容
     //根据radio选择，返回组件
     formChoose(){
-      if(this.state.draw==="1"){
+      // if(this.state.draw==="1"){
+      //   return(
+      //     <LineForm wrappedComponentRef={this.saveFormRef}/>
+      //   )
+      // }
+    if(this.state.draw==="1"){
         return(
-        //  <LineForm ref="getFormVlaue"/>
-         <LineForm wrappedComponentRef={(form) => this.formRef = form} onClick={this.closeModal.bind(this)}/>
-        )
-      }
-      else if(this.state.draw==="2"){
-        return(
-        <InspectionForm ref="getFormVlaue" onClick={this.closeModal.bind(this)}/>
+        <InspectionForm wrappedComponentRef={this.saveFormRef}/>
         )
       }
     }
@@ -687,7 +689,26 @@ class Gis extends Component {
     });
     this.drawPipe();
    }
- 
+
+   //获得表单数据，并且打印出来
+  handleCreate = () => {
+    const form = this.formRef.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+      this.handleOk();
+      window.drawPara=values
+      console.log(values)
+      console.log('Received values of form: ', values);
+      form.resetFields();
+    });
+  };
+
+  saveFormRef = formRef => {
+    this.formRef = formRef;
+  };
+
    //跳转
    jump=()=>{
      return(
@@ -718,13 +739,12 @@ class Gis extends Component {
         <Modal
           title="绘制功能"
           visible={this.state.visible}
-          onOk={this.handleOk}
+          onOk={this.handleCreate}
           onCancel={this.handleCancel}
-
         >
           <Radio.Group onChange={this.modalChange} value={draw}>
-            <Radio value="1">绘制管廊</Radio>
-            {/* <Radio value="2">绘制巡检路线</Radio> */}
+            {/* <Radio value="1">绘制管廊</Radio> */}
+            <Radio value="1">绘制巡检路线</Radio>
           </Radio.Group>   
          {this.formChoose()}
         </Modal>
