@@ -20,14 +20,18 @@ class LowerHeaderLayout extends Component {
               id:'11',
               name:'首页展示',
               url:'/monitor/view'
+            },{
+              id:'12',
+              name:"实时监控",
+              url:'/monitor/video'
             },
             {
-              id:'12',
+              id:'13',
               name:'GIS地图',
               url:'/monitor/gis'
             },
             {
-              id:'13',
+              id:'14',
               name:'设备信息',
               url:'/monitor/device'
             }
@@ -58,16 +62,22 @@ class LowerHeaderLayout extends Component {
           children:[
             {
               id:'31',
-              name:'应急预案',
-              url:'/emergency/plan'
+              name:"告警处理",
+              url:'/emergency/alarm'
             },
             {
               id:'32',
               name:'应急资源',
-              url:'/emergency/resource/work'
+              url:'/emergency/resource/material'
             },
             {
               id:'33',
+              name:'应急预案',
+              url:'/emergency/plan'
+            },
+            
+            {
+              id:'34',
               name:'预案审批',
               url:'/emergency/approval'
             },
