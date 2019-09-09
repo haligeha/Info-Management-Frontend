@@ -1,7 +1,9 @@
 import React, { Component, } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter,Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
+import HighterLayOut from '../layouts/HigherHeaderLayout'
+import Login from '../layouts/Login'
 const Loading = () => {
   return (
     <div className="loading">
@@ -11,25 +13,33 @@ const Loading = () => {
 };
 
 class RouteView extends Component{
-  
+  checkcustomer=()=>{
+    return window.sessionStorage.getItem("user_id")
+  }
+
   render(){
     return (
       <Switch>
-        <Route    
-          path="/monitor/view"
+       <Route    
+        //  path="/monitor/view"
+          path="/" 
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Scene" */
               './Monitor/Scene'),
             loading: Loading
-          })}
-        />
-        {/* <Route
+          })}  exact
+         /> 
+         
+        {/* <Route    
+        path="/monitor/view"
+        component={()=>(this.checkcustomer()!==''?<HighterLayOut/>:<Redirect to='./login'/>)}
+        ></Route> */}
+       {/* <Route
           path="/login" 
           component={Loadable({
             loader: () => import(
- 
-              './Login'),
+              '../layouts/Login'),
             loading: Loading
           })}
         /> */}

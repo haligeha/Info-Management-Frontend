@@ -1,11 +1,10 @@
 import React, { Component, } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Layout, Icon, Dropdown, Avatar, } from 'antd';
-
+import { Menu, Layout, Icon, Dropdown, Avatar,Modal } from 'antd';
+import axios from 'axios';
 
 const { Header,} = Layout;
 const { SubMenu } = Menu; 
-var username=window.sessionStorage.getItem("username")
 class HeaderLayout extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +18,7 @@ class HeaderLayout extends Component {
             {
               id:'11',
               name:'首页展示',
-              url:'/monitor/view'
+              url:'/'
             },{
               id:'12',
               name:"实时监控",
@@ -136,7 +135,8 @@ class HeaderLayout extends Component {
             },
           ]
         }
-      ]
+      ],
+      modalVisible:false,
     };
   }
   
@@ -144,18 +144,59 @@ class HeaderLayout extends Component {
    
   }
 
+  // handleOk=()=>{      
+  //   // var session=this.getCookie("JSESSIONID")
+  //   // console.log("123")
+  //   // console.log("session")
+  //   window.location.href = "http://10.112.175.8/home";
+  //   this.state.modalVisible=false;
+  // }
+  jumpTo=()=>{
+    const rea=this
+    const username= window.sessionStorage.getItem("username")
+    const password = window.sessionStorage.getItem("password")
+    console.log(username)
+    // axios.post('/api/v1/auto/devicemanagement', {username:username,password:password})
+     window.location.href='http://39.104.84.131:80/secondStage?username='+username+'&password='+password
+    // window.location.href="http://localhost:80/fromSecondStage?username="+username+'&password='+password
+  }
+
+  //设置cookie
+  setCookie=(cname, cvalue, exdays)=> {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+  }
+  //获取cookie
+    getCookie(cname){
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) != -1){
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
   //退出登录
   handleExit=()=>{
-    console.log("123") 
     console.log(window.sessionStorage.getItem('username'))
-    window.sessionStorage.clear()
+    sessionStorage.clear()
+    window.location.href="http://localhost:3003"
   };
 
   render() {
     const menu = (
       <Menu className={'menu'}>
         <Menu.Item key="logout">
-          <Icon type="logout" onClick={this.handleExit} onClick={()=>this.props.onClick({showContent:false})}/>退出登录
+          <Icon type="logout" onClick={this.handleExit} 
+          // onClick={()=>this.props.onClick({showContent:false})}
+          />退出登录
         </Menu.Item>
       </Menu>
     );
@@ -173,8 +214,7 @@ class HeaderLayout extends Component {
                   style={{ fontSize: '18px', }}
                 />
               </Avatar>
-              <span style={{ color: 'white', }}>{username}</span>
-              {console.log(username)}
+              <span style={{ color: 'white', }}>{window.sessionStorage.getItem("username")}</span>
             </span>
           </Dropdown>
         </div>
@@ -212,12 +252,21 @@ class HeaderLayout extends Component {
               </span>
             }
           >
-            <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank"></a>视频通话</Menu.Item>
-            <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank"></a>大数据平台</Menu.Item>
-            <Menu.Item key="7"><a href="http://39.104.84.131/thingsTenantManager#/homePage" target="_blank"></a>物管理平台</Menu.Item>
+            <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank" ></a>视频通话</Menu.Item>
+            <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank" ></a>大数据平台</Menu.Item>
+            <Menu.Item key="7" > <p onClick={this.jumpTo}> 物管理平台</p>
+             {/* <a href="http://39.104.84.131"></a> */}
+            </Menu.Item>
           </SubMenu>
         </Menu>
-       
+        {/* <Modal
+          title=" "
+          visible={this.state.modalVisible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <p>确认打开三化平台？</p>
+        </Modal> */}
       </Header>
     );
   }

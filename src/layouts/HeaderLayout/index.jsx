@@ -149,7 +149,7 @@ class HeaderLayout extends Component {
   componentDidMount(){
    
   }
-
+ 
   render() {
     const menu = (
       <Menu className={'menu'}>
