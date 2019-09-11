@@ -23,7 +23,7 @@ class PlanApproval extends Component {
         
         <Tabs defaultActiveKey="1">
           <TabPane 
-            tab={<Link to="/emergency/approval">未审批</Link>}
+            tab="未审批"
             key="1"
           >
             <PageTitle titles={['应急指挥','预案审批','未审批']} />

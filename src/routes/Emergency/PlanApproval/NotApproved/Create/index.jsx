@@ -108,7 +108,7 @@ class ApprovedNew extends Component{
     const {approvalDetail} = this.state
     return (
       <div>
-        <PageTitle titles={['应急指挥','预案审批','新建审批']}/>      
+           
         <div className="emergency-approval-create-page">
           <Module>
             <Form>

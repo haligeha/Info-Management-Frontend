@@ -75,7 +75,6 @@ class Material extends Component {
     const current = page+1;
     const size = limit
 
-    console.log(data);
     return (
       <div className="report-page">
         <PageTitle titles={['应急指挥','应急资源','应急救援物资']}>

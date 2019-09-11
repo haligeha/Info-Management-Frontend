@@ -63,8 +63,10 @@ class SceneView extends Component {
       break;
     case 2 : layout = (
       <div>
-        <div className="gis-map-2">
-          <MapModule />
+        <div className="wrap-gis-map-2">
+          <div className="gis-map-2">
+            <MapModule />
+          </div>
         </div>
         <div className="video-2-1">
           <Video />
@@ -72,6 +74,7 @@ class SceneView extends Component {
         <div className="video-2-2">
           <Video />
         </div>
+        <br />
         <div className="plan-info-2">
           <EchartsModule choose={1} />
         </div>
@@ -86,8 +89,10 @@ class SceneView extends Component {
       break;
     case 3 : layout = (
       <div>
-        <div className="gis-map-3">
-          <MapModule />
+        <div className="wrap-gis-map-3">
+          <div className="gis-map-3">
+            <MapModule />
+          </div>
         </div>
         <div className="video-3-1">
           <Video />
@@ -95,8 +100,10 @@ class SceneView extends Component {
         <div className="video-3-2">
           <Video />
         </div>
-        <div className="plan-info-3">
-          <EchartsModule choose={1} />
+        <div className="wrap-plan-info-3">
+          <div className="plan-info-3">
+            <EchartsModule choose={1} />
+          </div>
         </div>
        
       </div>

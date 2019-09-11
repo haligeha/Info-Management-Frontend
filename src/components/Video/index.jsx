@@ -20,8 +20,8 @@ class Video extends React.Component{
   render(){
     return (
       <Player>
-        <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" />
-        
+        {/* <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" /> */}
+        <source src="rtmp://www.anbotcloud.cn:1936/live/19WV420011/front" />
 
         <ControlBar>
           <ReplayControl seconds={10} order={1.1} />

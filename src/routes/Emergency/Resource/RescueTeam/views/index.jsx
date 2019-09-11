@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class RescueTeamRoute extends Component{
+class TeamRoute extends Component{
   constructor(props){
     super(props);
     this.state = {};
@@ -62,5 +62,5 @@ class RescueTeamRoute extends Component{
 }
 
 
-export default RescueTeamRoute;
+export default TeamRoute;
 

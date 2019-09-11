@@ -1,12 +1,14 @@
 import React, { Component, } from 'react';
+import {Switch,Route} from 'react-router-dom';
 import { PageTitle } from '../../../components';
 import { Link } from "react-router-dom";
 import { Tabs } from 'antd';
-import Material from './Material';
-import Equipment from './Equipment';
-import RescueTeam from './RescueTeam';
-import Shelter from "./Shelter";
-
+import Material from './Material/views/Index/index';
+import Equipment from './Equipment/views/Index/index';
+import RescueTeam from './RescueTeam/views/Index/index';
+import Shelter from "./Shelter/views/Index/index";
+import ResourceRoute from './route';
+import EquipmentRoute from './route2';
 const TabPane = Tabs.TabPane;
 
 class Resource extends Component {
@@ -14,38 +16,69 @@ class Resource extends Component {
     super(props);
     
     this.state = {
+      tabKey:""
     };
+    this.onTabChange=this.onTabChange.bind(this);
+  }
+  
+  onTabChange=(key)=>{
+
+    this.setState({tabKey:key});
+    this.props.history.replace({pathname:"/emergency/resource/"+key,state:{tabKey:key}});
+    
   }
 
   render() {
     return (
       <div className="resource-list-page">
-        <Tabs ActiveKey="1">
-          <TabPane tab={<Link to="/emergency/resource/material">应急救援物资</Link>}
-            key="1"
+        <Tabs
+          activeKey={(this.props.location.state && this.props.location.state.tabKey) ? this.props.location.state.tabKey : 'material'}
+          onChange={this.onTabChange}
+        >
+          <TabPane 
+            tab="应急救援物资"
+            key="material"
           >
-            <Material />
+            <Route exact 
+              path="/emergency/resource/material" 
+              component={Material} 
+            />
+            
           </TabPane>
           <TabPane 
-            tab={<Link to="/emergency/resource/equipment">应急救援装备</Link>}
-            key="2"
+            tab="应急救援装备"
+            key="equipment"
           > 
-            <Equipment />   
+            <Route exact
+              path="/emergency/resource/equipment"
+              component={Equipment}
+
+            />
           </TabPane>
           <TabPane 
-            tab={<Link to="/emergency/resource/team">应急救援队伍</Link>}
-            key="3"
+            tab="应急救援队伍"
+            key="team"
           >
-            <RescueTeam />
+            <Route exact
+              path="/emergency/resource/team"
+              component={RescueTeam}
+
+            />
+            
           </TabPane>
           <TabPane 
-            tab={<Link to="/emergency/resource/shelter">应急避难场所</Link>}
-            key="4"
+            tab="应急避难场所"
+            key="shelter"
           >
-            <Shelter />
+            <Route exact
+              path="/emergency/resource/shelter"
+              component={Shelter}
+
+            />
             
           </TabPane>
         </Tabs>
+        
       </div>
 
     );
