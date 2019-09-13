@@ -38,17 +38,17 @@ class PlanNew extends Component {
   //获取巡检线路信息
   getPath=()=>{
     axios.get(`/api/v1/info/allPath?user_id=${user_id}`)
-    .then((res) => {
+      .then((res) => {
         if(res && res.status === 200){
-            const pipeArr=res.data
-            const pipe=[]
-            const childPipe=[]
-            pipeArr.forEach(function(items){
-                pipe.push(items.number)
-              })
-            for(var i=0;i<pipe.length;i++)
+          const pipeArr=res.data
+          const pipe=[]
+          const childPipe=[]
+          pipeArr.forEach(function(items){
+            pipe.push(items.number)
+          })
+          for(var i=0;i<pipe.length;i++)
             childPipe.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
-            this.setState({pathBelong:childPipe})
+          this.setState({pathBelong:childPipe})
         }
       })
       .catch(function (error) {
@@ -60,17 +60,17 @@ class PlanNew extends Component {
   //获取人员信息
   getInspectionPeople=()=>{
     axios.get(`/api/v1/info/allStaff?&user_id=${user_id}`)
-    .then((res) => {
+      .then((res) => {
         if(res && res.status === 200){
-            const personArr=res.data
-            const person=[]
-            const children=[]
-            personArr.forEach(function(item){
-                person.push(item.name)
-               })
-            for(var i=0;i<person.length;i++)
+          const personArr=res.data
+          const person=[]
+          const children=[]
+          personArr.forEach(function(item){
+            person.push(item.name)
+          })
+          for(var i=0;i<person.length;i++)
             children.push(<Option value={person[i]}>{person[i]}</Option>)
-            this.setState({people:children})
+          this.setState({people:children})
         }
       })
       .catch(function (error) {
@@ -110,38 +110,38 @@ class PlanNew extends Component {
     console.log(values.create_date)
     values.status = planDetail.status
     values.inspection_date = new Date(getFieldValue('inspection_date'))
-   // values.inspection_date=getFieldValue('inspection_date')._d
+    // values.inspection_date=getFieldValue('inspection_date')._d
     console.log(values.inspection_date)
 
     if(id){
-        values.id=id
-        values.number=planDetail.number
-        axios.put('/api/v1/info/plan?user_id='+user_id, values)
+      values.id=id
+      values.number=planDetail.number
+      axios.put('/api/v1/info/plan?user_id='+user_id, values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('编辑成功')
-                history.push('/inspection/plan')
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/inspection/plan')
           }
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
     }else{
-        values.status = '未完成'
-        axios.post('/api/v1/info/plan?user_id='+user_id, values)
+      values.status = '未完成'
+      axios.post('/api/v1/info/plan?user_id='+user_id, values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('创建成功')
-                history.push('/inspection/plan')
-                // axios.post('/api/v1/info/sendGeneralMessage', values)
-                // .then(function(response){
-                //   message.info("邮件已发送")
-                // }
-                // )
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/inspection/plan')
+            // axios.post('/api/v1/info/sendGeneralMessage', values)
+            // .then(function(response){
+            //   message.info("邮件已发送")
+            // }
+            // )
           }
         })
         .catch(function (error) {
-             console.log(error);
+          console.log(error);
         });
     }
     
@@ -169,7 +169,7 @@ class PlanNew extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-               <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="描述"
               >
@@ -194,13 +194,13 @@ class PlanNew extends Component {
                     message:"请输入巡检人员",
                   }]
                 })(
-                    <Select
-                      //  mode="multiple"
-                        style={{ width: '100%' }}
-                        placeholder="请选择巡检人员"
-                    >
-                        {people}
-                    </Select>,
+                  <Select
+                    //  mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="请选择巡检人员"
+                  >
+                    {people}
+                  </Select>,
                 )}  
               </Form.Item>
               <Form.Item
@@ -209,13 +209,13 @@ class PlanNew extends Component {
               >
                 {getFieldDecorator('inspection_date',{
                   initialValue: id && moment(moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'),'YYYY-MM-DD'),
-              // initialValue:id && moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'), 
-               rules:[{
+                  // initialValue:id && moment(parseInt(planDetail.inspection_date)).format('YYYY-MM-DD'), 
+                  rules:[{
                     required:true,
                     message:"请选择巡检时间",
                   }]
                 })(
-                    <DatePicker
+                  <DatePicker
                     dateRender={current => {
                       const style = {};
                       if (current.date() === 1) {
@@ -244,12 +244,12 @@ class PlanNew extends Component {
                   }]
                 })(
                   <Select
-                      //  mode="multiple"
-                        style={{ width: '100%' }}
-                        placeholder="请选择巡检路线"
-                    >
-                        {pathBelong}
-                    </Select>,
+                    //  mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="请选择巡检路线"
+                  >
+                    {pathBelong}
+                  </Select>,
                 )}  
               </Form.Item>
 

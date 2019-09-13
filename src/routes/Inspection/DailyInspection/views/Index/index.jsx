@@ -46,20 +46,20 @@ class DailyInspection extends Component {
 
   //在有事件发生的日期上添加标识
     dateCellRender=(value)=> {
-    for (let m=0;m<dateList.length;m++){  
-      if(this.getdate(value)===dateList[m]){   
-            return(         
+      for (let m=0;m<dateList.length;m++){  
+        if(this.getdate(value)===dateList[m]){   
+          return(         
             <Badge dot>
-            <Icon type="notification" />
+              <Icon type="notification" />
             </Badge>
           )
-      }
-      // else{     
+        }
+        // else{     
        
       // }
-    }
+      }
     
-  }
+    }
   
   //获取日期数组
   getData =()=>{
@@ -101,7 +101,7 @@ class DailyInspection extends Component {
       selectedValue: value,
     }, ()=> {
       this.getListData()
-     });
+    });
    
   };
 
@@ -117,8 +117,8 @@ class DailyInspection extends Component {
           console.log(res.data.data)
           reportList=[]
           for (var i=0;i<res.data.data.length;i++){
-              let reportone=res.data.data[i]
-              reportList.push(reportone)
+            let reportone=res.data.data[i]
+            reportList.push(reportone)
           }
           this.setState({report:reportList})
       
@@ -131,11 +131,11 @@ class DailyInspection extends Component {
 
   getdate=(value)=> {
     var now = new Date(value),
-    y = now.getFullYear(),
-    m = now.getMonth() + 1,
-    d = now.getDate();
+      y = now.getFullYear(),
+      m = now.getMonth() + 1,
+      d = now.getDate();
     return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
-}
+  }
 
   //数据库中日期格式转换
   timestampToTime=(timestamp)=>{
@@ -144,13 +144,13 @@ class DailyInspection extends Component {
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate());
     return Y+M+D;
-}
+  }
 
   insertReport=()=>{
     const{report}=this.state
     for(var i=0;i<report.length;i++){
-     console.log(i)  
-     return (<div>123</div>)    
+      console.log(i)  
+      return (<div>123</div>)    
     }
 
   }
@@ -165,10 +165,10 @@ class DailyInspection extends Component {
   //   }
   //   return date;
   // }
-    // getListData = (value) =>{
-    //   const{selectedValue}=this.state;
+  // getListData = (value) =>{
+  //   const{selectedValue}=this.state;
 
-    // }
+  // }
 
   // dateCellRender=(value)=> {
   // //  const listDatamap = this.getListData(value);
@@ -204,37 +204,36 @@ class DailyInspection extends Component {
         </div>
       )
     });
-      return(
-        <div>
-          <PageTitle titles={['巡检维护','日常巡检/年度巡检']}>
-            {
-              <Link to={"/inspection/calendar/new"}>
-                <Button type="primary">+ 新建日常巡检</Button>
-              </Link>
-            }
-          </PageTitle>
-          <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4,float:"left" }}>
-            <LocaleProvider locale={zh_CN}>
+    return(
+      <div>
+        <PageTitle titles={['巡检维护','日常巡检/年度巡检']}>
+          {
+            <Link to={"/inspection/calendar/new"}>
+              <Button type="primary">+ 新建日常巡检</Button>
+            </Link>
+          }
+        </PageTitle>
+        <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4,float:"left" }}>
+          <LocaleProvider locale={zh_CN}>
             <Calendar 
-             // fullscreen={false}
+              // fullscreen={false}
               onSelect={this.onSelect}
               dateCellRender={this.dateCellRender}
-              
             />
-            </LocaleProvider>
+          </LocaleProvider>
            
-          </div>
+        </div>
 
-          <div style={{ width:500,height:320, border: '1px solid #d9d9d9', borderRadius: 4,float:"right","overflow-y":"scroll" }}>
+        <div style={{ width:500,height:320, border: '1px solid #d9d9d9', borderRadius: 4,float:"right","overflow-y":"scroll" }}>
           {/* {selectedValue.format('YYYY-MM-DD')} */}
           {/* 巡检时间：{this.getListData(selectedValue)}
           巡检人员： */}
           
-            {elements}
+          {elements}
           
-          </div>
         </div>
-      )
+      </div>
+    )
   }
 
 }

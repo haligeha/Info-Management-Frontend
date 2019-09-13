@@ -6,15 +6,15 @@ import axios from 'axios';
 const Option = Select.Option;
 var user_id=window.sessionStorage.getItem("user_id")
 class PathWayNew extends Component{
-    constructor(props) {
-        super(props);   
-        this.state = {
-          planWayDetail:{},
-          pipeBelong:[],
-          areaBelong:[],
-        };
+  constructor(props) {
+    super(props);   
+    this.state = {
+      planWayDetail:{},
+      pipeBelong:[],
+      areaBelong:[],
+    };
     
-      }
+  }
 
   componentDidMount(){
     this.getpipeBelong();
@@ -51,37 +51,37 @@ class PathWayNew extends Component{
     }
     if(!getFieldValue('startpoint')){
       message.error('请输入起点')
-      }
+    }
     if(!getFieldValue('endpoint')){
-        message.error('请输入终点')
+      message.error('请输入终点')
     }
     if(!getFieldValue('description')){
-        message.error('请输入说明描述')
-      }
+      message.error('请输入说明描述')
+    }
     if(id){
-        values.id=id
-        axios.put('/api/v1/info/inspectionPath?user_id='+user_id, values)
+      values.id=id
+      axios.put('/api/v1/info/inspectionPath?user_id='+user_id, values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('编辑成功')
-                history.push('/inspection/pathway')
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/inspection/pathway')
           }
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
     }else{
-        console.log(values)
-        axios.post('/api/v1/info/inspectionPath?user_id='+user_id, values)
+      console.log(values)
+      axios.post('/api/v1/info/inspectionPath?user_id='+user_id, values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('创建成功')
-                history.push('/inspection/pathway')
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/inspection/pathway')
                 
           }
         })
         .catch(function (error) {
-              console.log(error);
+          console.log(error);
         });
     }
     
@@ -91,17 +91,17 @@ class PathWayNew extends Component{
   getpipeBelong=()=>{
     console.log(user_id)
     axios.get(`/api/v1/info/pipeGalleryAll?user_id=${user_id}`)
-    .then((res) => {
+      .then((res) => {
         if(res && res.status === 200){
-            const pipeArr=res.data.AllPipes
-            const pipe=[]
-            const children=[]
-            pipeArr.forEach(function(item){
-                pipe.push(item.name)
-              })
-            for(var i=0;i<pipe.length;i++)
+          const pipeArr=res.data.AllPipes
+          const pipe=[]
+          const children=[]
+          pipeArr.forEach(function(item){
+            pipe.push(item.name)
+          })
+          for(var i=0;i<pipe.length;i++)
             children.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
-            this.setState({pipeBelong:children})
+          this.setState({pipeBelong:children})
         }
       })
       .catch(function (error) {
@@ -113,17 +113,17 @@ class PathWayNew extends Component{
   //获取区域信息
   getAreaBelong=()=>{
     axios.get(`/api/v1/info/galleryAreaAll?user_id=${user_id}`)
-    .then((res) => {
+      .then((res) => {
         if(res && res.status === 200){
-            const pipeArr=res.data.AllArea
-            const pipe=[]
-            const children=[]
-            pipeArr.forEach(function(item){
-                pipe.push(item.name)
-              })
-            for(var i=0;i<pipe.length;i++)
+          const pipeArr=res.data.AllArea
+          const pipe=[]
+          const children=[]
+          pipeArr.forEach(function(item){
+            pipe.push(item.name)
+          })
+          for(var i=0;i<pipe.length;i++)
             children.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
-            this.setState({areaBelong:children})
+          this.setState({areaBelong:children})
         }
       })
       .catch(function (error) {
@@ -155,7 +155,7 @@ class PathWayNew extends Component{
             <Form
               onSubmit={this.handleSubmit}
             >
-                <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="所属区域"
               >
@@ -166,15 +166,15 @@ class PathWayNew extends Component{
                     message:"请选择所属区域",
                   }]
                 })(
-                    <Select
-                      style={{ width: '100%' }}
-                      placeholder="请选择所属区域"
+                  <Select
+                    style={{ width: '100%' }}
+                    placeholder="请选择所属区域"
                   >
-                      {areaBelong}
+                    {areaBelong}
                   </Select>,
                 )}  
               </Form.Item>
-                <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="所属管廊"
               >
@@ -185,40 +185,38 @@ class PathWayNew extends Component{
                     message:"请选择所属管廊",
                   }]
                 })(
-                    <Select
-                      style={{ width: '100%' }}
-                      placeholder="请选择所属管廊"
+                  <Select
+                    style={{ width: '100%' }}
+                    placeholder="请选择所属管廊"
                   >
-                      {pipeBelong}
+                    {pipeBelong}
                   </Select>,
                 )}  
               </Form.Item>
               <Form.Item
-            {...createFormItemLayout}
-            label="起点"
-          >
-            {getFieldDecorator('startpoint',{
-              initialValue: id && planWayDetail.startpoint,
-              rules:[{
-                required:true,
-                message:"请输入起点",
-              }]
-            })
-            (<Input placeholder="请输入起点"/>)} 
-          </Form.Item>
-          <Form.Item
-            {...createFormItemLayout}
-            label="终点"
-          >
-            {getFieldDecorator('endpoint',{
-              initialValue: id && planWayDetail.endpoint,
-              rules:[{
-                required:true,
-                message:"请输入终点",
-              }]
-            })
-            (<Input placeholder="请输入终点"/>)} 
-          </Form.Item>
+                {...createFormItemLayout}
+                label="起点"
+              >
+                {getFieldDecorator('startpoint',{
+                  initialValue: id && planWayDetail.startpoint,
+                  rules:[{
+                    required:true,
+                    message:"请输入起点",
+                  }]
+                })(<Input placeholder="请输入起点"/>)} 
+              </Form.Item>
+              <Form.Item
+                {...createFormItemLayout}
+                label="终点"
+              >
+                {getFieldDecorator('endpoint',{
+                  initialValue: id && planWayDetail.endpoint,
+                  rules:[{
+                    required:true,
+                    message:"请输入终点",
+                  }]
+                })(<Input placeholder="请输入终点"/>)} 
+              </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
                 label="说明描述"
@@ -229,8 +227,7 @@ class PathWayNew extends Component{
                     required:true,
                     message:"请输入说明描述",
                   }]
-                })
-                (<Input placeholder="请输入说明描述"/>)} 
+                })(<Input placeholder="请输入说明描述"/>)} 
               </Form.Item>
               
               <section className="operator-container">

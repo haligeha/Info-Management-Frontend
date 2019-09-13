@@ -6,21 +6,22 @@ class Line extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-        <Form 
-        onSubmit={this.handleSubmit1}>
+      <Form 
+        onSubmit={this.handleSubmit1}
+      >
         <Form.Item
         //  {...createFormItemLayout}
-         label="管廊名称"
+          label="管廊名称"
         >
-           {getFieldDecorator('name',{
+          {getFieldDecorator('name',{
             
-                rules:[{
-                  required:true,
-                  message:"请输入管廊名称",
-                }]
-              })(
-                <Input placeholder="请输入管廊名称" />
-              )}  
+            rules:[{
+              required:true,
+              message:"请输入管廊名称",
+            }]
+          })(
+            <Input placeholder="请输入管廊名称" />
+          )}  
         </Form.Item>
         <Form.Item
           // {...createFormItemLayout}
@@ -37,28 +38,28 @@ class Line extends Component {
           )}  
         </Form.Item>
         <Form.Item
-              // {...createFormItemLayout}
-              label="管廊类型"
+          // {...createFormItemLayout}
+          label="管廊类型"
+        >
+          {getFieldDecorator('type',{
+            //  initialValue: id && entranceDetail.activity_range,
+            rules:[{
+              required:true,
+              message:"请选择管廊类型",
+            }]
+          })(
+            <Select placeholder="请选择管廊类型"
+              allowClear
             >
-              {getFieldDecorator('type',{
-              //  initialValue: id && entranceDetail.activity_range,
-                rules:[{
-                  required:true,
-                  message:"请选择管廊类型",
-                }]
-              })(
-                <Select placeholder="请选择管廊类型"
-                  allowClear
-                >
-                  <Select.Option key="1"
-                          value="solid"
-                        >实线</Select.Option>
-                  <Select.Option key="2"
-                    value="imaginary"
-                  >虚线</Select.Option>
-                </Select>
-              )}  
-            </Form.Item>
+              <Select.Option key="1"
+                value="solid"
+              >实线</Select.Option>
+              <Select.Option key="2"
+                value="imaginary"
+              >虚线</Select.Option>
+            </Select>
+          )}  
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" onClick={()=>this.props.onClick()}>
             确认

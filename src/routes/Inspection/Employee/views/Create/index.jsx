@@ -10,7 +10,7 @@ class EmployeeNew extends Component {
     super(props);
 
     this.state = {
-        employeeDetail:{},
+      employeeDetail:{},
     };
 
   }
@@ -47,29 +47,29 @@ class EmployeeNew extends Component {
     }
 
     if(id){
-        values.id=id
-        axios.put('/api/v1/user/user', values)
+      values.id=id
+      axios.put('/api/v1/user/user', values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('编辑成功')
-                history.push('/inspection/employee')
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/inspection/employee')
           }
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
     }else{
-        console.log(values)
-        axios.post('/api/v1/user/user', values)
+      console.log(values)
+      axios.post('/api/v1/user/user', values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('创建成功')
-                history.push('/inspection/employee')
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/inspection/employee')
                 
           }
         })
         .catch(function (error) {
-             console.log(error);
+          console.log(error);
         });
     }
     
@@ -97,7 +97,7 @@ class EmployeeNew extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-               <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="员工姓名"
               >
@@ -121,8 +121,7 @@ class EmployeeNew extends Component {
                     required:true,
                     message:"请输入电子邮箱",
                   }]
-                })
-                (<Input placeholder="请输入电子邮箱" type="email"/>)} 
+                })(<Input placeholder="请输入电子邮箱" type="email"/>)} 
               </Form.Item>
               
               <section className="operator-container">

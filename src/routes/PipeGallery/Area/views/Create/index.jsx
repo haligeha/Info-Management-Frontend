@@ -10,8 +10,8 @@ class AreaNew extends Component {
     super(props);
 
     this.state = {
-        areaDetail:{},
-        pipeBelong:[],
+      areaDetail:{},
+      pipeBelong:[],
     };
 
   }
@@ -34,17 +34,17 @@ class AreaNew extends Component {
   //获取管廊区域信息
   getpipeBelong=()=>{
     axios.get(`/api/v1/info/pipeGalleryAll?user_id=${user_id}`)
-    .then((res) => {
+      .then((res) => {
         if(res && res.status === 200){
-            const pipeArr=res.data.AllPipes
-            const pipe=[]
-            const children=[]
-            pipeArr.forEach(function(item){
-                pipe.push(item.name)
-              })
-            for(var i=0;i<pipe.length;i++)
+          const pipeArr=res.data.AllPipes
+          const pipe=[]
+          const children=[]
+          pipeArr.forEach(function(item){
+            pipe.push(item.name)
+          })
+          for(var i=0;i<pipe.length;i++)
             children.push(<Option value={pipe[i]}>{pipe[i]}</Option>)
-            this.setState({pipeBelong:children})
+          this.setState({pipeBelong:children})
         }
       })
       .catch(function (error) {
@@ -71,41 +71,41 @@ class AreaNew extends Component {
       message.error('请输入区域长度')
     }
     if(!getFieldValue('pipe_belong')){
-        message.error('请选择所属管廊')
-      }
+      message.error('请选择所属管廊')
+    }
     if(!getFieldValue('startpoint')){
-    message.error('请输入起点')
+      message.error('请输入起点')
     }
     if(!getFieldValue('endpoint')){
-        message.error('请输入终点')
+      message.error('请输入终点')
     }
     if(!getFieldValue('description')){
-        message.error('请输入说明描述')
+      message.error('请输入说明描述')
     }
     if(id){
-        values.id=id
-        axios.put('/api/v1/info/galleryArea?user_id='+user_id, values)
+      values.id=id
+      axios.put('/api/v1/info/galleryArea?user_id='+user_id, values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('编辑成功')
-                history.push('/pipe/area')
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/pipe/area')
           }
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
     }else{
-        console.log(values)
-        axios.post('/api/v1/info/galleryArea?user_id='+user_id, values)
+      console.log(values)
+      axios.post('/api/v1/info/galleryArea?user_id='+user_id, values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('创建成功')
-                history.push('/pipe/area')
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/pipe/area')
                 
           }
         })
         .catch(function (error) {
-             console.log(error);
+          console.log(error);
         });
     }
     
@@ -134,7 +134,7 @@ class AreaNew extends Component {
             <Form
               onSubmit={this.handleSubmit}
             >
-               <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="区域名称"
               >
@@ -172,8 +172,7 @@ class AreaNew extends Component {
                     required:true,
                     message:"请输入区域长度",
                   }]
-                })
-                (<Input placeholder="请输入区域长度"/>)} 
+                })(<Input placeholder="请输入区域长度"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -185,13 +184,12 @@ class AreaNew extends Component {
                     required:true,
                     message:"请选择所属管廊",
                   }]
-                })
-                (<Select
+                })(<Select
                   //  mode="multiple"
-                    style={{ width: '100%' }}
-                    placeholder="请选择所属管廊"
+                  style={{ width: '100%' }}
+                  placeholder="请选择所属管廊"
                 >
-                    {pipeBelong}
+                  {pipeBelong}
                 </Select>,)} 
                 {/* //(<Input placeholder="请输入管廊区域"/>)}  */}
               </Form.Item>
@@ -205,8 +203,7 @@ class AreaNew extends Component {
                     required:true,
                     message:"请输入起点",
                   }]
-                })
-                (<Input placeholder="请输入起点"/>)} 
+                })(<Input placeholder="请输入起点"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -218,8 +215,7 @@ class AreaNew extends Component {
                     required:true,
                     message:"请输入终点",
                   }]
-                })
-                (<Input placeholder="请输入终点"/>)} 
+                })(<Input placeholder="请输入终点"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -231,8 +227,7 @@ class AreaNew extends Component {
                     required:true,
                     message:"请输入说明描述",
                   }]
-                })
-                (<Input placeholder="请输入说明描述"/>)} 
+                })(<Input placeholder="请输入说明描述"/>)} 
               </Form.Item>
               <section className="operator-container">
                 <div style={{textAlign:"center"}}>

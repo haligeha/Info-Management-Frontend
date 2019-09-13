@@ -61,13 +61,13 @@ class InspectionPlan extends Component {
   }
   //搜索
  selectActivity = (value) => {
-  const nameValue=value
-  this.setState({
-    inspection_person:nameValue
+   const nameValue=value
+   this.setState({
+     inspection_person:nameValue
    }) ;
- console.log(this.state)
- this.getGroupList(0)
-}
+   console.log(this.state)
+   this.getGroupList(0)
+ }
   //分页
   handlePageChange = (page) => {
     this.getGroupList(page-1)
@@ -76,12 +76,12 @@ class InspectionPlan extends Component {
   //删除
   deleteGroup = (record) => {
     axios.delete(`/api/v1/info/plan?id=${record.id}&user_id=${user_id}`)
-    .then(() => {
+      .then(() => {
         this.getGroupList(this.state.nowCurrent)
-    })
-    .catch( (err) => {
+      })
+      .catch( (err) => {
         console.log(err);
-    });
+      });
   }
   render() {
     const {
@@ -101,19 +101,19 @@ class InspectionPlan extends Component {
         <PageTitle titles={['巡检维护','巡检计划']}>
           {
             <Link to={"/inspection/plan/new"}>
-            <Button type="primary">+ 新建巡检计划</Button>
+              <Button type="primary">+ 新建巡检计划</Button>
             </Link>
           }
         </PageTitle>
         <Module>
-        <Row>
+          <Row>
             <Col span={2}>巡检人姓名：</Col>
             <Col span={4}>
-            <Search
+              <Search
                 placeholder="请输入巡检人姓名"
                 enterButton
                 onSearch={value => this.selectActivity(value)}
-                />
+              />
             </Col>
           </Row> 
         </Module>
@@ -193,11 +193,11 @@ class InspectionPlan extends Component {
                     <Button type="simple" className="btns" style={{marginRight:'5px'}}>编辑</Button>
                   </Link>
                   <Popconfirm
-                  title="确定要删除吗？"
-                  onConfirm={()=> {this.deleteGroup(record)}}
-                >
-                  <Button type="simple" className="deleteBtns" style={{marginTop:'2px'}}>删除</Button>  
-                 </Popconfirm>
+                    title="确定要删除吗？"
+                    onConfirm={()=> {this.deleteGroup(record)}}
+                  >
+                    <Button type="simple" className="deleteBtns" style={{marginTop:'2px'}}>删除</Button>  
+                  </Popconfirm>
                 </div>    
               </div>
             ),

@@ -10,7 +10,7 @@ class ManagementNew extends Component {
     super(props);
 
     this.state = {
-        pipeDetail:{},
+      pipeDetail:{},
     };
 
   }
@@ -39,51 +39,51 @@ class ManagementNew extends Component {
     } = this.props
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
-      // if(!getFieldValue('number')){
-      //   message.error('请输入管廊编号')
-      // }
-      if(!getFieldValue('name')){
-        message.error('请输入管廊名称')
-      }
-      if(!getFieldValue('length')){
-        message.error('请输入管廊长度')
-      }
-      if(!getFieldValue('unit')){
-          message.error('请选择所属单位')
-        }
-      if(!getFieldValue('startpoint')){
+    // if(!getFieldValue('number')){
+    //   message.error('请输入管廊编号')
+    // }
+    if(!getFieldValue('name')){
+      message.error('请输入管廊名称')
+    }
+    if(!getFieldValue('length')){
+      message.error('请输入管廊长度')
+    }
+    if(!getFieldValue('unit')){
+      message.error('请选择所属单位')
+    }
+    if(!getFieldValue('startpoint')){
       message.error('请输入起点')
-      }
-      if(!getFieldValue('endpoint')){
-          message.error('请输入终点')
-      }
-      if(!getFieldValue('description')){
-          message.error('请输入说明描述')
-      }
+    }
+    if(!getFieldValue('endpoint')){
+      message.error('请输入终点')
+    }
+    if(!getFieldValue('description')){
+      message.error('请输入说明描述')
+    }
     if(id){
-        values.id=id
-        axios.put('/api/v1/info/pipeGallery', values)
+      values.id=id
+      axios.put('/api/v1/info/pipeGallery', values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('编辑成功')
-                history.push('/pipe/management')
+          if(response.status === 200){
+            message.info('编辑成功')
+            history.push('/pipe/management')
           }
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
     }else{
-        console.log(values)
-        axios.post('/api/v1/info/pipeGallery', values)
+      console.log(values)
+      axios.post('/api/v1/info/pipeGallery', values)
         .then(function (response) {
-            if(response.status === 200){
-                message.info('创建成功')
-                history.push('/pipe/management')
+          if(response.status === 200){
+            message.info('创建成功')
+            history.push('/pipe/management')
                 
           }
         })
         .catch(function (error) {
-             console.log(error);
+          console.log(error);
         });
     }
     
@@ -112,7 +112,7 @@ class ManagementNew extends Component {
               onSubmit={this.handleSubmit}
             >
                
-               <Form.Item
+              <Form.Item
                 {...createFormItemLayout}
                 label="管廊名称"
               >
@@ -137,8 +137,7 @@ class ManagementNew extends Component {
                     required:true,
                     message:"请输入管廊长度",
                   }]
-                })
-                (<Input placeholder="请输入管廊长度"/>)} 
+                })(<Input placeholder="请输入管廊长度"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -150,8 +149,7 @@ class ManagementNew extends Component {
                     required:true,
                     message:"请输入所属单位",
                   }]
-                })
-                (<Input placeholder="请输入所属单位"/>)} 
+                })(<Input placeholder="请输入所属单位"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -163,8 +161,7 @@ class ManagementNew extends Component {
                     required:true,
                     message:"请输入起点",
                   }]
-                })
-                (<Input placeholder="请输入起点"/>)} 
+                })(<Input placeholder="请输入起点"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -176,8 +173,7 @@ class ManagementNew extends Component {
                     required:true,
                     message:"请输入终点",
                   }]
-                })
-                (<Input placeholder="请输入终点"/>)} 
+                })(<Input placeholder="请输入终点"/>)} 
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
@@ -189,8 +185,7 @@ class ManagementNew extends Component {
                     required:true,
                     message:"请输入说明描述",
                   }]
-                })
-                (<Input placeholder="请输入说明描述"/>)} 
+                })(<Input placeholder="请输入说明描述"/>)} 
               </Form.Item>
               <section className="operator-container">
                 <div style={{textAlign:"center"}}>

@@ -54,57 +54,57 @@ class Employee extends Component {
   //删除
   deleteGroup = (record) => {
     axios.delete(`/api/v1/info/userById?Id=${record.id}&user_id=${user_id}`)
-    .then(() => {
+      .then(() => {
         this.getGroupList(this.state.nowCurrent)
-    })
-    .catch( (err) => {
+      })
+      .catch( (err) => {
         console.log(err);
-    });
+      });
   }
  //搜索
  selectActivity = (value) => {
-     const nameValue=value
-    this.setState({
-       name:nameValue
-      }) ;
-    console.log(this.state)
-    this.getGroupList(0)
-  }
+   const nameValue=value
+   this.setState({
+     name:nameValue
+   }) ;
+   console.log(this.state)
+   this.getGroupList(0)
+ }
 
-  render() {
-    const {
-        data:{
-          data,
-          allCount,
-          limit,
-          page,
-        },
-      } = this.state;
-      const total = allCount
-      const current = page+1
-      const size = limit
-    return (
-      <div>
-        <PageTitle titles={['巡检维护','员工信息']}>
-          {
-            <Link to={"/inspection/employee/new"}>
-            <Button type="primary">+ 新建员工信息</Button>
-            </Link>
-          }
-        </PageTitle>
-        <Module>
-        <Row>
-            <Col span={2}>员工姓名：</Col>
-            <Col span={4}>        
-              <Search
-                placeholder="请输入员工姓名"
-                enterButton
-                onSearch={value => this.selectActivity(value)}
-                />
-            </Col>
-          </Row> 
-        </Module>
-        <Table
+ render() {
+   const {
+     data:{
+       data,
+       allCount,
+       limit,
+       page,
+     },
+   } = this.state;
+   const total = allCount
+   const current = page+1
+   const size = limit
+   return (
+     <div>
+       <PageTitle titles={['巡检维护','员工信息']}>
+         {
+           <Link to={"/inspection/employee/new"}>
+             <Button type="primary">+ 新建员工信息</Button>
+           </Link>
+         }
+       </PageTitle>
+       <Module>
+         <Row>
+           <Col span={2}>员工姓名：</Col>
+           <Col span={4}>        
+             <Search
+               placeholder="请输入员工姓名"
+               enterButton
+               onSearch={value => this.selectActivity(value)}
+             />
+           </Col>
+         </Row> 
+       </Module>
+       <Table
          className="group-list-module"
          bordered
          pagination={{
@@ -115,48 +115,48 @@ class Employee extends Component {
            showTotal: () => `共${allCount} 条数据`
          }}
          dataSource={data}
-          columns={[{
-            title: '员工工号',
-            key: 'id',
-            render: (text, record) => {
-              return (record.id && record.id) || '--'
-            }
-          }, {
-            title: '员工姓名',
-            width:200,
-            key: 'name',
-            render: (text, record) => {
-              return (record.name && record.name) || '--'
-            }
-          }, {
-            title: '电子邮箱',
-            key: 'email',
-            render: (text, record) => {
-              return (record.email && record.email) || '--'
-            }
-          },{
-            title: '操作',
-            render: (text, record, index) => (
-              <div className="operate-btns"
-                style={{ display: 'block' }}
-              >
-                <Popconfirm
-                  title="确定要删除吗？"
-                  onConfirm={()=> {this.deleteGroup(record)}}
-                >
-                  <Button 
-                    type="simple"
-                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
-                  >删除</Button>
-                </Popconfirm>
-              </div>
-            ),
-          }]}
-        />
-      </div>
+         columns={[{
+           title: '员工工号',
+           key: 'id',
+           render: (text, record) => {
+             return (record.id && record.id) || '--'
+           }
+         }, {
+           title: '员工姓名',
+           width:200,
+           key: 'name',
+           render: (text, record) => {
+             return (record.name && record.name) || '--'
+           }
+         }, {
+           title: '电子邮箱',
+           key: 'email',
+           render: (text, record) => {
+             return (record.email && record.email) || '--'
+           }
+         },{
+           title: '操作',
+           render: (text, record, index) => (
+             <div className="operate-btns"
+               style={{ display: 'block' }}
+             >
+               <Popconfirm
+                 title="确定要删除吗？"
+                 onConfirm={()=> {this.deleteGroup(record)}}
+               >
+                 <Button 
+                   type="simple"
+                   style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                 >删除</Button>
+               </Popconfirm>
+             </div>
+           ),
+         }]}
+       />
+     </div>
 
-    );
-  }
+   );
+ }
 }
 
 export default Employee;

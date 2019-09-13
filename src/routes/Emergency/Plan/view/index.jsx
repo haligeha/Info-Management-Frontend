@@ -38,7 +38,7 @@ class EmergencyRoute extends Component{
             loading: Loading
           })}
         />
-          <Route
+        <Route
           exact
           path="/emergency/plan/edit/:id"
           component={Loadable({
