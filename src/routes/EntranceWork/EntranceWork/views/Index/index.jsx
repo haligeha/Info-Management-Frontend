@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './index.styl';
+// import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
+// import { actions } from '../../../../../modules/EntranceWork'
 import { Link } from 'react-router-dom';
 import { Button, Form, Row, Col, Select, Table, Popconfirm } from 'antd';
 import {
@@ -44,6 +47,18 @@ class Homework extends Component {
         console.log(error);
       });
   }
+  // redux获取信息列表
+  // getGroupList = (page) => {
+  //   const { fetchPushToolActivityList } = this.props.actions
+  //   const { size ,range} = this.state;
+  //   const values = {
+  //     range: size,
+  //     size: range,
+  //     page:page,
+  //     user_id:user_id,
+  //   }
+  //   fetchPushToolActivityList(values)
+  // }
   //分页
   handlePageChange = (page) => {
     this.getGroupList(page-1)
@@ -180,4 +195,9 @@ class Homework extends Component {
 }
 
 export default Homework;
+// export default connect(state => ({
+//   // features: state.features.features,
+// }),
+// dispatch => ({ actions: bindActionCreators(actions, dispatch) }))(Homework)
+
 
