@@ -14,7 +14,9 @@
     "react-redux": "^7.0.3",
     "react-scripts": "2.1.8",
     "redux": "^4.0.1",
-    "video-react": "^0.14.0"
+    "video-react": "^0.14.0",
+    "video.js": "^7.6.0",
+    "videojs-flash": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -15,7 +15,8 @@ class SceneView extends Component {
     super(props);
 
     this.state = {
-      layoutstate:1
+      layoutstate:1,
+      rtmpSrc:''
     };
   }
 
@@ -37,6 +38,28 @@ class SceneView extends Component {
       form,  
     } = this.props;
     const { getFieldDecorator } = form;
+    const videoJsOptions = {
+      autoplay: true,  //自动播放
+      language: 'zh-CN', 
+      controls: true,  //控制条
+      preload: 'auto',  //自动加载
+      errorDisplay: true,  //错误展示
+      //width: 800,  //宽
+      //height: 500,  //高
+      fluid: true,  //跟随外层容器变化大小，跟随的是外层宽度
+      // controlBar: false,  // 设为false不渲染控制条DOM元素，只设置controls为false虽然不展示，但还是存在
+      // textTrackDisplay: false,  // 不渲染字幕相关DOM
+      userActions: {
+        hotkeys: true  //是否支持热键
+      },
+      sources: [
+        {
+          src: "rtmp://www.anbotcloud.cn:1936/live/19WV420011/front",
+          type: "rtmp/flv",  //类型可加可不加，目前未看到影响
+          // type: 'video/mp4',
+        }
+      ]
+    }
     let layout;
     switch(this.state.layoutstate){
     case 1: layout = (
@@ -54,10 +77,10 @@ class SceneView extends Component {
           <EchartsModule choose={3} />
         </div>
         <div className="video-1-1">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="video-1-2">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
       </div>)
       break;
@@ -69,10 +92,10 @@ class SceneView extends Component {
           </div>
         </div>
         <div className="video-2-1">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="video-2-2">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <br />
         <div className="plan-info-2">
@@ -95,10 +118,10 @@ class SceneView extends Component {
           </div>
         </div>
         <div className="video-3-1">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="video-3-2">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="wrap-plan-info-3">
           <div className="plan-info-3">
@@ -112,13 +135,13 @@ class SceneView extends Component {
     case 4 : layout = (
       <div>
         <div className="video-4-1">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="video-4-2">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="video-4-3">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="gis-map-4">
           <MapModule />
@@ -141,13 +164,14 @@ class SceneView extends Component {
           <EchartsModule choose={3} />
         </div>
         <div className="video-1-1">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
         <div className="video-1-2">
-          <Video />
+          <Video {...videoJsOptions} />
         </div>
       </div>
     )
+    
     }
     return (
       <div>
