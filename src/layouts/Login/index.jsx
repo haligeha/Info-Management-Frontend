@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button,Form,Input,Select,Icon,message} from 'antd';
+import {Button,Form,Input,Select,Icon,message,Row,Col} from 'antd';
 import { Link } from 'react-router-dom';
 import IndexView from '../../routes';
 // import SceneView from '../../routes/Monitor/Scene';
@@ -7,6 +7,7 @@ import LowerHeaderLayout from '../LowerHeaderLayout';
 import HigherHeaderLayout from '../HigherHeaderLayout';
 import { Layout,} from 'antd';
 import './index.styl'
+import '../../routes/Home/views/Index/index.styl'
 import axios from 'axios';
 import Background from './img/1.jpg'
 
@@ -39,30 +40,6 @@ class Login extends React.Component{
       this.setState({showContent:true});    
     }
 
-    // //设置cookie
-    // setCookie(cname, cvalue, exdays) {
-    //   var d = new Date();
-    //   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    //   var expires = "expires=" + d.toUTCString();
-    //   document.cookie = cname + "=" + cvalue + "; " + expires;
-    // }
-
-    // //获取cookie
-    // getCookie(cname){
-    //   var name = cname + "=";
-    //   var ca = document.cookie.split(';');
-
-    //   for (var i = 0; i < ca.length; i++) {
-    //     var c = ca[i];
-
-    //     while (c.charAt(0) == ' ') c = c.substring(1);
-    //     if (c.indexOf(name) != -1){
-    //       return c.substring(name.length, c.length);
-    //     }
-    //   }
-    //   return "";
-    // }
-    
     //子组件设置父组件状态
     Logout=()=>{
       // this.setState({
@@ -76,6 +53,10 @@ class Login extends React.Component{
    //   history.push('/')
     }
 
+    info=()=>{  
+      console.log("home")   
+      this.props.history.push("/home")
+    }
 
     //连接登陆接口并设置username,password和token的cookie
     handleSubmit = (e) => {
@@ -98,14 +79,9 @@ class Login extends React.Component{
         .then(function (response) {
           if(response.status === 200){
             message.info('登陆成功')
-
             window.sessionStorage.setItem("username",values.username);
-            
-            console.log(window.sessionStorage.getItem("username")+"hello");
-            window.sessionStorage.setItem("password",values.password);
-      
-            window.sessionStorage.setItem("user_id", response.data.user_id);
-           
+            window.sessionStorage.setItem("password",values.password);    
+            window.sessionStorage.setItem("user_id", response.data.user_id);          
             rea.login()
           }
         })
@@ -113,11 +89,10 @@ class Login extends React.Component{
           message.info("账号或密码错误")
         });
     }
-
     render() {
       const { getFieldDecorator } = this.props.form;
       const { showContent } = this.state;
-      const condition='user_id===8';
+       const condition='user_id===8';
       return (
         <div className="content">
            {/* <div className="backgroundPic" style={sectionStyle}>
@@ -219,11 +194,11 @@ class Login extends React.Component{
             </div>
           }
              
-          {showContent &&
+          {showContent &&   
               (condition?<div>
                 <HigherHeaderLayout/>
-                    <Content className={'content-layout'}>
-                        <IndexView/>              
+                <Content className={'content-layout'}>
+                      <IndexView/>              
                 </Content>
                  </div>:<div>
                 <LowerHeaderLayout/>
@@ -237,9 +212,7 @@ class Login extends React.Component{
                      <Content className={'content-layout'}>
                          <IndexView/>
                  </Content>
-             </div> */}
-                
-          }
+             </div> */}  
         </div>
           
       );

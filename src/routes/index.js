@@ -2,8 +2,6 @@ import React, { Component, } from 'react';
 import { Switch, Route, withRouter,Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
-import HighterLayOut from '../layouts/HigherHeaderLayout'
-import Login from '../layouts/Login'
 const Loading = () => {
   return (
     <div className="loading">
@@ -21,28 +19,25 @@ class RouteView extends Component{
     return (
       <Switch>
        <Route    
-        //  path="/monitor/view"
-          path="/" 
+         path="/monitor/view"
+        //  path="/" 
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Scene" */
               './Monitor/Scene'),
             loading: Loading
-          })}  exact
+          })}  
          /> 
-         
-        {/* <Route    
-        path="/monitor/view"
-        component={()=>(this.checkcustomer()!==''?<HighterLayOut/>:<Redirect to='./login'/>)}
-        ></Route> */}
-       {/* <Route
-          path="/login" 
+        <Route    
+         path="/"
+        //  path="/" 
           component={Loadable({
             loader: () => import(
-              '../layouts/Login'),
+              /* webpackChunkName: "Scene" */
+              './Home'),
             loading: Loading
-          })}
-        /> */}
+          })}exact
+         /> 
         <Route
           path="/monitor/device"
           component={Loadable({
@@ -230,7 +225,7 @@ class RouteView extends Component{
 }
 
 
-export default RouteView;
+export default withRouter(RouteView);
 
 
 
