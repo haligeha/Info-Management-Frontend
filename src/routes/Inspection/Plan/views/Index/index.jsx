@@ -177,28 +177,35 @@ class InspectionPlan extends Component {
             }
           },{
             title: '操作',
-            width:350,
+            width:120,
             render: (text, record, index) => (
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
-                <div className="firstColBtn">
-                  <Button type="simple" className="btns" style={{marginRight:'5px'}}>查看巡检报告</Button>
-                  <Button type="simple" className="btns" style={{marginTop:'2px'}}>查看详情</Button>  
-                </div>
-                <div className="SecondColBtn">
-                  <Link
+                {/* <Link
                     to={`/inspection/plan/edit/${record.id}`}
                   >                  
                     <Button type="simple" className="btns" style={{marginRight:'5px'}}>编辑</Button>
                   </Link>
                   <Popconfirm
-                    title="确定要删除吗？"
-                    onConfirm={()=> {this.deleteGroup(record)}}
-                  >
-                    <Button type="simple" className="deleteBtns" style={{marginTop:'2px'}}>删除</Button>  
-                  </Popconfirm>
-                </div>    
+                  title="确定要删除吗？"
+                  onConfirm={()=> {this.deleteGroup(record)}}
+                >
+                  <Button type="simple" className="deleteBtns" style={{marginTop:'2px'}}>删除</Button>  
+                 </Popconfirm> */}
+                <Link
+                  to={`/inspection/plan/edit/${record.id}`}
+                  style={{marginRight:'5px'}}
+                >编辑</Link>
+                <Popconfirm
+                  title="确定要删除吗？"
+                  onConfirm={()=> {this.deleteGroup(record)}}
+                >
+                  <Button 
+                    type="simple"
+                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                  >删除</Button>
+                </Popconfirm>
               </div>
             ),
           }]}

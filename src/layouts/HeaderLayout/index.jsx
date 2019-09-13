@@ -23,16 +23,11 @@ class HeaderLayout extends Component {
             },
             {
               id:'12',
-              name:"实时监控",
-              url:'/monitor/video'
-            },
-            {
-              id:'13',
               name:'GIS地图',
               url:'/monitor/gis'
             },
             {
-              id:'14',
+              id:'13',
               name:'设备信息',
               url:'/monitor/device'
             }
@@ -78,8 +73,8 @@ class HeaderLayout extends Component {
           children:[
             {
               id:'31',
-              name:"告警处理",
-              url:'/emergency/alarm'
+              name:'应急预案',
+              url:'/emergency/plan'
             },
             {
               id:'32',
@@ -88,12 +83,6 @@ class HeaderLayout extends Component {
             },
             {
               id:'33',
-              name:'应急预案',
-              url:'/emergency/plan'
-            },
-            
-            {
-              id:'34',
               name:'预案审批',
               url:'/emergency/approval'
             },
@@ -200,20 +189,6 @@ class HeaderLayout extends Component {
 
           })
           }
-          {/*为实现向外部跳转，单独罗列出的导航部分 */}
-          <SubMenu
-            key="sub1"
-            className="custom-sub-menu"
-            title={
-              <span>
-                <span>更多</span>
-              </span>
-            }
-          >
-            <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank"></a>视频通话</Menu.Item>
-            <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank"></a>大数据平台</Menu.Item>
-            <Menu.Item key="7"><a href="http://39.104.84.131/thingsTenantManager#/homePage" target="_blank"></a>物管理平台</Menu.Item>
-          </SubMenu>
         </Menu>
        
       </Header>
@@ -222,4 +197,3 @@ class HeaderLayout extends Component {
 }
 
 export default HeaderLayout;
-

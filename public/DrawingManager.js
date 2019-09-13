@@ -1184,9 +1184,11 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             var draw={point:drawPoint.slice(0,drawPoint.length-2)}
             var draw1=JSON.stringify(draw)
             console.log(draw1)
+            console.log(window.drawPara)
+            var drawPara=window.drawPara
             $.ajax({
-            url:'/api/v1/map/pipe',
-            data:JSON.stringify({"name":drawPara.name,"tenantid":tenantId,"pipecolor":styleOptions1.strokeColor,"pipewidth":styleOptions1.strokeWeight,"pipetype":styleOptions1.strokeStyle,"drawpoint":draw1,"createdat":Date.parse(new Date())}),
+            url:'/api/v1/info/inspectionPath?user_id=6',
+            data:JSON.stringify({"area":drawPara.area,"pipe_gallery":drawPara.pipe_gallery,"startpoint":draw1.point,"endpoint":draw1.point,"description":drawPara.description}),
             type:'POST',//提交方式
             dataType: 'json',
             contentType: "application/json",
@@ -1198,7 +1200,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             error:function(error)
             {
                 console.log(error)
-                toastr.error('错误');
+             //   toastr.error('错误');
             }
         });
 

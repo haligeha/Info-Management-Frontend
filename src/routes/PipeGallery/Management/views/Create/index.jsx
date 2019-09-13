@@ -4,7 +4,7 @@ import { Form,Input,Select,Button,message,} from 'antd';
 import axios from 'axios';
 const Option = Select.Option;
 const dateFormat = 'YYYY-MM-DD';
-
+var user_id=window.sessionStorage.getItem("user_id")
 class ManagementNew extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ class ManagementNew extends Component {
     const {match : { params : { id } }} = this.props   
     console.log(id)
     if(id){
-      axios.get(`/api/v1/info/pipeGallery?Id=${id}&user_id=6`)
+      axios.get(`/api/v1/info/pipeGallery?Id=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({pipeDetail:res.data})
         })
@@ -62,7 +62,7 @@ class ManagementNew extends Component {
     }
     if(id){
       values.id=id
-      axios.put('/api/v1/info/pipeGallery', values)
+      axios.put('/api/v1/info/pipeGallery?user_id='+user_id, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('编辑成功')
@@ -74,7 +74,7 @@ class ManagementNew extends Component {
         });
     }else{
       console.log(values)
-      axios.post('/api/v1/info/pipeGallery', values)
+      axios.post('/api/v1/info/pipeGallery?user_id='+user_id, values)
         .then(function (response) {
           if(response.status === 200){
             message.info('创建成功')

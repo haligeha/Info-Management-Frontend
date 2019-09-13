@@ -1,12 +1,11 @@
 import React, { Component, } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Layout, Icon, Dropdown, Avatar, } from 'antd';
-
+import { Menu, Layout, Icon, Dropdown, Avatar,Modal } from 'antd';
+import axios from 'axios';
 
 const { Header,} = Layout;
 const { SubMenu } = Menu; 
-var username=window.sessionStorage.getItem("username")
-class HeaderLayout extends Component {
+class HigherHeaderLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +18,7 @@ class HeaderLayout extends Component {
             {
               id:'11',
               name:'首页展示',
-              url:'/monitor/view'
+              url:'/'
             },{
               id:'12',
               name:"实时监控",
@@ -124,11 +123,6 @@ class HeaderLayout extends Component {
               name:'管廊区域信息',
               url:'/pipe/area'
             },
-            // {
-            //   id:'53',
-            //   name:'设备管理',
-            //   url:'/pipe/area'
-            // },
             {
               id:'54',
               name:'用户操作日志',
@@ -136,7 +130,8 @@ class HeaderLayout extends Component {
             },
           ]
         }
-      ]
+      ],
+      modalVisible:false,
     };
   }
   
@@ -144,12 +139,22 @@ class HeaderLayout extends Component {
    
   }
 
+  //跳转一期
+  jumpTo=()=>{
+    const rea=this
+    const username= window.sessionStorage.getItem("username")
+    const password = window.sessionStorage.getItem("password")
+    console.log(username)
+    // axios.post('/api/v1/auto/devicemanagement', {username:username,password:password})
+    window.location.href='http://localhost:80/secondStage?username='+username+'&password='+password
+    // window.location.href="http://localhost:80/fromSecondStage?username="+username+'&password='+password
+  }
+
   //退出登录
   handleExit=()=>{
-    console.log("123")
-    window.sessionStorage.clear()
     console.log(window.sessionStorage.getItem('username'))
-    window.location.reload();
+    sessionStorage.clear()
+    window.location.href="http://localhost:3003"
   };
 
   render() {
@@ -174,8 +179,7 @@ class HeaderLayout extends Component {
                   style={{ fontSize: '18px', }}
                 />
               </Avatar>
-              <span style={{ color: 'white', }}>{username}</span>
-              {console.log(username)}
+              <span style={{ color: 'white', }}>{window.sessionStorage.getItem("username")}</span>
             </span>
           </Dropdown>
         </div>
@@ -204,7 +208,7 @@ class HeaderLayout extends Component {
           })
           }
           {/*为实现向外部跳转，单独罗列出的导航部分 */}
-          <SubMenu
+          {/* <SubMenu
             key="sub1"
             className="custom-sub-menu"
             title={
@@ -213,15 +217,15 @@ class HeaderLayout extends Component {
               </span>
             }
           >
-            <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank"></a>视频通话</Menu.Item>
-            <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank"></a>大数据平台</Menu.Item>
-            <Menu.Item key="7"><a href="http://39.104.84.131/thingsTenantManager#/homePage" target="_blank"></a>物管理平台</Menu.Item>
-          </SubMenu>
+            <Menu.Item key="5"><a href="https://10.112.217.199" target="_blank" ></a>视频通话</Menu.Item>
+            <Menu.Item key="6"><a href="http://39.104.84.131/bigData/device1.html?id=1" target="_blank" ></a>大数据平台</Menu.Item>
+            <Menu.Item key="7" > <p onClick={this.jumpTo}> 物管理平台</p>
+            </Menu.Item>
+          </SubMenu> */}
         </Menu>
-       
       </Header>
     );
   }
 }
 
-export default HeaderLayout;
+export default HigherHeaderLayout;
