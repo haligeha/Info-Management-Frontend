@@ -1,8 +1,8 @@
 import React, { Component, } from 'react';
-import { Input,Row,Col,Button, Form, Icon,Skeleton,Avatar,Card } from 'antd';
+import { Input,Row,Col,Button, Icon ,Avatar,Card } from 'antd';
 import { PageTitle,Module  } from '../../../../../components';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 var user_id=window.sessionStorage.getItem("user_id")
 const Search = Input.Search;
 const { Meta } = Card;
@@ -80,7 +80,8 @@ class EmergencyPlan extends Component {
             //   history.push('/monitor/device/detail')
             // }}/>,
             <a href="http://39.104.84.131/thingsTenantManager#/deviceList"
-              _target="blank">
+              _target="blank"
+            >
               <Icon type="delete"/>
             </a>, 
             <a href="http://39.104.84.131/thingsTenantManager#/deviceList"

@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Button, Table,Popconfirm, Row, Col, Input, Select, } from 'antd';
+import { Button, Table,Popconfirm, Row, Col, Select, } from 'antd';
 import axios from 'axios';
 import './index.styl';
 import moment from 'moment';
@@ -12,7 +12,7 @@ import {
 var user_id=window.sessionStorage.getItem("user_id")
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 7;
-const Search = Input.Search;
+//const Search = Input.Search;
 class EmergencyPlan extends Component {
   constructor(props) {
     super(props);

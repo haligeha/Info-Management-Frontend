@@ -1,10 +1,10 @@
 import React, { Component, } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Layout, Icon, Dropdown, Avatar,Modal } from 'antd';
-import axios from 'axios';
+import { Menu, Layout, Icon, Dropdown, Avatar } from 'antd';
+//import axios from 'axios';
 
 const { Header,} = Layout;
-const { SubMenu } = Menu; 
+//const { SubMenu } = Menu; 
 class HigherHeaderLayout extends Component {
   constructor(props) {
     super(props);
@@ -141,7 +141,7 @@ class HigherHeaderLayout extends Component {
 
   //跳转一期
   jumpTo=()=>{
-    const rea=this
+    //const rea=this
     const username= window.sessionStorage.getItem("username")
     const password = window.sessionStorage.getItem("password")
     console.log(username)

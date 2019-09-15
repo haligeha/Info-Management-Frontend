@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {SELECT_EQUIPMENT_CATEGORY} from '../../configs'
 import { PageTitle,Module } from '../../../../../../components';
-import {Button,Table,Form,Row,Col,Select,Popconfirm} from 'antd';
-const FormItem = Form.Item;
+import {Button,Table,Row,Col,Select,Popconfirm} from 'antd';
+//const FormItem = Form.Item;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
 const user_id = window.sessionStorage.getItem("user_id");
@@ -163,7 +163,8 @@ class Equipment extends Component {
                 >详情</Link>
                 <Popconfirm 
                   title="确定要删除吗" 
-                  onConfirm={()=>{this.deleteGroup(record)}}>
+                  onConfirm={()=>{this.deleteGroup(record)}}
+                >
                   <Button 
                     type="simple"
                     style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}

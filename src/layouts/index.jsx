@@ -1,10 +1,10 @@
 import React, { Component, } from 'react';
-import HeaderLayout from './HeaderLayout';
-import RouteView from '../routes';
+//import HeaderLayout from './HeaderLayout';
+//import RouteView from '../routes';
 import Login from './Login'
 import { Layout,} from 'antd';
 import './index.styl';
-const { Content, } = Layout;
+//const { Content, } = Layout;
 
 
 class Layouts extends Component {

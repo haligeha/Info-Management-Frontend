@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Form,Input,Select,Button,message, Upload, notification,Icon,Popconfirm, } from 'antd';
+import { Form,Input,Select,Button,message, Upload, Icon } from 'antd';
 import { SELECT_EMERGENCY_PLAN_LEVEL } from '../../config';
 import axios from 'axios';
 import './index.styl'
@@ -103,12 +103,11 @@ class EmergencyNew extends Component {
   downLoadFile=()=>{
     const {
       form,
-      history,
     } = this.props
     var path=this.state.url
     var str1 = path.replace('.', '/');
     console.log(str1)
-    const { getFieldValue } = form;
+    //const { getFieldValue } = form;
     const values = form.getFieldsValue()
     console.log(values.content)
     window.open('/api/v1/info/download/'+values.content+'?user_id='+value);
@@ -143,7 +142,7 @@ class EmergencyNew extends Component {
     const {
       form,
     } = this.props
-    const { getFieldValue } = form;
+    //const { getFieldValue } = form;
     const values = form.getFieldsValue()
     console.log(values.content)
     axios.delete(`/api/v1/info/delete/`+values.content+'?user_id='+value)
@@ -161,18 +160,18 @@ class EmergencyNew extends Component {
       wrapperCol : {span:8},
     }
     const { 
-      form: { getFieldDecorator,getFieldValue }, 
+      form: { getFieldDecorator }, 
       match : { params : { id } }
     } = this.props
     const { planDetail} = this.state
-    const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail. name 
+    const fileName=this.props.form.getFieldValue('name')? this.props.form.getFieldValue('name'):planDetail.name 
     const uploadProps={
       action:`/api/v1/info/uploadFile?type=0&name=${fileName}&user_id=${value}`,
       onChange:(info)=>{
         // if (info.file.status !== 'uploading') {
         //   console.log(info.file, info.fileList);
         // } 
-        if (info.file.status == 'uploading') {
+        if (info.file.status === 'uploading') {
           console.log(info.file, info.fileList);
           this.setState({
             file:info.file,

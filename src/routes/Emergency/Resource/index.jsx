@@ -1,14 +1,14 @@
 import React, { Component, } from 'react';
-import {Switch,Route} from 'react-router-dom';
-import { PageTitle } from '../../../components';
-import { Link } from "react-router-dom";
+import {Route} from 'react-router-dom';
+//import { PageTitle } from '../../../components';
+//import { Link } from "react-router-dom";
 import { Tabs } from 'antd';
 import Material from './Material/views/Index/index';
 import Equipment from './Equipment/views/Index/index';
 import RescueTeam from './RescueTeam/views/Index/index';
 import Shelter from "./Shelter/views/Index/index";
-import ResourceRoute from './route';
-import EquipmentRoute from './route2';
+//import ResourceRoute from './route';
+//import EquipmentRoute from './route2';
 const TabPane = Tabs.TabPane;
 
 class Resource extends Component {

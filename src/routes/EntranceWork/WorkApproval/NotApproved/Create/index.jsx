@@ -105,7 +105,7 @@ class ApprovedNew extends Component{
       form: { getFieldDecorator },
       match: { params : {id}}
     } = this.props
-    const {approvalDetail} = this.state
+    //const {approvalDetail} = this.state
     return (
       <div>
         <PageTitle titles={['入廊作业','作业审批','新建审批']}/>      

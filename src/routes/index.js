@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { Switch, Route, withRouter,Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 const Loading = () => {
@@ -18,26 +18,26 @@ class RouteView extends Component{
   render(){
     return (
       <Switch>
-       <Route    
-         path="/monitor/view"
-        //  path="/" 
+        <Route    
+          path="/monitor/view"
+          //  path="/" 
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Scene" */
               './Monitor/Scene'),
             loading: Loading
-          })}  
-         /> 
+          })}
+        /> 
         <Route    
-         path="/"
-        //  path="/" 
+          path="/"
+          //  path="/" 
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Scene" */
               './Home'),
             loading: Loading
           })}exact
-         /> 
+        /> 
         <Route
           path="/monitor/device"
           component={Loadable({

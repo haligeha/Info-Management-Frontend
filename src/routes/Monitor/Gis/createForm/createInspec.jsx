@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input,Button,Select } from 'antd';
+import { Form, Input } from 'antd';
 
 class Inspec extends Component {
  
@@ -71,8 +71,7 @@ class Inspec extends Component {
               required:true,
               message:"请输入说明描述",
             }]
-          })
-          (<Input placeholder="请输入说明描述"/>)} 
+          })(<Input placeholder="请输入说明描述"/>)} 
         </Form.Item>
       </Form>
     );

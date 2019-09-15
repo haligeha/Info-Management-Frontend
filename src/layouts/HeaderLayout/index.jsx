@@ -4,7 +4,7 @@ import { Menu, Layout, Icon, Dropdown, Avatar, } from 'antd';
 
 
 const { Header,} = Layout;
-const { SubMenu } = Menu; 
+//const { SubMenu } = Menu; 
 
 class HeaderLayout extends Component {
   constructor(props) {

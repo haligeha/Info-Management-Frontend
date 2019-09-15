@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { Input,Row,Col,Button, Form, Table,Popconfirm } from 'antd';
+import { Button,Table,Popconfirm } from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import axios from 'axios';
@@ -54,9 +54,6 @@ class NotApproved extends Component {
   render() {
     const {
       data,
-      current,
-      total,
-      size,
     } = this.state;
     return (
       <div>
@@ -108,7 +105,8 @@ class NotApproved extends Component {
                 
                 <Popconfirm 
                   title="确定要删除吗" 
-                  onConfirm={()=>{this.deleteGroup(record)}}>
+                  onConfirm={()=>{this.deleteGroup(record)}}
+                >
                   <Button 
                     type="simple"
                     style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}

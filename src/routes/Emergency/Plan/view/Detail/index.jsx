@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import { PageTitle,Module } from '../../../../../components';
-import { Button,List } from 'antd';
+import { PageTitle} from '../../../../../components';
+import { List } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import './index.styl'

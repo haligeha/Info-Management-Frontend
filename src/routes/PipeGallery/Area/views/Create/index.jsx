@@ -3,7 +3,7 @@ import { PageTitle,Module } from '../../../../../components';
 import { Form,Input,Select,Button,message,} from 'antd';
 import axios from 'axios';
 const Option = Select.Option;
-const dateFormat = 'YYYY-MM-DD';
+//const dateFormat = 'YYYY-MM-DD';
 var user_id=window.sessionStorage.getItem("user_id")
 class AreaNew extends Component {
   constructor(props) {

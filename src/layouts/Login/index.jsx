@@ -1,6 +1,6 @@
 import React from 'react'
-import {Button,Form,Input,Select,Icon,message,Row,Col} from 'antd';
-import { Link } from 'react-router-dom';
+import {Button,Form,Input,message,} from 'antd';
+//import { Link } from 'react-router-dom';
 import IndexView from '../../routes';
 // import SceneView from '../../routes/Monitor/Scene';
 import LowerHeaderLayout from '../LowerHeaderLayout';
@@ -11,7 +11,7 @@ import '../../routes/Home/views/Index/index.styl'
 import axios from 'axios';
 import Background from './img/1.jpg'
 
-var user_id=window.sessionStorage.getItem("user_id")
+//var user_id=window.sessionStorage.getItem("user_id")
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
@@ -21,7 +21,7 @@ var sectionStyle = {
 
 };
 
-const FormItem =  Form.Item;
+//const FormItem =  Form.Item;
 const { Content, } = Layout;
 class Login extends React.Component{
   constructor(props) {
@@ -45,12 +45,10 @@ class Login extends React.Component{
       // this.setState({
       //   showContent:false
       // })
-      const {
-        history,
-      } = this.props
+      
       sessionStorage.clear();       
       window.location.href="http://localhost:3003" 
-   //   history.push('/')
+      //history.push('/')
     }
 
     info=()=>{  
@@ -63,7 +61,6 @@ class Login extends React.Component{
       e.preventDefault()
       const {
         form,
-        token,
       } = this.props
       const rea=this
       const { getFieldValue } = form;
@@ -92,10 +89,10 @@ class Login extends React.Component{
     render() {
       const { getFieldDecorator } = this.props.form;
       const { showContent } = this.state;
-       const condition='user_id===8';
+      const condition='user_id===8';
       return (
         <div className="content">
-           {/* <div className="backgroundPic" style={sectionStyle}>
+          {/* <div className="backgroundPic" style={sectionStyle}>
               <div className="bg1"></div>
               <Form className="login-form"
                 onSubmit={this.handleSubmit}
@@ -158,8 +155,7 @@ class Login extends React.Component{
                   <div className="wel">用户登录</div>			
                   <div className="user">
                     <div id="yonghu">用户名&nbsp;</div>
-                    <Form.Item
-                    >
+                    <Form.Item >
                       {getFieldDecorator('username',{
                         rules:[{
                           required:true,
@@ -167,14 +163,14 @@ class Login extends React.Component{
                         }]
                       })(
                         <Input className="inputClass"
-                          type="text"/>
+                          type="text"
+                        />
                       )}  
                     </Form.Item>
                   </div>
                   <div className="password" >
                     <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
-                    <Form.Item
-                    >
+                    <Form.Item >
                       {getFieldDecorator('password',{
                         rules:[{
                           required:true,
@@ -182,13 +178,15 @@ class Login extends React.Component{
                         }]
                       })(
                         <Input className="inputClass"
-                          type="password"/>
+                          type="password"
+                        />
                       )}  
                     </Form.Item>
                   </div>
                   <Button className="btn"
                     htmlType="submit"
-                    type="primary">登陆</Button>
+                    type="primary"
+                  >登陆</Button>
                 </div>
               </Form>
             </div>
@@ -198,16 +196,16 @@ class Login extends React.Component{
               (condition?<div>
                 <HigherHeaderLayout/>
                 <Content className={'content-layout'}>
-                      <IndexView/>              
+                  <IndexView/>              
                 </Content>
-                 </div>:<div>
+              </div>:<div>
                 <LowerHeaderLayout/>
-                  <Content className={'content-layout'}>
-                    <IndexView/>
+                <Content className={'content-layout'}>
+                  <IndexView/>
                 </Content>
               </div>)
           }
-             {/* <div>
+          {/* <div>
                  <HeaderLayout/>
                      <Content className={'content-layout'}>
                          <IndexView/>

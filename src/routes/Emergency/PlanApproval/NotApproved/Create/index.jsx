@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {PageTitle,Module} from '../../../../../components' ;
+import {Module} from '../../../../../components' ;
 import axios from 'axios';
 import {Button,Form,Input,message} from 'antd';
 
@@ -105,7 +105,7 @@ class ApprovedNew extends Component{
       form: { getFieldDecorator },
       match: { params : {id}}
     } = this.props
-    const {approvalDetail} = this.state
+    //const {approvalDetail} = this.state
     return (
       <div>
            

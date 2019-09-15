@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Form, Row, Col, Input, Icon } from 'antd';
+import { Button, Form, Row, Col, Icon } from 'antd';
 import { PageTitle,Module } from '../../../components';
 import './index.styl';
 import { Video } from '../../../components';
@@ -34,10 +34,8 @@ class SceneView extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
-    const {
-      form,  
-    } = this.props;
-    const { getFieldDecorator } = form;
+    
+    //const { getFieldDecorator } = form;
     const videoJsOptions = {
       autoplay: true,  //自动播放
       language: 'zh-CN', 

@@ -1,9 +1,9 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Form,Input,Select,Button,message,} from 'antd';
+import { Form,Input,Button,message,} from 'antd';
 import axios from 'axios';
-const Option = Select.Option;
-const dateFormat = 'YYYY-MM-DD';
+//const Option = Select.Option;
+//const dateFormat = 'YYYY-MM-DD';
 
 class EmployeeNew extends Component {
   constructor(props) {

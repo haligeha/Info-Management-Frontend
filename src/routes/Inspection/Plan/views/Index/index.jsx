@@ -1,11 +1,11 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module, } from '../../../../../components';
-import { Button,Row,Col,DatePicker,Table,Input,Popconfirm  } from 'antd';
+import { Button,Row,Col,Table,Input,Popconfirm  } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import './index.styl'
 import moment from 'moment';
-const { RangePicker } = DatePicker;
+//const { RangePicker } = DatePicker;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
 const Search = Input.Search;

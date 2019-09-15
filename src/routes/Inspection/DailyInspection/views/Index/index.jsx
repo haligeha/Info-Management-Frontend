@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import { PageTitle,Module, } from '../../../../../components';
-import { Button,Calendar,LocaleProvider,Badge,Icon,Select,} from 'antd';
+import { PageTitle } from '../../../../../components';
+import { Button,Calendar,LocaleProvider,Badge,Icon,} from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
@@ -186,7 +186,7 @@ class DailyInspection extends Component {
  
 
   render(){
-    const {selectedValue,report}=this.state
+    const {report}=this.state
     const elements=[];
     report.forEach((item)=>{
       elements.push(

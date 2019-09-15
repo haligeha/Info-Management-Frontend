@@ -1,6 +1,6 @@
 import React from 'react';
 //import echartTheme from './../themeLight'
-import echarts from 'echarts/lib/echarts'
+//import echarts from 'echarts/lib/echarts'
 //导入折线图
 import 'echarts/lib/chart/line';  //折线图是line,饼图改为pie,柱形图改为bar
 import 'echarts/lib/component/tooltip';

@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import axios from 'axios';
 
 const FIRST_PAGE = 0;

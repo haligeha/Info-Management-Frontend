@@ -1,9 +1,9 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../components';
-import { Button,Icon,Dropdown,Menu,Select,Input,Modal,Radio } from 'antd';
+import { Button,Dropdown,Menu,Select,Modal,Radio } from 'antd';
 import {BMAP_DRAWING_POLYGON,BMAP_DRAWING_RECTANGLE,BMAP_DRAWING_CIRCLE,BMAP_DRAWING_POLYLINE} from '../../../common/BMAP_DATA'
 // import './JS/DrawingManager.js'
-import LineForm from './createForm/createLine'
+//import LineForm from './createForm/createLine'
 import InspectionForm from './createForm/createInspec'
 
 var overlaycomplete=function(e){
@@ -12,50 +12,50 @@ var overlaycomplete=function(e){
   console.log(e);
 };
 var overlays=[];
-var idArray=[];
-var logArray=[];
-var lohArray=[];
-var nameArray=[];
+//var idArray=[];
+//var logArray=[];
+//var lohArray=[];
+//var nameArray=[];
 var adds=[];
 window.adds=adds
-var openIfoID;
-var markers=[];
+//var openIfoID;
+//var markers=[];
 window.overlays=overlays;
 var label=[];
-var markerClusterer
-var drawPoint=[]
-var drawPoint1=[]
-var polylinePoint=[]
+//var markerClusterer
+//var drawPoint=[]
+//var drawPoint1=[]
+//var polylinePoint=[]
 
-var polylinePointSum=[]
-var pipeIdArray=[];
-var pipeNameArray=[];
-var pipeColorArray=[];
-var pipeWidthArray=[];
-var pipeTypeArray=[];
-var pipeDataArray=[];
+// var polylinePointSum=[]
+// var pipeIdArray=[];
+// var pipeNameArray=[];
+// var pipeColorArray=[];
+// var pipeWidthArray=[];
+// var pipeTypeArray=[];
+// var pipeDataArray=[];
 
-var trackpolylinePointSum=[]
-var trackdrawPoint=[]
-var trackpipeIdArray=[];
-var trackpipeNameArray=[];
-var trackpipeColorArray=[];
-var trackpipeWidthArray=[];
-var trackpipeTypeArray=[];
-var trackpipeDataArray=[];
-var idSign
+// var trackpolylinePointSum=[]
+// var trackdrawPoint=[]
+// var trackpipeIdArray=[];
+// var trackpipeNameArray=[];
+// var trackpipeColorArray=[];
+// var trackpipeWidthArray=[];
+// var trackpipeTypeArray=[];
+// var trackpipeDataArray=[];
+// var idSign
 
-var sitesID
-var idOffset;//用于查找下一页
-var textOffset;//用于查找下一页
-var hasNext;//判断是否存在下一页
-var preDeviceId = [];//用于查找上一页
-var preDeviceName = [];//用于查找上一页
-var pageNum = 1;//记录当前页面
+// var sitesID
+// var idOffset;//用于查找下一页
+// var textOffset;//用于查找下一页
+// var hasNext;//判断是否存在下一页
+// var preDeviceId = [];//用于查找上一页
+// var preDeviceName = [];//用于查找上一页
+// var pageNum = 1;//记录当前页面
 
-var polylinePointSum3=[]
-var carMk1;
-var tidArray=[]
+// var polylinePointSum3=[]
+// var carMk1;
+// var tidArray=[]
 window.overlays=overlays;
 class Gis extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module, } from '../../../../../components';
-import { Button,Row,Col,Input,Drawer,Radio,Form,message,DatePicker,} from 'antd';
+import { Button,Input,Form,message,DatePicker,} from 'antd';
 import axios from 'axios';
 import './index.styl'
 import { Link } from 'react-router-dom'
@@ -26,7 +26,7 @@ class Report extends Component {
       history,
     } = this.props
     const { getFieldValue } = form;
-    const { reportDetail} = this.state
+    //const { reportDetail} = this.state
     const values = form.getFieldsValue()
     if(!getFieldValue('duty_person')){
       message.error('请输入值班人员')
@@ -100,7 +100,7 @@ class Report extends Component {
       form: { getFieldDecorator }, 
     } = this.props
     // const {abnormal,treatment}=this.state
-    const {reportDetail}=this.state
+    //const {reportDetail}=this.state
     return (
       <div>
         <PageTitle titles={['巡检维护','开始巡检']}>
