@@ -15,7 +15,7 @@ var user_id=window.sessionStorage.getItem("user_id")
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
-  height:"700px",
+  height:"960px",
   // makesure here is String确保这里是一个字符串，以下是es6写法
   backgroundImage: `url(${Background})`,
 
@@ -50,7 +50,7 @@ class Login extends React.Component{
       } = this.props
       sessionStorage.clear();       
       window.location.href="http://localhost:3003" 
-   //   history.push('/')
+    //   history.push('/')
     }
 
     info=()=>{  
@@ -92,10 +92,10 @@ class Login extends React.Component{
     render() {
       const { getFieldDecorator } = this.props.form;
       const { showContent } = this.state;
-       const condition='user_id===8';
+      const condition='user_id===8';
       return (
         <div className="content">
-           {/* <div className="backgroundPic" style={sectionStyle}>
+          {/* <div className="backgroundPic" style={sectionStyle}>
               <div className="bg1"></div>
               <Form className="login-form"
                 onSubmit={this.handleSubmit}
@@ -158,8 +158,7 @@ class Login extends React.Component{
                   <div className="wel">用户登录</div>			
                   <div className="user">
                     <div id="yonghu">用户名&nbsp;</div>
-                    <Form.Item
-                    >
+                    <Form.Item >
                       {getFieldDecorator('username',{
                         rules:[{
                           required:true,
@@ -167,14 +166,14 @@ class Login extends React.Component{
                         }]
                       })(
                         <Input className="inputClass"
-                          type="text"/>
+                          type="text"
+                        />
                       )}  
                     </Form.Item>
                   </div>
                   <div className="password" >
                     <div id="yonghu" >密&nbsp;&nbsp;&nbsp;码&nbsp;</div>
-                    <Form.Item
-                    >
+                    <Form.Item >
                       {getFieldDecorator('password',{
                         rules:[{
                           required:true,
@@ -182,13 +181,15 @@ class Login extends React.Component{
                         }]
                       })(
                         <Input className="inputClass"
-                          type="password"/>
+                          type="password"
+                        />
                       )}  
                     </Form.Item>
                   </div>
                   <Button className="btn"
                     htmlType="submit"
-                    type="primary">登陆</Button>
+                    type="primary"
+                  >登陆</Button>
                 </div>
               </Form>
             </div>
@@ -198,16 +199,16 @@ class Login extends React.Component{
               (condition?<div>
                 <HigherHeaderLayout/>
                 <Content className={'content-layout'}>
-                      <IndexView/>              
+                  <IndexView/>              
                 </Content>
-                 </div>:<div>
+              </div>:<div>
                 <LowerHeaderLayout/>
-                  <Content className={'content-layout'}>
-                    <IndexView/>
+                <Content className={'content-layout'}>
+                  <IndexView/>
                 </Content>
               </div>)
           }
-             {/* <div>
+          {/* <div>
                  <HeaderLayout/>
                      <Content className={'content-layout'}>
                          <IndexView/>
