@@ -15,7 +15,7 @@ import Background from './img/1.jpg'
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
-  height:"700px",
+  height:"960px",
   // makesure here is String确保这里是一个字符串，以下是es6写法
   backgroundImage: `url(${Background})`,
 
@@ -48,7 +48,11 @@ class Login extends React.Component{
       
       sessionStorage.clear();       
       window.location.href="http://localhost:3003" 
+<<<<<<< HEAD
       //history.push('/')
+=======
+    //   history.push('/')
+>>>>>>> rongrong-new
     }
 
     info=()=>{  
