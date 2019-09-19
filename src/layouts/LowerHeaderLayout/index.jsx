@@ -128,12 +128,18 @@ class LowerHeaderLayout extends Component {
   componentDidMount(){
    
   }
+  //退出登录
+  handleExit=()=>{
+    console.log(window.sessionStorage.getItem('username'))
+    sessionStorage.clear()
+    window.location.href="http://39.104.189.84:30300/"
+  };
 
   render() {
     const menu = (
       <Menu className={'menu'}>
         <Menu.Item key="logout">
-          <Icon type="logout" />退出登录
+          <Icon type="logout" onClick={this.handleExit}/>退出登录
         </Menu.Item>
       </Menu>
     );
@@ -145,15 +151,16 @@ class LowerHeaderLayout extends Component {
           <Dropdown overlay={menu}
             placement="bottomRight"
           >
-            <span>
+           <span>
               <Avatar className={'avatar-custom'}>
                 <Icon type="user"
                   style={{ fontSize: '18px', }}
                 />
               </Avatar>
-              <span style={{ color: 'white', }}>刘苗苗</span>
+              <span style={{ color: 'white', }}>{window.sessionStorage.getItem("username")}</span>
             </span>
           </Dropdown>
+         <span style={{ color: 'white',margin:15 }} onClick={()=>this.props.onClicked({showModule:false})}>返回上一级</span>
         </div>
 
         <Menu

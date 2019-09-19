@@ -772,16 +772,16 @@ class Gis extends Component {
              style={{marginRight:'8px'}}
              onClick={this.measure}
            >距离测距</Button>
-           <Button type="primary"
+           {/* <Button type="primary"
              style={{marginRight:'8px'}}
              onClick={this.addSite}
-           >添加标注</Button>
-           <Button type="primary"
+           >添加标注</Button> */}
+           {/* <Button type="primary"
              style={{marginRight:'8px'}}
-           >框选搜索</Button>
-           <Button type="primary"
+           >框选搜索</Button> */}
+           {/* <Button type="primary"
              style={{marginRight:'8px'}}
-           >查看报警事件</Button>
+           >查看报警事件</Button> */}
            <Button type="primary"
              style={{marginRight:'8px'}}
              onClick={this.showModal}
@@ -790,9 +790,9 @@ class Gis extends Component {
              style={{marginRight:'8px'}}
              onClick={this.showInspection}
            >巡检功能</Button>
-           <Button type="primary"
+           {/* <Button type="primary"
              style={{marginRight:'8px'}}
-           ><a href="http://39.104.189.84:8800/baidu?id=2" target="_blank">进入场景</a></Button>
+           ><a href="http://39.104.189.84:8800/baidu?id=2" target="_blank">进入场景</a></Button> */}
          </Module>
          <div id="allmap"
            style={{

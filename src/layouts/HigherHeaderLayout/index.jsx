@@ -9,7 +9,7 @@ class HigherHeaderLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      meuList:[
+      meuList: [
         {
           id:'1',
           name:"监测预警",
@@ -135,26 +135,11 @@ class HigherHeaderLayout extends Component {
     };
   }
   
-  componentDidMount(){
-   
-  }
-
-  //跳转一期
-  jumpTo=()=>{
-    //const rea=this
-    const username= window.sessionStorage.getItem("username")
-    const password = window.sessionStorage.getItem("password")
-    console.log(username)
-    // axios.post('/api/v1/auto/devicemanagement', {username:username,password:password})
-    window.location.href='http://localhost:80/secondStage?username='+username+'&password='+password
-    // window.location.href="http://localhost:80/fromSecondStage?username="+username+'&password='+password
-  }
-
   //退出登录
   handleExit=()=>{
     console.log(window.sessionStorage.getItem('username'))
     sessionStorage.clear()
-    window.location.href="http://localhost:3003"
+    window.location.href="http://39.104.189.84:30300/"
   };
 
   render() {
@@ -169,6 +154,7 @@ class HigherHeaderLayout extends Component {
     return (
       <Header className="custom-header">
         <Link to="/"><div className={'logo'}>信息管理系统</div></Link>
+        {/* <div className={'logo'} onClick={this.props.updateParent(true)}>信息管理系统</div> */}
         <div className={'userInfo'}>
           <Dropdown overlay={menu}
             placement="bottomRight"
@@ -182,14 +168,17 @@ class HigherHeaderLayout extends Component {
               <span style={{ color: 'white', }}>{window.sessionStorage.getItem("username")}</span>
             </span>
           </Dropdown>
+         <span style={{ color: 'white',margin:15 }} onClick={()=>this.props.onClicked({showModule:false})}>返回上一级</span>
         </div>
 
         <Menu
           theme="dark"
           mode="horizontal"
           selectedKeys={[this.state.currentTabId,]}
+          id="dropdownMenu"
         >
           {this.state.meuList && this.state.meuList.map((subMenu) =>{
+          {/* {this.props.meuList && this.props.meuList.map((subMenu) =>{ */}
             return(
               <Menu.SubMenu
                 className="custom-sub-menu"

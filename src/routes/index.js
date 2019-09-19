@@ -11,16 +11,13 @@ const Loading = () => {
 };
 
 class RouteView extends Component{
-  checkcustomer=()=>{
-    return window.sessionStorage.getItem("user_id")
-  }
-
   render(){
     return (
       <Switch>
-        <Route    
-          path="/monitor/view"
-          //  path="/" 
+        <Route  
+        exact  
+          //path="/monitor/view"
+            path="/" 
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Scene" */
@@ -28,16 +25,14 @@ class RouteView extends Component{
             loading: Loading
           })}
         /> 
-        <Route    
+        {/* <Route    
           path="/"
-          //  path="/" 
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Scene" */
               './Home'),
             loading: Loading
           })}exact
-        /> 
+        />  */}
         <Route
           path="/monitor/device"
           component={Loadable({

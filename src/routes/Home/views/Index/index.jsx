@@ -6,12 +6,8 @@ import { Row, Col,Icon } from 'antd';
 class Home extends React.Component{
   constructor() {
     super();
-    this.state = {
-        
-    };
-    
   }
-
+ 
     //跳转到二期首屏展示页面
     info=()=>{
       this.props.history.push('./monitor/view')
