@@ -53,7 +53,11 @@ class Video extends React.Component{
       //     <VolumeMenuButton disabled />
       //   </ControlBar>
       // </Player>
-      <video ref={node => this.videoNode = node} className="video-js"></video>
+    <div>
+        <div data-vjs-player>
+          <video ref={node => this.videoNode = node} className="video-js"></video>
+        </div>
+      </div>
     );
   }
 }

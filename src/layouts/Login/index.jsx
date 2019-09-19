@@ -14,7 +14,7 @@ import Background from './img/1.jpg'
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
-  height:"700px",
+  height:"960px",
   // makesure here is String确保这里是一个字符串，以下是es6写法
   backgroundImage: `url(${Background})`,
 
@@ -48,10 +48,26 @@ class Login extends React.Component{
       this.setState({showContent:true});    
     }
 
+<<<<<<< HEAD
     //返回上一级
     onChangeState(stateName){
       this.setState(stateName)
       window.sessionStorage.removeItem('showModule')
+=======
+    //子组件设置父组件状态
+    Logout=()=>{
+      // this.setState({
+      //   showContent:false
+      // })
+      
+      sessionStorage.clear();       
+      window.location.href="http://localhost:3003" 
+<<<<<<< HEAD
+      //history.push('/')
+=======
+    //   history.push('/')
+>>>>>>> rongrong-new
+>>>>>>> pre
     }
 
     //跳转一期

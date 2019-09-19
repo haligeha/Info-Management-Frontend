@@ -16,7 +16,14 @@ class SceneView extends Component {
 
     this.state = {
       layoutstate:1,
-      rtmpSrc:''
+      rtmpSrc:[
+        'rtmp://www.anbotcloud.cn:1936/live/19WV420011/front',
+        'rtmp://www.anbotcloud.cn:1936/live/19WV420011/back',
+        'rtmp://www.anbotcloud.cn:1936/live/19WV420011/left',
+        'rtmp://www.anbotcloud.cn:1936/live/19WV420011/right',
+        'rtmp://www.anbotcloud.cn:1936/live/19WV420011/infrared',
+      ],
+      position:0
     };
   }
 
@@ -34,8 +41,10 @@ class SceneView extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
-    
-    //const { getFieldDecorator } = form;
+    const {
+      form,  
+    } = this.props;
+   
     const videoJsOptions = {
       autoplay: true,  //自动播放
       language: 'zh-CN', 
@@ -52,7 +61,51 @@ class SceneView extends Component {
       },
       sources: [
         {
-          src: "rtmp://www.anbotcloud.cn:1936/live/19WV420011/front",
+          src: this.state.rtmpSrc[0],
+          type: "rtmp/flv",  //类型可加可不加，目前未看到影响
+          // type: 'video/mp4',
+        }
+      ]
+    }
+    const videoJsOptions1 = {
+      autoplay: true,  //自动播放
+      language: 'zh-CN', 
+      controls: true,  //控制条
+      preload: 'auto',  //自动加载
+      errorDisplay: true,  //错误展示
+      //width: 800,  //宽
+      //height: 500,  //高
+      fluid: true,  //跟随外层容器变化大小，跟随的是外层宽度
+      // controlBar: false,  // 设为false不渲染控制条DOM元素，只设置controls为false虽然不展示，但还是存在
+      // textTrackDisplay: false,  // 不渲染字幕相关DOM
+      userActions: {
+        hotkeys: true  //是否支持热键
+      },
+      sources: [
+        {
+          src: this.state.rtmpSrc[1],
+          type: "rtmp/flv",  //类型可加可不加，目前未看到影响
+          // type: 'video/mp4',
+        }
+      ]
+    }
+    const videoJsOptions2 = {
+      autoplay: true,  //自动播放
+      language: 'zh-CN', 
+      controls: true,  //控制条
+      preload: 'auto',  //自动加载
+      errorDisplay: true,  //错误展示
+      //width: 800,  //宽
+      //height: 500,  //高
+      fluid: true,  //跟随外层容器变化大小，跟随的是外层宽度
+      // controlBar: false,  // 设为false不渲染控制条DOM元素，只设置controls为false虽然不展示，但还是存在
+      // textTrackDisplay: false,  // 不渲染字幕相关DOM
+      userActions: {
+        hotkeys: true  //是否支持热键
+      },
+      sources: [
+        {
+          src: this.state.rtmpSrc[2],
           type: "rtmp/flv",  //类型可加可不加，目前未看到影响
           // type: 'video/mp4',
         }
@@ -74,11 +127,13 @@ class SceneView extends Component {
         <div className="charts-1">
           <EchartsModule choose={3} />
         </div>
+        
         <div className="video-1-1">
-          <Video {...videoJsOptions} />
+          <Video {...videoJsOptions}/>
         </div>
+        
         <div className="video-1-2">
-          <Video {...videoJsOptions} />
+          <Video {...videoJsOptions1}/> 
         </div>
       </div>)
       break;
@@ -90,10 +145,10 @@ class SceneView extends Component {
           </div>
         </div>
         <div className="video-2-1">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions1}/>}
         </div>
         <div className="video-2-2">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions2}/>}
         </div>
         <br />
         <div className="plan-info-2">
@@ -116,10 +171,10 @@ class SceneView extends Component {
           </div>
         </div>
         <div className="video-3-1">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions1}/>}
         </div>
         <div className="video-3-2">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions2}/>}
         </div>
         <div className="wrap-plan-info-3">
           <div className="plan-info-3">
@@ -133,13 +188,13 @@ class SceneView extends Component {
     case 4 : layout = (
       <div>
         <div className="video-4-1">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions}/>}
         </div>
         <div className="video-4-2">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions2}/>}
         </div>
         <div className="video-4-3">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions1}/>}
         </div>
         <div className="gis-map-4">
           <MapModule />
@@ -162,10 +217,10 @@ class SceneView extends Component {
           <EchartsModule choose={3} />
         </div>
         <div className="video-1-1">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions}/>}
         </div>
         <div className="video-1-2">
-          <Video {...videoJsOptions} />
+          {this.state.layoutstate&&<Video {...videoJsOptions1}/>}
         </div>
       </div>
     )
