@@ -30,11 +30,11 @@ class LowerHeaderLayout extends Component {
               name:'GIS地图',
               url:'/monitor/gis'
             },
-            {
-              id:'14',
-              name:'设备信息',
-              url:'/monitor/device'
-            }
+            // {
+            //   id:'14',
+            //   name:'设备信息',
+            //   url:'/monitor/device'
+            // }
           ]
         },
         {
@@ -114,11 +114,11 @@ class LowerHeaderLayout extends Component {
               name:'管廊区域信息',
               url:'/pipe/area'
             },
-            {
-              id:'54',
-              name:'用户操作日志',
-              url:'/pipe/area'
-            },
+            // {
+            //   id:'54',
+            //   name:'用户操作日志',
+            //   url:'/pipe/area'
+            // },
           ]
         }
       ]

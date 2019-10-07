@@ -37,12 +37,10 @@ class Inspec extends Component {
             <Input placeholder="请输入所属管廊"/>
           )}  
         </Form.Item>
-        <Form.Item
-          // {...createFormItemLayout}
+        {/* <Form.Item
           label="起点"
         >
           {getFieldDecorator('startpoint',{
-            //   initialValue: id && planWayDetail.startpoint,
             rules:[{
               required:true,
               message:"请输入起点",
@@ -50,17 +48,15 @@ class Inspec extends Component {
           })(<Input placeholder="请输入起点"/>)} 
         </Form.Item>
         <Form.Item
-          // {...createFormItemLayout}
           label="终点"
         >
           {getFieldDecorator('endpoint',{
-            //      initialValue: id && planWayDetail.endpoint,
             rules:[{
               required:true,
               message:"请输入终点",
             }]
           })(<Input placeholder="请输入终点"/>)} 
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           // {...createFormItemLayout}
           label="说明描述"

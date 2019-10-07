@@ -1182,24 +1182,27 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
          */
         var dblclickAction = function (e) {
             var draw={point:drawPoint.slice(0,drawPoint.length-2)}
-            var draw1=JSON.stringify(draw)
-            console.log(draw1)
+            // var draw1=JSON.stringify(draw)
+            // console.log(draw1)
             console.log(window.drawPara)
             var drawPara=window.drawPara
+            console.log(draw.point[0])
             $.ajax({
             url:'/api/v1/info/inspectionPath?user_id=6',
-            data:JSON.stringify({"area":drawPara.area,"pipe_gallery":drawPara.pipe_gallery,"startpoint":draw1.point,"endpoint":draw1.point,"description":drawPara.description}),
+            data:JSON.stringify({"area":drawPara.area,"pipe_gallery":drawPara.pipe_gallery,"startpoint":draw.point[0],"endpoint":draw.point[1],"description":drawPara.description}),
             type:'POST',//提交方式
-            dataType: 'json',
+            // dataType: 'json',
+            dataType:'text',
             contentType: "application/json",
-
-            success: function(req){
+            success: function(req){        
+               console.log("huizhi")
                console.log(req)
                window.location.reload();
             },
             error:function(error)
             {
                 console.log(error)
+                console.log("cuowu")
              //   toastr.error('错误');
             }
         });

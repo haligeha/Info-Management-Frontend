@@ -29,11 +29,11 @@ class HigherHeaderLayout extends Component {
               name:'GIS地图',
               url:'/monitor/gis'
             },
-            {
-              id:'14',
-              name:'设备信息',
-              url:'/monitor/device'
-            }
+            // {
+            //   id:'14',
+            //   name:'设备信息',
+            //   url:'/monitor/device'
+            // }
           ]
         },
         {
@@ -69,11 +69,11 @@ class HigherHeaderLayout extends Component {
           name:"应急指挥",
           url:'/emergency',
           children:[
-            {
-              id:'31',
-              name:"告警处理",
-              url:'/emergency/alarm'
-            },
+            // {
+            //   id:'31',
+            //   name:"告警处理",
+            //   url:'/emergency/alarm'
+            // },
             {
               id:'32',
               name:'应急资源',
@@ -123,11 +123,11 @@ class HigherHeaderLayout extends Component {
               name:'管廊区域信息',
               url:'/pipe/area'
             },
-            {
-              id:'54',
-              name:'用户操作日志',
-              url:'/pipe/area'
-            },
+            // {
+            //   id:'54',
+            //   name:'用户操作日志',
+            //   url:'/pipe/area'
+            // },
           ]
         }
       ],

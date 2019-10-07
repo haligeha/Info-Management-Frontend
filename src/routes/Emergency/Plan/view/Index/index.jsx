@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module } from '../../../../../components';
-import { Button, Table,Popconfirm, Row, Col, Select, } from 'antd';
+import { Button, Table,Popconfirm, Row, Col, Select,message } from 'antd';
 import axios from 'axios';
 import './index.styl';
 import moment from 'moment';
@@ -62,6 +62,7 @@ class EmergencyPlan extends Component {
         this.getTotalPage(this.state.nowCurrent)
       })
       .catch( (err) => {
+        message.info('无相应权限')
         console.log(err);
       });
   }
@@ -168,10 +169,10 @@ class EmergencyPlan extends Component {
                   to={`/emergency/plan/edit/${record.emergency_id}`}
                   style={{marginRight:'5px'}}
                 >编辑</Link>
-                <Link
+                {/* <Link
                   to={`/emergency/plan/detail/${record.emergency_id}`}
                   style={{marginRight:'5px'}}
-                >详情</Link>
+                >详情</Link> */}
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={()=> {this.deleteGroup(record)}}

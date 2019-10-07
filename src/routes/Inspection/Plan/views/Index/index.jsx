@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle,Module, } from '../../../../../components';
-import { Button,Row,Col,Table,Input,Popconfirm  } from 'antd';
+import { Button,Row,Col,Table,Input,Popconfirm,message  } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import './index.styl'
@@ -80,6 +80,7 @@ class InspectionPlan extends Component {
         this.getGroupList(this.state.nowCurrent)
       })
       .catch( (err) => {
+        message.info('无相应权限')
         console.log(err);
       });
   }

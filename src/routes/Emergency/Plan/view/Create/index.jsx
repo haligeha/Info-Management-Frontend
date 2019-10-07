@@ -14,6 +14,9 @@ class EmergencyNew extends Component {
       fileList:[],   
       uploadFiles:'',
       url:'',
+      attachFileList:[],
+      uploadAttachFiles:'',
+      attachUrl:'',
     };
   }
 
@@ -44,7 +47,9 @@ class EmergencyNew extends Component {
     const { getFieldValue } = form;
     const values = form.getFieldsValue()
     var path=this.state.url
+    var attachPath=this.state.attachUrl
     var str1 = path.replace('.', '/');
+    var str2=attachPath.replace('.', '/');
     if(!getFieldValue('level')){
       message.error('请选择预案级别')
     }
@@ -73,6 +78,7 @@ class EmergencyNew extends Component {
     if(id){
       values.emergency_id=id
       values.content=str1
+      values.file=str2
       axios.put('/api/v1/info/emergency?user_id='+value, values)
         .then(function (response) {
           if(response.status === 200){
@@ -137,7 +143,22 @@ class EmergencyNew extends Component {
   //     console.log(error);
   //   });
   // }
-
+  
+  //附件下载
+  downLoadAttachFile=()=>{
+      const {
+        form,
+      } = this.props
+      var path=this.state.attachUrl
+      var str1 = path.replace('.', '/');
+      console.log(str1)
+      //const { getFieldValue } = form;
+      const values = form.getFieldsValue()
+      console.log(values.file)
+      window.open('/api/v1/info/download/'+values.file+'?user_id='+value);
+    }
+ 
+  //删除预案
   removeFile=()=>{
     const {
       form,
@@ -146,6 +167,22 @@ class EmergencyNew extends Component {
     const values = form.getFieldsValue()
     console.log(values.content)
     axios.delete(`/api/v1/info/delete/`+values.content+'?user_id='+value)
+      .then(() => {
+        message.success(`删除成功！`);
+      })
+      .catch( (err) => {
+        message.error(`请上传文件！`);
+      });
+  }
+ 
+  //删除附件
+  removeFile=()=>{
+    const {
+      form,
+    } = this.props
+    const values = form.getFieldsValue()
+    console.log(values.file)
+    axios.delete(`/api/v1/info/delete/`+values.file+'?user_id='+value)
       .then(() => {
         message.success(`删除成功！`);
       })
@@ -203,7 +240,28 @@ class EmergencyNew extends Component {
     //     });
     // }   
     };
-  
+    const uploadAttachProps={
+      action:`/api/v1/info/uploadFile?type=1&name=${fileName}&user_id=${value}`,
+      onChange:(info)=>{
+        if (info.file.status === 'uploading') {
+          console.log(info.file, info.fileList);
+          this.setState({
+            file:info.file,
+            attachFileList:info.fileList,
+            attachUrl:fileName+"/1/"+info.file.name,
+          })
+        } 
+        else if (info.file.status === 'done') {
+          console.log("done")
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} 上传失败！`);
+        }
+        else{
+          console.log(info.file.status)
+        }
+        return  uploadAttachProps;
+      },
+    }
     
     return (
       <div>
@@ -386,7 +444,27 @@ class EmergencyNew extends Component {
                     message:"请输入相关附件",
                   }]
                 })(
-                  <Input placeholder="请输入相关附件" />
+                  <div>         
+                    <Upload
+                      className="upload"
+                      accept=".pdf,.doc"
+                      {...uploadAttachProps}
+                      defaultFileList={this.state.uploadAttachFiles} 
+                      previewFile={this.attachPreview}
+                      onRemove = {this.removeAttachFile}   //移除文件事件
+                    // fileList={this.state.fileList}
+                    >
+                      <Button>
+                        <Icon type="upload"/>上传文件
+                      </Button>      
+                    </Upload>
+                    <Button onClick={this.downLoadAttachFile}>
+                      <Icon type="download"/>下载文件
+                    </Button>
+                    <Button onClick={this.removeAttachFile}>
+                      <Icon type="delete"/>文件删除
+                    </Button>
+                    </div>
                 )}  
               </Form.Item>
               <section className="operator-container">

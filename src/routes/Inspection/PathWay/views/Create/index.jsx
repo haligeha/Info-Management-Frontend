@@ -63,6 +63,7 @@ class PathWayNew extends Component{
       axios.put('/api/v1/info/inspectionPath?user_id='+user_id, values)
         .then(function (response) {
           if(response.status === 200){
+            console.log("bianji")
             message.info('编辑成功')
             history.push('/inspection/pathway')
           }

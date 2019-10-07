@@ -618,6 +618,7 @@ class Gis extends Component {
     drawingManager.enableCalculate()
     //添加鼠标绘制工具监听事件，用于获取绘制结果
     drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+    console.log("setDrawingMode")
     drawingManager.setDrawingMode(BMAP_DRAWING_POLYLINE);
 
   }
@@ -698,8 +699,6 @@ class Gis extends Component {
       }
       this.handleOk();
       window.drawPara=values
-      console.log(values)
-      console.log('Received values of form: ', values);
       form.resetFields();
     });
   };
@@ -786,10 +785,10 @@ class Gis extends Component {
              style={{marginRight:'8px'}}
              onClick={this.showModal}
            >绘制功能</Button>
-           <Button type="primary"
+           {/* <Button type="primary"
              style={{marginRight:'8px'}}
              onClick={this.showInspection}
-           >巡检功能</Button>
+           >巡检功能</Button> */}
            {/* <Button type="primary"
              style={{marginRight:'8px'}}
            ><a href="http://39.104.189.84:8800/baidu?id=2" target="_blank">进入场景</a></Button> */}
