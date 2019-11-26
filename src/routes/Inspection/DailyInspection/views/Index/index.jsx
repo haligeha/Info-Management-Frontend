@@ -207,11 +207,11 @@ class DailyInspection extends Component {
     return(
       <div>
         <PageTitle titles={['巡检维护','日常巡检/年度巡检']}>
-          {
+          {/* {
             <Link to={"/inspection/calendar/new"}>
               <Button type="primary">+ 新建日常巡检</Button>
             </Link>
-          }
+          } */}
         </PageTitle>
         <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4,float:"left" }}>
           <LocaleProvider locale={zh_CN}>
