@@ -2,10 +2,10 @@ import React, { Component, } from 'react';
 //import HeaderLayout from './HeaderLayout';
 import IndexView from '../routes';
 import Login from './Login'
-import { Layout,} from 'antd';
+import { Layout } from 'antd';
 import './index.styl';
 import HigherHeaderLayout from './HigherHeaderLayout';
-//const { Content, } = Layout;
+const { Content, } = Layout;
 
 
 class Layouts extends Component {
@@ -17,7 +17,11 @@ class Layouts extends Component {
   render() {
     return (
       <Layout className={'layout custom-layout'}>
-       <Login/>
+        {/* <HigherHeaderLayout />
+        <Content className={'content-layout'}>
+          <IndexView />
+        </Content> */}
+        <Login />
       </Layout>
     );
   }

@@ -10,21 +10,21 @@ const Loading = () => {
   );
 };
 
-class RouteView extends Component{
-  render(){
+class RouteView extends Component {
+  render() {
     return (
       <Switch>
-        <Route  
-        exact  
+        <Route
+          exact
           //path="/monitor/view"
-            path="/" 
+          path="/"
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "Scene" */
               './Monitor/Scene'),
             loading: Loading
           })}
-        /> 
+        />
         {/* <Route    
           path="/"
           component={Loadable({
@@ -59,7 +59,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        <Route    
+        <Route
           path="/inspection/plan"
           component={Loadable({
             loader: () => import(
@@ -68,7 +68,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        <Route    
+        <Route
           path="/inspection/employee"
           component={Loadable({
             loader: () => import(
@@ -77,7 +77,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        <Route    
+        <Route
           path="/inspection/calendar"
           component={Loadable({
             loader: () => import(
@@ -86,7 +86,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        <Route    
+        <Route
           path="/inspection/pathway"
           component={Loadable({
             loader: () => import(
@@ -122,7 +122,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         />
-        
+
         <Route
           path="/emergency/approval"
           component={Loadable({
@@ -177,7 +177,7 @@ class RouteView extends Component{
             loading: Loading
           })}
         /> */}
-        <Route    
+        <Route
           path="/entrance/work"
           component={Loadable({
             loader: () => import(
