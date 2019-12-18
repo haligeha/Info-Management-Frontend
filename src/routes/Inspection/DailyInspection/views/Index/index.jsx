@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle } from '../../../../../components';
-import { Button, Calendar, LocaleProvider, Badge, Icon, } from 'antd';
+import { Button, Calendar, LocaleProvider, Badge, Icon } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
@@ -54,11 +54,7 @@ class DailyInspection extends Component {
           </Badge>
         )
       }
-      // else{     
-
-      // }
     }
-
   }
 
   //获取日期数组
@@ -71,28 +67,11 @@ class DailyInspection extends Component {
       DateList.push(calen);
       dateList = this.unique(DateList)
     }
-
   }
   //数组去重
   unique = (arr) => {
     return Array.from(new Set(arr))
   }
-
-  //获取每一个日期
-  // getData = (value)=>{
-  //   const {data}=this.state 
-  //   for(var i=0;i<data.length;i++){
-  //     let date
-  //     if(this.getdate(value)===this.getdate(data[i].calendar_date)) {
-  //       date=this.getdate(data[i].calendar_date)
-  //     }
-  //     else{
-  //       date=''
-  //     }
-  //     console.log(date)
-  //   return date;
-  //   }
-  // }
 
   //点击日期时，将该天状态存入state
   onSelect = value => {
@@ -152,7 +131,6 @@ class DailyInspection extends Component {
       console.log(i)
       return (<div>123</div>)
     }
-
   }
 
   render() {
