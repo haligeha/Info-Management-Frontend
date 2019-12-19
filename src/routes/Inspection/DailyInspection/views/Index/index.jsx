@@ -2,15 +2,20 @@ import React, { Component, } from 'react';
 import { PageTitle } from '../../../../../components';
 import { Button, Calendar, LocaleProvider, Badge, Icon } from 'antd';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import moment from 'moment';
+import { actions } from '../../../../../modules/DailyInspection';
 import './index.styl'
 
 let dateList = [];
 let reportList = []
-var user_id = window.sessionStorage.getItem("user_id")
+// var user_id = window.sessionStorage.getItem("user_id")
+var user_id = 1
 class DailyInspection extends Component {
   constructor(props) {
     super(props);
@@ -88,12 +93,13 @@ class DailyInspection extends Component {
   getListData = () => {
     const { selectedValue } = this.state;
     const select = this.getdate(selectedValue) + " 0:0:0"
-    console.log(select)
     const selected = Math.round(new Date(select).getTime() / 1000).toString()
+
+
+
     axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0&user_id=${user_id}`)
       .then((res) => {
         if (res && res.status === 200) {
-          console.log(res.data.data)
           reportList = []
           for (var i = 0; i < res.data.data.length; i++) {
             let reportone = res.data.data[i]
@@ -106,6 +112,8 @@ class DailyInspection extends Component {
       .catch(function (error) {
         console.log(error);
       });
+    const { actions: { fetchDailyInspentionReport } } = this.props
+    fetchDailyInspentionReport(selected)
   }
 
   getdate = (value) => {
@@ -155,11 +163,11 @@ class DailyInspection extends Component {
     return (
       <div>
         <PageTitle titles={['巡检维护', '日常/年度巡检']}>
-          {/* {
+          {
             <Link to={"/inspection/calendar/new"}>
               <Button type="primary">+ 新建日常巡检</Button>
             </Link>
-          } */}
+          }
         </PageTitle>
         <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4, float: "left" }}>
           <LocaleProvider locale={zh_CN}>
@@ -185,4 +193,8 @@ class DailyInspection extends Component {
   }
 
 }
+// export default connect(state => ({
+//   reportCardData: state.inspention.reportCardData,
+// }),
+// dispatch => ({ actions: bindActionCreators(actions, dispatch) }))(DailyInspection)
 export default DailyInspection;

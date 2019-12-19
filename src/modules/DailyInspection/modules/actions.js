@@ -6,14 +6,14 @@ import {
 import * as API from '../services'
 
 // 获取当日巡检报告
-export const fetchDailyInspentionReport = () => async (dispatch, getState) => {
+export const fetchDailyInspentionReport = (params) => async (dispatch, getState) => {
   const { dailyInspention: { reportCard: { isFetching } } } = getState()
   if (isFetching) return
   try {
     dispatch({
       type: FETCH_DAILY_INSPENTION_REPORT_CARD,
     })
-    const data = await API.fetchDailyInspentionReportApi()
+    const data = await API.fetchDailyInspentionReportApi(params)
     dispatch({
       type: FETCH_DAILY_INSPENTION_REPORT_CARD_SUCCESS,
       payload: data,
