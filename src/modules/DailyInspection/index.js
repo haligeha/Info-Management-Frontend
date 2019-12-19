@@ -1,2 +1,4 @@
-export { actions, reducers } from './modules'
-export * from './services'
+import * as services from './services'
+
+import { actions, reducers } from './modules'
+export { services, actions, reducers }

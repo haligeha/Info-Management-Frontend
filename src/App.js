@@ -1,16 +1,26 @@
 import React, { Component, } from 'react';
+import { createStore, applyMiddleware } from 'redux'
 import { HashRouter } from 'react-router-dom';
 import Layouts from './layouts';
+import { Provider } from 'react-redux'
+import reducer from "./modules/index";
+import thunk from 'redux-thunk'; // 中间件redux-thunk
 import './App.styl';
-export const { Provider, Consumer } = React.createContext("默认名称");
-class App extends Component {
 
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
+// export const { Provider, Consumer } = React.createContext("默认名称");
+
+class App extends Component {
   render() {
     return (
-      <HashRouter>
-        <Layouts />
-
-      </HashRouter>
+      <Provider store={store}>
+        <HashRouter>
+          <Layouts />
+        </HashRouter>
+      </Provider>
     );
   }
 }

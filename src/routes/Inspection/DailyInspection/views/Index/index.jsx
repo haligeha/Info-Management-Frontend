@@ -1,21 +1,20 @@
 import React, { Component, } from 'react';
-import { PageTitle } from '../../../../../components';
+import { PageTitle } from '@src/components';
 import { Button, Calendar, LocaleProvider, Badge, Icon } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import moment from 'moment';
-import { actions } from '../../../../../modules/DailyInspection';
+import { actions } from '@src/modules/DailyInspection';
 import './index.styl'
 
 let dateList = [];
 let reportList = []
-// var user_id = window.sessionStorage.getItem("user_id")
-var user_id = 1
+var user_id = window.sessionStorage.getItem("user_id")
+// var user_id = 1
 class DailyInspection extends Component {
   constructor(props) {
     super(props);
@@ -95,11 +94,13 @@ class DailyInspection extends Component {
     const select = this.getdate(selectedValue) + " 0:0:0"
     const selected = Math.round(new Date(select).getTime() / 1000).toString()
 
-
+    const { actions: { fetchDailyInspentionReport } } = this.props
+    fetchDailyInspentionReport(selected, user_id)
 
     axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0&user_id=${user_id}`)
       .then((res) => {
         if (res && res.status === 200) {
+          console.log(res.data.data + '组件中内容')
           reportList = []
           for (var i = 0; i < res.data.data.length; i++) {
             let reportone = res.data.data[i]
@@ -112,8 +113,7 @@ class DailyInspection extends Component {
       .catch(function (error) {
         console.log(error);
       });
-    const { actions: { fetchDailyInspentionReport } } = this.props
-    fetchDailyInspentionReport(selected)
+
   }
 
   getdate = (value) => {
@@ -172,7 +172,6 @@ class DailyInspection extends Component {
         <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4, float: "left" }}>
           <LocaleProvider locale={zh_CN}>
             <Calendar
-              // fullscreen={false}
               onSelect={this.onSelect}
               dateCellRender={this.dateCellRender}
             />
@@ -181,20 +180,17 @@ class DailyInspection extends Component {
         </div>
 
         <div style={{ width: 500, height: 320, border: '1px solid #d9d9d9', borderRadius: 4, float: "right", "overflow-y": "scroll" }}>
-          {/* {selectedValue.format('YYYY-MM-DD')} */}
-          {/* 巡检时间：{this.getListData(selectedValue)}
-          巡检人员： */}
-
           {elements}
-
         </div>
       </div>
     )
   }
 
 }
-// export default connect(state => ({
-//   reportCardData: state.inspention.reportCardData,
-// }),
-// dispatch => ({ actions: bindActionCreators(actions, dispatch) }))(DailyInspection)
-export default DailyInspection;
+export default connect(
+  state => ({
+
+  }),
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+)(DailyInspection)
+// export default DailyInspection;
