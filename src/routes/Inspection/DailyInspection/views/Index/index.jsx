@@ -1,14 +1,16 @@
 import React, { Component, } from 'react';
 import { PageTitle } from '@src/components';
-import { Button, Calendar, LocaleProvider, Badge, Icon } from 'antd';
+import { Button, Calendar, LocaleProvider, Badge, Icon, Row, Col } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { actions } from '@src/modules/DailyInspection';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import moment from 'moment';
-import { actions } from '@src/modules/DailyInspection';
+import ReportCard from '../ReportCard/reportContent'
+import EmptyReportCard from '../ReportCard/reportEmpty'
 import './index.styl'
 
 let dateList = [];
@@ -93,9 +95,14 @@ class DailyInspection extends Component {
     const { selectedValue } = this.state;
     const select = this.getdate(selectedValue) + " 0:0:0"
     const selected = Math.round(new Date(select).getTime() / 1000).toString()
-
+    // redux 传参需要一个对象
+    const value = {}
+    value.date = selected
+    value.limit = 4
+    value.page = 0
+    value.user_id = user_id
     const { actions: { fetchDailyInspentionReport } } = this.props
-    fetchDailyInspentionReport(selected, user_id)
+    fetchDailyInspentionReport(value)
 
     axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0&user_id=${user_id}`)
       .then((res) => {
@@ -142,6 +149,8 @@ class DailyInspection extends Component {
   }
 
   render() {
+    const { reportCardData } = this.props
+    console.log(reportCardData)
     const { report } = this.state
     const elements = [];
     report.forEach((item) => {
@@ -169,28 +178,88 @@ class DailyInspection extends Component {
             </Link>
           }
         </PageTitle>
-        <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4, float: "left" }}>
-          <LocaleProvider locale={zh_CN}>
-            <Calendar
-              onSelect={this.onSelect}
-              dateCellRender={this.dateCellRender}
-            />
-          </LocaleProvider>
+        <Row>
+          <Col span={13}>
+            <div style={{ border: '1px solid #d9d9d9', borderRadius: 4, }}>
+              <LocaleProvider locale={zh_CN}>
+                <Calendar
+                  onSelect={this.onSelect}
+                  dateCellRender={this.dateCellRender}
+                />
+              </LocaleProvider>
+            </div>
+          </Col>
+          <Col span={10} offset={1}>
+            <ReportCard cardData={reportCardData.data} />
+          </Col>
+        </Row>
 
-        </div>
 
-        <div style={{ width: 500, height: 320, border: '1px solid #d9d9d9', borderRadius: 4, float: "right", "overflow-y": "scroll" }}>
+        {/* <div style={{ width: 500, height: 320, border: '1px solid #d9d9d9', borderRadius: 4, float: "right", "overflow-y": "scroll" }}>
           {elements}
-        </div>
+        </div> */}
       </div>
     )
   }
 
 }
+
 export default connect(
   state => ({
-
+    reportCardData: state.dailyInspention.reportCardData
   }),
   dispatch => ({ actions: bindActionCreators(actions, dispatch) })
 )(DailyInspection)
-// export default DailyInspection;
+
+
+
+
+
+
+
+//   render() {
+//     const { report } = this.state
+//     const elements = [];
+//     report.forEach((item) => {
+//       elements.push(
+//         <div className="report">
+//           巡检时间：{this.timestampToTime(item.calendar_date)}&nbsp;
+//           巡检人员：{item.inspection_person}<br />
+//           负责人：{item.duty_person}&nbsp;
+//           创建时间：{item.create_date}<br />
+//           巡检状态：{item.state}&nbsp;
+//           异常项：{item.abnormal}<br />
+//           维修公司：{item.maintenance}&nbsp;
+//           图像：{item.image}<br />
+//           视频：{item.video}&nbsp;
+//           总结：{item.summary}<br />
+//         </div>
+//       )
+//     });
+//     return (
+//       <div>
+//         <PageTitle titles={['巡检维护', '日常/年度巡检']}>
+//           {
+//             <Link to={"/inspection/calendar/new"}>
+//               <Button type="primary">+ 新建日常巡检</Button>
+//             </Link>
+//           }
+//         </PageTitle>
+//         <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4, float: "left" }}>
+//           <LocaleProvider locale={zh_CN}>
+//             <Calendar
+//               onSelect={this.onSelect}
+//               dateCellRender={this.dateCellRender}
+//             />
+//           </LocaleProvider>
+
+//         </div>
+
+//         <div style={{ width: 500, height: 320, border: '1px solid #d9d9d9', borderRadius: 4, float: "right", "overflow-y": "scroll" }}>
+//           {elements}
+//         </div>
+//       </div>
+//     )
+//   }
+
+// }

@@ -1,4 +1,4 @@
-
+// axios本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范
 import axios from 'axios'
 import { notification } from 'antd'
 
@@ -13,7 +13,8 @@ export default function (request = '', optioins = {}) {
   }).then(({ data: ret }) => {
     const { status } = ret
     // ret.msg = ret.message
-    if (status === 200) {
+    console.log(ret)
+    if (ret.data) {
       return ret
     } else if (status === 304) {
       return

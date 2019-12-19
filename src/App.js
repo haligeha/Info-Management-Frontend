@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom';
 import Layouts from './layouts';
 import { Provider } from 'react-redux'
 import reducer from "./modules/index";
-import thunk from 'redux-thunk'; // 中间件redux-thunk
+import thunk from 'redux-thunk'; // redux-thunk中间件
 import './App.styl';
 
 const store = createStore(

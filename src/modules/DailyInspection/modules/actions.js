@@ -6,7 +6,7 @@ import {
 import * as API from '../services'
 
 // 获取当日巡检报告
-export const fetchDailyInspentionReport = (params, id) => async (dispatch, getState) => {
+export const fetchDailyInspentionReport = (params) => async (dispatch, getState) => {
   console.log(params + 'redux中action中接收参数')
   const { dailyInspention: { reportCardData: { isFetching } } } = getState()
   if (isFetching) return
@@ -14,7 +14,7 @@ export const fetchDailyInspentionReport = (params, id) => async (dispatch, getSt
     dispatch({
       type: FETCH_DAILY_INSPENTION_REPORT_CARD,
     })
-    const data = await API.fetchDailyInspentionReportApi(params, id)
+    const data = await API.fetchDailyInspentionReportApi(params)
     console.log(data + "redux中action数据")
     dispatch({
       type: FETCH_DAILY_INSPENTION_REPORT_CARD_SUCCESS,

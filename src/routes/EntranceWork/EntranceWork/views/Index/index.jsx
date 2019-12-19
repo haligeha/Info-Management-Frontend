@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './index.styl';
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import { actions } from '../../../../../modules/EntranceWork'
+// import { actions } from '@src/modules/EntranceWork'
 import { Link } from 'react-router-dom';
 import { Button, Row, Col, Select, Table, Popconfirm } from 'antd';
 import {
   SELECT_HOME_WORK_NUM,
 } from '../../configs';
-import { PageTitle, Module } from '../../../../../components';
+import { PageTitle, Module } from '@src/components';
 import axios from 'axios';
 import moment from 'moment';
 //const FormItem = Form.Item;
