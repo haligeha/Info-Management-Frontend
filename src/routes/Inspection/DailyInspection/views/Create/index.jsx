@@ -1,6 +1,7 @@
 import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
-import { Form, Input, Select, Button, Upload, Tooltip, Icon } from 'antd';
+import { Form, Input, Select, Button, Upload, Tooltip, Icon, Row, Col } from 'antd';
+import Billboard from './billboard'
 import {
   SELECT_HOME_WORK_NUM,
   SELECT_INSPECTION_STATUS,
@@ -112,20 +113,23 @@ class DailyInspectionCreate extends Component {
             >
               {getFieldDecorator('activity_range2')(
                 <div className="inspection-log-abnormal">
-                  <Select placeholder="请选择异常项"
-                    allowClear
-                  >
-                    {
-                      SELECT_INSPECTION_ABNORMA_ITEM &&
-                      SELECT_INSPECTION_ABNORMA_ITEM.map(cur => (
-                        <Select.Option key={cur.id}
-                          value={cur.id}
-                        >{cur.name}</Select.Option>
-                      ))
-                    }
-                  </Select>
-                  <Icon type="plus-circle" />
-                  <TextArea rows={4} />
+                  <div className="inspection-log-abnormal-flex">
+                    <Select placeholder="请选择异常项"
+                      allowClear
+                      className="inspection-log-abnormal-select"
+                    >
+                      {
+                        SELECT_INSPECTION_ABNORMA_ITEM &&
+                        SELECT_INSPECTION_ABNORMA_ITEM.map(cur => (
+                          <Select.Option key={cur.id}
+                            value={cur.id}
+                          >{cur.name}</Select.Option>
+                        ))
+                      }
+                    </Select>
+                    <TextArea rows={4} />
+                  </div>
+                  <Icon type="plus-circle" className="inspection-log-abnormal-plus" />
                 </div>
               )}
             </Form.Item>
@@ -180,7 +184,7 @@ class DailyInspectionCreate extends Component {
           </Form>
         </div>
         <div className="inspection-log-right">
-
+          <Billboard />
         </div>
       </div>
 

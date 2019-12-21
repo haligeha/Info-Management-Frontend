@@ -1,6 +1,26 @@
 .inspection-log
+  width: 100%
   .inspection-log-left
     width: 70%
+    float: left;
+    .inspection-log-abnormal
+      border: 1px solid #d9d9d9
+      padding: 20px
+      border-radius: 5px
+      display: flex
+      align-items: center
+      .inspection-log-abnormal-flex
+        width: 100%
+        .inspection-log-abnormal-select
+          margin-bottom: 24px
+      .inspection-log-abnormal-plus
+        color: #1890ff
+        font-size: 20px
+        margin-right: -30px
+        margin-left: 15px
   .inspection-log-right
+    overflow: hidden // BFC
     width: 30%
+    border: 1px solid #d9d9d9
+    padding: 5px 
     

@@ -27,6 +27,7 @@ export const SELECT_INSPECTION_STATUS = Object.keys(SELECT_INSPECTION_STATUS_MAP
   id: cur,
   name: SELECT_INSPECTION_STATUS_MAP[cur],
 }));
+
 // 可选择的异常项
 export const SELECT_INSPECTION_ABNORMA_ITEM_ZERO = '0';
 export const SELECT_INSPECTION_ABNORMA_ITEM_ONE = '1';
