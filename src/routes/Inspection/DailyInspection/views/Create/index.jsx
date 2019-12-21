@@ -1,9 +1,11 @@
 import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
-import { Form, Input, Select, Button, Row, Col, Icon } from 'antd';
+import { Form, Input, Select, Button, Upload, Tooltip, Icon } from 'antd';
 import {
   SELECT_HOME_WORK_NUM,
-  SELECT_INSPECTION_STATUS
+  SELECT_INSPECTION_STATUS,
+  SELECT_MAINTENANCE_COMPANY,
+  SELECT_INSPECTION_ABNORMA_ITEM
 } from '../../configs';
 import './index.styl'
 const { TextArea } = Input;
@@ -43,7 +45,7 @@ class DailyInspectionCreate extends Component {
                   message: "巡检人为必填项",
                 }]
               })(
-                <Select placeholder="请选择活动区域"
+                <Select placeholder="请填入巡检人"
                   allowClear
                 >
                   {
@@ -84,31 +86,71 @@ class DailyInspectionCreate extends Component {
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
+              label="异常说明："
+            >
+              {getFieldDecorator('activity_range7')(
+                <TextArea rows={4} />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
               label="上传"
             >
               {getFieldDecorator('activity_range3')(
-                <Select placeholder="请选择活动区域"
-                  allowClear
-                >
-
-                </Select>
+                <div className="inspection-log-upload">
+                  <Upload>
+                    <Tooltip placement="right" title={'支持图片和视频的上传'}>
+                      <Button><Icon type="upload" />上传</Button>
+                    </Tooltip>
+                  </Upload>
+                </div>
               )}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
-              label="异常项"
+              label="异常项："
             >
               {getFieldDecorator('activity_range2')(
-                <Select placeholder="请选择活动区域"
+                <div className="inspection-log-abnormal">
+                  <Select placeholder="请选择异常项"
+                    allowClear
+                  >
+                    {
+                      SELECT_INSPECTION_ABNORMA_ITEM &&
+                      SELECT_INSPECTION_ABNORMA_ITEM.map(cur => (
+                        <Select.Option key={cur.id}
+                          value={cur.id}
+                        >{cur.name}</Select.Option>
+                      ))
+                    }
+                  </Select>
+                  <Icon type="plus-circle" />
+                  <TextArea rows={4} />
+                </div>
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="维保公司："
+            >
+              {getFieldDecorator('activity_range9')(
+                <Select placeholder="请选择维保公司"
                   allowClear
                 >
-
+                  {
+                    SELECT_MAINTENANCE_COMPANY &&
+                    SELECT_MAINTENANCE_COMPANY.map(cur => (
+                      <Select.Option key={cur.id}
+                        value={cur.id}
+                      >{cur.name}</Select.Option>
+                    ))
+                  }
                 </Select>
               )}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
-              label="  "
+              label="维保公司说明："
             >
               {getFieldDecorator('activity_range1')(
                 <TextArea rows={4} />
@@ -129,7 +171,7 @@ class DailyInspectionCreate extends Component {
                     const {
                       history,
                     } = this.props
-                    history.push('/entrance/work')
+                    history.push('/inspection/calendar')
                   }}
                 >取消
                 </Button>
