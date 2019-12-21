@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import { PageTitle, Module } from '@src/components';
-import { Form, Input, Select, Button, message } from 'antd';
+import { PageTitleCreate, Module } from '@src/components';
+import { Form, Input, Select, Button, Row, Col } from 'antd';
 import './index.styl'
 class DailyInspectionCreate extends Component {
   constructor(props) {
@@ -22,8 +22,8 @@ class DailyInspectionCreate extends Component {
       form: { getFieldDecorator }
     } = this.props
     return (
-      <div>
-        <PageTitle titles={['巡检维护', '日常/年度巡检', '新建']} />
+      <div className="new-page">
+        <PageTitleCreate titles={['巡检日志', '新建']} jump={'/inspection/calendar'} />
         <div>
           <Module>
             <Form

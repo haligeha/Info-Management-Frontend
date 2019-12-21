@@ -171,7 +171,7 @@ class DailyInspection extends Component {
     });
     return (
       <div>
-        <PageTitle titles={['巡检维护', '日常/年度巡检']}>
+        <PageTitle titles={['巡检维护', '巡检日志']}>
           {
             <Link to={"/inspection/calendar/new"}>
               <Button type="primary">+ 新建日常巡检</Button>
