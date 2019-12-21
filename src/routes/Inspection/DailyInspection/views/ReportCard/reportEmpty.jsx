@@ -15,7 +15,7 @@ class EmptyReportCard extends Component {
   render() {
     return (
       <div className="report-card">
-
+        <img alt="暂无巡检报告" src="" />
       </div>
 
     );

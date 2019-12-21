@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class CalendarRoute extends Component{
-  constructor(props){
+class CalendarRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,8 +18,8 @@ class CalendarRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/inspection/calendar"
           component={Loadable({
             loader: () => import(
@@ -28,7 +28,7 @@ class CalendarRoute extends Component{
             loading: Loading
           })}
         />
-        {/* <Route
+        <Route
           exact
           path="/inspection/calendar/new"
           component={Loadable({
@@ -36,7 +36,7 @@ class CalendarRoute extends Component{
               './Create/index'),
             loading: Loading
           })}
-        /> */}
+        />
       </Switch>
     );
   }
