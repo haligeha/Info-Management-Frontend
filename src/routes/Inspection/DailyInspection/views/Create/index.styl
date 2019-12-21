@@ -4,7 +4,7 @@
     width: 70%
     float: left;
     .inspection-log-abnormal
-      border: 1px solid #d9d9d9
+      border: 1px dashed #1890ff
       padding: 20px
       border-radius: 5px
       display: flex
@@ -21,6 +21,27 @@
   .inspection-log-right
     overflow: hidden // BFC
     width: 30%
-    border: 1px solid #d9d9d9
-    padding: 5px 
-    
+    position: relative
+    height: 200px
+    //border: 1px solid #d9d9d9
+    // text-align: center
+    transform:rotate(-15deg);
+    -ms-transform:rotate(-15deg); /* Internet Explorer */
+    -moz-transform:rotate(-15deg); /* Firefox */
+    -webkit-transform:rotate(-15deg); /* Safari 和 Chrome */
+    -o-transform:rotate(-15deg); /* Opera */
+    img 
+      opacity: 0.6
+      margin-left: 40px
+    p
+      font-size: 16px
+    .inspection-log-date
+      position: absolute
+      bottom: 50px
+      left: 95px
+      font-weight: 800
+    .inspection-log-name
+      position: absolute
+      bottom: 15px
+      left: 83px
+      font-weight: 600

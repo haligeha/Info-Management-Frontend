@@ -170,7 +170,7 @@ class DailyInspection extends Component {
       )
     });
     return (
-      <div>
+      <div className="inspection-report">
         <PageTitle titles={['巡检维护', '巡检日志']}>
           {
             <Link to={"/inspection/calendar/new"}>
@@ -189,8 +189,12 @@ class DailyInspection extends Component {
               </LocaleProvider>
             </div>
           </Col>
-          <Col span={10} offset={1}>
+          <Col span={1}>
+            <Icon type="swap" className="inspection-report-contact" />
+          </Col>
+          <Col span={10}>
             <ReportCard cardData={reportCardData.data} />
+            {/* <EmptyReportCard /> */}
           </Col>
         </Row>
 

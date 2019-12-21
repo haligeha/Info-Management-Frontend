@@ -1,7 +1,8 @@
 import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
 import { Form, Input, Select, Button, Upload, Tooltip, Icon, Row, Col } from 'antd';
-import Billboard from './billboard'
+//import Billboard from './billboard'
+
 import {
   SELECT_HOME_WORK_NUM,
   SELECT_INSPECTION_STATUS,
@@ -90,7 +91,7 @@ class DailyInspectionCreate extends Component {
               label="异常说明："
             >
               {getFieldDecorator('activity_range7')(
-                <TextArea rows={4} />
+                <TextArea rows={4} placeholder="请输入异常说明..." />
               )}
             </Form.Item>
             <Form.Item
@@ -127,7 +128,7 @@ class DailyInspectionCreate extends Component {
                         ))
                       }
                     </Select>
-                    <TextArea rows={4} />
+                    <TextArea rows={4} placeholder="请输入异常项具体说明..." />
                   </div>
                   <Icon type="plus-circle" className="inspection-log-abnormal-plus" />
                 </div>
@@ -157,7 +158,7 @@ class DailyInspectionCreate extends Component {
               label="维保公司说明："
             >
               {getFieldDecorator('activity_range1')(
-                <TextArea rows={4} />
+                <TextArea rows={4} placeholder="请输入维保公司维保详情..." />
               )}
             </Form.Item>
             <section className="operator-container">
@@ -184,7 +185,9 @@ class DailyInspectionCreate extends Component {
           </Form>
         </div>
         <div className="inspection-log-right">
-          <Billboard />
+          <img src={[require('@src/img/listing.jpg')]} alt="值班人员" width="200" height="180" />
+          <p className="inspection-log-date">2019/12/21</p>
+          <p className="inspection-log-name">值班人 ：刘苗苗</p>
         </div>
       </div>
 

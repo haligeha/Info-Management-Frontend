@@ -15,7 +15,10 @@ class Billboard extends Component {
   render() {
     return (
       <div className="billboard-style">
-        <div>广告牌</div>
+        <div class="billboard-circle"></div>
+        <div class="billboard-triangle-one"></div>
+        <div class="billboard-triangle-two"></div>
+        <div class="billboard-square"></div>
       </div>
 
     );
