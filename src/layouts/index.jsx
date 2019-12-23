@@ -17,11 +17,11 @@ class Layouts extends Component {
   render() {
     return (
       <Layout className={'layout custom-layout'}>
-        {/* <HigherHeaderLayout />
+        <HigherHeaderLayout />
         <Content className={'content-layout'}>
           <IndexView />
-        </Content> */}
-        <Login />
+        </Content>
+        {/* <Login /> */}
       </Layout>
     );
   }

@@ -7,13 +7,12 @@ import { Layout, } from 'antd';
 import './index.styl'
 import '../../routes/Home/views/Index/index.styl'
 import axios from 'axios';
-import Background from './img/1.jpg'
-
+import Background from './img/home.gif'
 //var user_id=window.sessionStorage.getItem("user_id")
 //背景图片的填充
 var sectionStyle = {
   width: "100%",
-  height: "960px",
+  height: "100vh",
   // makesure here is String确保这里是一个字符串，以下是es6写法
   backgroundImage: `url(${Background})`,
 
