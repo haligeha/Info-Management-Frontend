@@ -1,10 +1,11 @@
 import React from 'react';
 import { PageTitle, Module, } from '@src/components';
-import { Button, Row, Col, Table, Input, Popconfirm, message } from 'antd';
+import { Button, Row, Col, Table, Input, Popconfirm, message, Form, DatePicker, Icon } from 'antd';
 import axios from 'axios';
+import BMap from 'BMap'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
-
+import './index.styl'
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
@@ -20,6 +21,7 @@ class PathWay extends React.Component {
       data: [],
       area: '',
       nowCurrent: FIRST_PAGE,
+      mapVisible: false, // 模态框初始不显示
     };
 
     this.getGroupList = this.getGroupList.bind(this);
@@ -27,6 +29,7 @@ class PathWay extends React.Component {
 
   componentDidMount() {
     this.getGroupList(FIRST_PAGE);
+
   }
 
   //获取列表信息
@@ -72,6 +75,26 @@ class PathWay extends React.Component {
     console.log(this.state)
     this.getGroupList(0)
   }
+  // 控制模态框显示
+  showMapModal = () => {
+    this.setState({
+      mapVisible: true,
+    });
+    // var { BMap } = window;
+    var map = new BMap.Map("routeMap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl());
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+  };
+
+  closeMapModal = e => {
+    console.log(e);
+    this.setState({
+      mapVisible: false,
+    });
+  };
 
   render() {
     const {
@@ -104,7 +127,7 @@ class PathWay extends React.Component {
       render: (text, record) => { return (record.number && record.number) || '--' }
     }, {
       title: '线路名称',
-      key: 'number',
+      key: 'number1',
       render: (text, record) => { return (record.number && record.number) || '--' }
     }, {
       title: '所属区域',
@@ -138,7 +161,7 @@ class PathWay extends React.Component {
       }
     }, {
       title: '启用/停用',
-      key: 'startpoint',
+      key: 'startpoint1',
       render: (text, record) => {
         return (record.startpoint && record.startpoint) || '--'
       }
@@ -158,10 +181,7 @@ class PathWay extends React.Component {
             to={`/inspection/pathway/edit/${record.id}`}
             style={{ marginRight: '5px' }}
           >编辑</Link>
-          <Link
-            to={`/inspection/pathway/${record.id}`}
-            style={{ marginRight: '5px' }}
-          >详情</Link>
+          <Button type="link" onClick={this.showMapModal}>查看</Button>
           <Popconfirm
             title="确定要删除吗？"
             onConfirm={() => { this.deleteGroup(record) }}
@@ -174,17 +194,68 @@ class PathWay extends React.Component {
         </div>
       ),
     }]
+    const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 },
+    }
+    const colSpan = {
+      span: 6,
+    }
+    const {
+      form,
+    } = this.props
+    const {
+      getFieldDecorator,
+    } = form
     return (
-      <div>
-        <PageTitle titles={['巡检维护', '巡检路线管理']}>
-          {
-            <Link to={"/inspection/pathway/new"}>
-              <Button type="primary">+ 新建巡检路线</Button>
-            </Link>
-          }
-        </PageTitle>
-        <Module>
-          <Row>
+      <div className="path-way">
+        <div style={{ opacity: (this.state.mapVisible === true) ? "0.3" : "1" }}>
+          <PageTitle titles={['巡检维护', '巡检路线']}>
+            {
+              <Link to={"/inspection/pathway/new"}>
+                <Button type="primary">+ 新建巡检路线</Button>
+              </Link>
+            }
+          </PageTitle>
+          <Module>
+            <Form onSubmit={this.selectActivity}>
+              <Row>
+                <Col {...colSpan}>
+                  <Form.Item {...formItemLayout} label="所在区域：">
+                    {getFieldDecorator('activityId')(
+                      <Input
+                        placeholder="请输入所属区域"
+                        onBlur={this.judgeID}
+                      />,
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col {...colSpan}>
+                  <Form.Item {...formItemLayout} label="是否启用：">
+                    {getFieldDecorator('activityName')(
+                      <Input
+                        placeholder="请输入启用状态"
+                      />,
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col {...colSpan}>
+                  <Form.Item {...formItemLayout} label="创建日期：">
+                    {getFieldDecorator('operatorName')(
+                      <DatePicker showTime placeholder="请选择创建日期" />,
+                      // <Input placeholder="请选择创建日期" />,
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col {...colSpan}>
+                  <div style={{ textAlign: 'center' }}>
+                    <Button type="primary" htmlType="submit">查询</Button>
+                    <Button style={{ marginLeft: 28 }} onClick={this.onReset}>清空</Button>
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+            {/* <Row>
             <Col span={2}>所属区域：</Col>
             <Col span={4}>
               <Search
@@ -193,30 +264,35 @@ class PathWay extends React.Component {
                 onSearch={value => this.selectActivity(value)}
               />
             </Col>
-          </Row>
-        </Module>
-        <Table
-          className="group-list-module"
-          bordered
-          footer={() => <div>
-            <Button>删除</Button>
-            <Button>打印</Button>
-            <Button>导出</Button>
-          </div>}
-          dataSource={data}
-          rowSelection={rowSelection}
-          pagination={{
-            current,
-            total,
-            pageSize: size,
-            onChange: this.handlePageChagne,
-          }}
-          columns={columns}
-        />
+          </Row> */}
+          </Module>
+          <Table
+            className="group-list-module"
+            bordered
+            footer={() => <div>
+              <Button type="danger"><Icon type="delete" /> 删除</Button>
+              <Button type="danger"><Icon type="printer" /> 打印</Button>
+              <Button type="danger"><Icon type="download" /> 导出</Button>
+            </div>}
+            dataSource={data}
+            rowSelection={rowSelection}
+            pagination={{
+              current,
+              total,
+              pageSize: size,
+              onChange: this.handlePageChagne,
+            }}
+            columns={columns}
+          />
+        </div>
+        <div className="path-map" style={{ display: (this.state.mapVisible === true) ? "" : "none" }} >
+          <p>路线查看</p><Icon className="path-map-icon" type="close-circle" onClick={this.closeMapModal} />
+          <div style={{ width: '550px', height: '350px' }} id="routeMap"></div>
+        </div>
       </div>
 
     );
   }
 }
 
-export default PathWay;
+export default Form.create()(PathWay);

@@ -58,7 +58,7 @@ class HigherHeaderLayout extends Component {
             },
             {
               id: '24',
-              name: '巡检路线管理',
+              name: '巡检路线',
               url: '/inspection/pathway'
             }
 
