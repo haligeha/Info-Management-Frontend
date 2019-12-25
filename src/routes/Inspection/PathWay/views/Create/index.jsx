@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { PageTitle, Module } from '@src/components';
+import { PageTitleCreate } from '@src/components';
 import { Button, Form, Input, Select, message } from 'antd';
 import axios from 'axios';
-
-const Option = Select.Option;
+import BMap from 'BMap'
+import './index.styl'
+const { TextArea } = Input;
+const { Option } = Select;
 var user_id = window.sessionStorage.getItem("user_id")
 class PathWayNew extends Component {
   constructor(props) {
@@ -30,7 +32,13 @@ class PathWayNew extends Component {
           console.log(err);
         });
     }
-
+    // 加载地图模块
+    var map = new BMap.Map("mapArea");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl());
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);
   }
 
   //创建巡检路线信息
@@ -135,8 +143,8 @@ class PathWayNew extends Component {
 
   render() {
     const createFormItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 8 },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const {
       form: { getFieldDecorator },
@@ -145,116 +153,122 @@ class PathWayNew extends Component {
 
     const { planWayDetail, pipeBelong, areaBelong } = this.state
     return (
-      <div>
+      <div className="path-way-create">
         {id ?
-          <PageTitle titles={['巡检维护', '巡检路线', '编辑']} />
+          <PageTitleCreate titles={['巡检路线', '编辑']} jump={'/inspection/pathway'} />
           :
-          <PageTitle titles={['巡检维护', '巡检路线', '新建']} />
+          <PageTitleCreate titles={['巡检路线', '新建']} jump={'/inspection/pathway'} />
         }
-        <div className="entrance-work-create-page">
-          <Module>
-            <Form
-              onSubmit={this.handleSubmit}
-            >
-              <Form.Item
-                {...createFormItemLayout}
-                label="所属区域"
-              >
-                {getFieldDecorator('area', {
-                  initialValue: id && planWayDetail.area_belong,
-                  rules: [{
-                    required: true,
-                    message: "请选择所属区域",
-                  }]
-                })(
-                  <Select
-                    style={{ width: '100%' }}
-                    placeholder="请选择所属区域"
-                  >
-                    {areaBelong}
-                  </Select>,
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="所属管廊"
-              >
-                {getFieldDecorator('pipe_gallery', {
-                  initialValue: id && planWayDetail.pipe_belong,
-                  rules: [{
-                    required: true,
-                    message: "请选择所属管廊",
-                  }]
-                })(
-                  <Select
-                    style={{ width: '100%' }}
-                    placeholder="请选择所属管廊"
-                  >
-                    {pipeBelong}
-                  </Select>,
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="起点"
-              >
-                {getFieldDecorator('startpoint', {
-                  initialValue: id && planWayDetail.startpoint,
-                  rules: [{
-                    required: true,
-                    message: "请输入起点",
-                  }]
-                })(<Input placeholder="请输入起点" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="终点"
-              >
-                {getFieldDecorator('endpoint', {
-                  initialValue: id && planWayDetail.endpoint,
-                  rules: [{
-                    required: true,
-                    message: "请输入终点",
-                  }]
-                })(<Input placeholder="请输入终点" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="说明描述"
-              >
-                {getFieldDecorator('description', {
-                  initialValue: id && planWayDetail.description,
-                  rules: [{
-                    required: true,
-                    message: "请输入说明描述",
-                  }]
-                })(<Input placeholder="请输入说明描述" />)}
-              </Form.Item>
+        <Form
+          onSubmit={this.handleSubmit}
+        >
+          <Form.Item
+            {...createFormItemLayout}
+            label="所属区域"
+          >
+            {getFieldDecorator('area', {
+              initialValue: id && planWayDetail.area_belong,
+              rules: [{
+                required: true,
+                message: "请选择所属区域",
+              }]
+            })(
+              <div className="path-way-border">
+                <Select
+                  className="path-way-area"
+                  placeholder="请选择所属区域"
+                >
+                  {areaBelong}
+                </Select>
+                <Button className="area-button">圈选区域</Button>
+                <div style={{ width: '100%', height: '300px' }} id="mapArea"></div>
+              </div>
 
-              <section className="operator-container">
-                <div style={{ textAlign: "center" }}>
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="default"
-                  >{id ? '编辑' : '新建'}
-                  </Button>
-                  <Button
-                    style={{ marginLeft: "28px" }}
-                    size="default"
-                    onClick={() => {
-                      const {
-                        history,
-                      } = this.props
-                      history.push('/inspection/pathway')
-                    }}
-                  >取消
-                  </Button>
-                </div>
-              </section>
-            </Form>
-          </Module>
-        </div>
+            )}
+          </Form.Item>
+          <Form.Item
+            {...createFormItemLayout}
+            label="所属管廊"
+          >
+            {getFieldDecorator('pipe_gallery', {
+              initialValue: id && planWayDetail.pipe_belong,
+              rules: [{
+                required: true,
+                message: "请选择所属管廊",
+              }]
+            })(
+              <Select
+                className="path-way-width"
+                placeholder="请选择所属管廊"
+              >
+                {pipeBelong}
+              </Select>,
+            )}
+          </Form.Item>
+          <Form.Item
+            {...createFormItemLayout}
+            label="线路起点"
+          >
+            {getFieldDecorator('startpoint', {
+              initialValue: id && planWayDetail.startpoint,
+              rules: [{
+                required: true,
+                message: "请输入线路起点",
+              }]
+            })(
+              <Input className="path-way-width" placeholder="请输入起点" />
+            )}
+          </Form.Item>
+          <Form.Item
+            {...createFormItemLayout}
+            label="线路终点"
+          >
+            {getFieldDecorator('endpoint', {
+              initialValue: id && planWayDetail.endpoint,
+              rules: [{
+                required: true,
+                message: "请输入线路终点",
+              }]
+            })(
+              <Input className="path-way-width" placeholder="请输入终点" />
+            )}
+          </Form.Item>
+          <Form.Item
+            {...createFormItemLayout}
+            label="说明描述"
+          >
+            {getFieldDecorator('description', {
+              initialValue: id && planWayDetail.description,
+              rules: [{
+                required: true,
+                message: "请输入说明描述",
+              }]
+            })(
+              <TextArea className="path-way-width" rows={4} placeholder="请输入说明描述..." />
+            )}
+          </Form.Item>
+          <section className="operator-container">
+            <div style={{ textAlign: "center" }}>
+              <Button
+                htmlType="submit"
+                type="primary"
+              >{id ? '编辑' : '新建'}
+              </Button>
+              <Button style={{ marginLeft: "28px" }}>保存
+              </Button>
+              <Button
+                style={{ marginLeft: "28px" }}
+                onClick={() => {
+                  const {
+                    history,
+                  } = this.props
+                  history.push('/inspection/pathway')
+                }}
+              >取消
+              </Button>
+            </div>
+          </section>
+        </Form>
       </div>
 
     );
