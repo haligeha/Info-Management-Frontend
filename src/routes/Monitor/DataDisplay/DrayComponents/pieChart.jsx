@@ -108,7 +108,6 @@ class PieChart extends Component {
         <p><Icon style={{ color: 'red' }} type="issues-close" /> 故障统计</p>
         <ReactEcharts option={this.getOption()} />
       </div>
-
     );
   }
 }

@@ -17,7 +17,7 @@ class DataList extends Component {
       <div className="border-line">
         <p><Icon style={{ color: '#87F7CF' }} type="bars" /> 管廊列表</p>
         <div className="data-list">
-          <p>名称 安装位置  状态</p>
+          <p><span>名称</span>安装位置  状态</p>
           {data && data.map(item =>
             (
               <p>{item.name}{item.position}
