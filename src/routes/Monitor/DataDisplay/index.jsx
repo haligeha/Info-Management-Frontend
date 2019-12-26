@@ -51,7 +51,6 @@ class DataDisplay extends Component {
           <DataList data={this.state.pollingData} />
           <VideoDisplay />
         </div>
-
       </div>
 
     );

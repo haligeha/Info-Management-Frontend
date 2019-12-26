@@ -120,7 +120,7 @@ class CombChart extends Component {
 
     return (
       <div className="border-line">
-        <p><Icon type="alert" /> 报警预测</p>
+        <p><Icon style={{ color: 'yellow' }} type="alert" /> 报警预测</p>
         <ReactEcharts option={this.getOption()} />
       </div>
 

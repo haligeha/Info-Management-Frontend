@@ -15,11 +15,17 @@ class DataList extends Component {
     const { data } = this.props
     return (
       <div className="border-line">
-        <p><Icon type="bars" /> 管廊列表</p>
+        <p><Icon style={{ color: '#87F7CF' }} type="bars" /> 管廊列表</p>
         <div className="data-list">
           <p>名称 安装位置  状态</p>
           {data && data.map(item =>
-            (<p>dd{item.name}</p>),
+            (
+              <p>{item.name}{item.position}
+                <Icon
+                  type={item.statusId === 1 ? "exclamation-circle" : "check-circle"}
+                  style={{ color: item.statusId === 1 ? "red" : "green" }}
+                />{item.status}
+              </p>),
           )}
         </div>
       </div>

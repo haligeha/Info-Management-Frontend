@@ -105,7 +105,7 @@ class PieChart extends Component {
   render() {
     return (
       <div className="border-line">
-        <p><Icon type="issues-close" /> 故障统计</p>
+        <p><Icon style={{ color: 'red' }} type="issues-close" /> 故障统计</p>
         <ReactEcharts option={this.getOption()} />
       </div>
 
