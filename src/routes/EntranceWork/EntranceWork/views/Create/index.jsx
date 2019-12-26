@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import { PageTitle,Module } from '../../../../../components';
-import { Form,Input,Select,Button,message } from 'antd';
+import { PageTitle, Module } from '../../../../../components';
+import { Form, Input, Select, Button, message } from 'antd';
 import { SELECT_HOME_WORK_NUM } from '../../configs';
 import axios from 'axios';
 import './index.styl'
@@ -10,17 +10,17 @@ class EntranceWorkNew extends Component {
     super(props);
 
     this.state = {
-      entranceDetail:{}
+      entranceDetail: {}
     };
   }
-  componentDidMount(){
-    const {match : { params : { id } }} = this.props
-    if(id){
+  componentDidMount() {
+    const { match: { params: { id } } } = this.props
+    if (id) {
       axios.get(`/api/v1/info/entranceWorkById?entranceId=${id}&user_id=${user_id}`)
         .then((res) => {
-          this.setState({entranceDetail:res.data})
+          this.setState({ entranceDetail: res.data })
         })
-        .catch( (err) => {
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -31,28 +31,28 @@ class EntranceWorkNew extends Component {
     const {
       form,
       history,
-      match : { params : { id } },
+      match: { params: { id } },
     } = this.props
     const { getFieldValue } = form;
     console.log(getFieldValue('duration'))
     const values = form.getFieldsValue()
-    if(!getFieldValue('duration')){
+    if (!getFieldValue('duration')) {
       message.error('请输入工期')
     }
-    if(!getFieldValue('work_number')){
+    if (!getFieldValue('work_number')) {
       message.error('请输入施工数量')
     }
-    if(!getFieldValue('activity_range')){
+    if (!getFieldValue('activity_range')) {
       message.error('请选择活动范围')
     }
     values.date = new Date()
     console.log(values)
-    if(id){
-      
+    if (id) {
+
       values.id = id
       axios.put(`/api/v1/info/entranceWork?user_id=${user_id}`, values)
         .then(function (response) {
-          if(response.status === 200){
+          if (response.status === 200) {
             message.info('编辑成功')
             history.push('/entrance/work')
           }
@@ -60,10 +60,10 @@ class EntranceWorkNew extends Component {
         .catch(function (error) {
           console.log(error);
         });
-    }else{
+    } else {
       axios.post(`/api/v1/info/entranceWork?user_id=${user_id}`, values)
         .then(function (response) {
-          if(response.status === 200){
+          if (response.status === 200) {
             message.info('创建成功')
             history.push('/entrance/work')
           }
@@ -72,25 +72,25 @@ class EntranceWorkNew extends Component {
           console.log(error);
         });
     }
-    
+
   }
   render() {
     const createFormItemLayout = {
-      labelCol: {span:8},
-      wrapperCol : {span:8},
+      labelCol: { span: 8 },
+      wrapperCol: { span: 8 },
     }
-    const { 
-      form: { getFieldDecorator }, 
-      match : { params : { id } }
+    const {
+      form: { getFieldDecorator },
+      match: { params: { id } }
     } = this.props
     console.log(id)
     const { entranceDetail } = this.state
     return (
       <div>
         {id ?
-          <PageTitle titles={['巡检维护','入廊作业','编辑']} />
+          <PageTitle titles={['巡检维护', '入廊登记', '编辑']} />
           :
-          <PageTitle titles={['巡检维护','入廊作业','新建']} />
+          <PageTitle titles={['巡检维护', '入廊登记', '新建']} />
         }
         <div className="entrance-work-create-page">
           <Module>
@@ -101,39 +101,39 @@ class EntranceWorkNew extends Component {
                 {...createFormItemLayout}
                 label="工期（天）"
               >
-                {getFieldDecorator('duration',{
+                {getFieldDecorator('duration', {
                   initialValue: id && entranceDetail.duration,
-                  rules:[{
-                    required:true,
-                    message:"请输入工期",
+                  rules: [{
+                    required: true,
+                    message: "请输入工期",
                   }]
                 })(
                   <Input placeholder="请输入工期" />
-                )}  
+                )}
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
                 label="施工人员数量"
               >
-                {getFieldDecorator('work_number',{
+                {getFieldDecorator('work_number', {
                   initialValue: id && entranceDetail.work_number,
-                  rules:[{
-                    required:true,
-                    message:"请输入施工人员数量",
+                  rules: [{
+                    required: true,
+                    message: "请输入施工人员数量",
                   }]
                 })(
                   <Input placeholder="请输入施工人员数量" />
-                )}  
+                )}
               </Form.Item>
               <Form.Item
                 {...createFormItemLayout}
                 label="活动范围"
               >
-                {getFieldDecorator('activity_range',{
+                {getFieldDecorator('activity_range', {
                   initialValue: id && entranceDetail.activity_range,
-                  rules:[{
-                    required:true,
-                    message:"请选择活动区域",
+                  rules: [{
+                    required: true,
+                    message: "请选择活动区域",
                   }]
                 })(
                   <Select placeholder="请选择活动区域"
@@ -148,10 +148,10 @@ class EntranceWorkNew extends Component {
 
                     }
                   </Select>
-                )}  
+                )}
               </Form.Item>
               <section className="operator-container">
-                <div style={{textAlign:"center"}}>
+                <div style={{ textAlign: "center" }}>
                   <Button
                     htmlType="submit"
                     type="primary"
@@ -159,9 +159,9 @@ class EntranceWorkNew extends Component {
                   >{id ? '编辑' : '新建'}
                   </Button>
                   <Button
-                    style={{marginLeft:"28px"}}
+                    style={{ marginLeft: "28px" }}
                     size="default"
-                    onClick={()=> {
+                    onClick={() => {
                       const {
                         history,
                       } = this.props

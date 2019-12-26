@@ -1,15 +1,16 @@
-import React,{Component} from "react";
-import {PageTitle,Module} from '../../../../components'
+import React, { Component } from "react";
+import { PageTitle, Module, Video } from '@src/components'
+import { Button, Form, Row, Col, Icon } from 'antd';
 import './index.styl';
-import {Video} from '../../../../components'
-import {Button,Form,Row,Col,Icon} from 'antd';
-const FormItem=Form.Item
-class Surveillance extends React.Component{
-  constructor(props){
+
+const FormItem = Form.Item
+
+class Surveillance extends React.Component {
+  constructor(props) {
     super(props);
-    this.state={
-      layoutstate:'',
-      rtmpSrc:[
+    this.state = {
+      layoutstate: '',
+      rtmpSrc: [
         'rtmp://www.anbotcloud.cn:1936/live/19WV420011/front',
         'rtmp://www.anbotcloud.cn:1936/live/19WV420011/back',
         'rtmp://www.anbotcloud.cn:1936/live/19WV420011/left',
@@ -18,17 +19,17 @@ class Surveillance extends React.Component{
       ],
     }
   }
-  
-  render(){
-    const FORM_ITEM_SPAN=11;
-    const formItemLayout={
-      labelCol:{span:6},
-      wrapperCol:{span:16}
+
+  render() {
+    const FORM_ITEM_SPAN = 11;
+    const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 }
     }
-    const {form}=this.props;
+    const { form } = this.props;
     const videoJsOptions = {
       autoplay: true,  //自动播放
-      language: 'zh-CN', 
+      language: 'zh-CN',
       controls: true,  //控制条
       preload: 'auto',  //自动加载
       errorDisplay: true,  //错误展示
@@ -50,7 +51,7 @@ class Surveillance extends React.Component{
     }
     const videoJsOptions1 = {
       autoplay: true,  //自动播放
-      language: 'zh-CN', 
+      language: 'zh-CN',
       controls: true,  //控制条
       preload: 'auto',  //自动加载
       errorDisplay: true,  //错误展示
@@ -72,7 +73,7 @@ class Surveillance extends React.Component{
     }
     const videoJsOptions2 = {
       autoplay: true,  //自动播放
-      language: 'zh-CN', 
+      language: 'zh-CN',
       controls: true,  //控制条
       preload: 'auto',  //自动加载
       errorDisplay: true,  //错误展示
@@ -94,7 +95,7 @@ class Surveillance extends React.Component{
     }
     const videoJsOptions3 = {
       autoplay: true,  //自动播放
-      language: 'zh-CN', 
+      language: 'zh-CN',
       controls: true,  //控制条
       preload: 'auto',  //自动加载
       errorDisplay: true,  //错误展示
@@ -116,7 +117,7 @@ class Surveillance extends React.Component{
     }
     const videoJsOptions4 = {
       autoplay: true,  //自动播放
-      language: 'zh-CN', 
+      language: 'zh-CN',
       controls: true,  //控制条
       preload: 'auto',  //自动加载
       errorDisplay: true,  //错误展示
@@ -137,72 +138,70 @@ class Surveillance extends React.Component{
       ]
     }
     let layout;
-    switch(this.state.layoutstate){
-    case 1:layout=(
-      
-      <div className="video-1-1">
-        <Video {...videoJsOptions} />
-      </div>
-      
-    )
-      break;
-    case 2:layout=(
-      <div>
-        <div className="video-2-1">
-          {this.state.layoutstate&&<Video {...videoJsOptions} />}
+    switch (this.state.layoutstate) {
+      case 1: layout = (
+        <div className="video-1-1">
+          <Video {...videoJsOptions} />
         </div>
-        <div className="video-2-2">
-          {this.state.layoutstate&&<Video {...videoJsOptions2} />}
+      )
+        break;
+      case 2: layout = (
+        <div>
+          <div className="video-2-1">
+            {this.state.layoutstate && <Video {...videoJsOptions} />}
+          </div>
+          <div className="video-2-2">
+            {this.state.layoutstate && <Video {...videoJsOptions2} />}
+          </div>
         </div>
-      </div>
-    )
-      break;
-    case 3:layout=(
-      <div>
-        <div className="video-3-1">
-          <Video {...videoJsOptions}/>
+      )
+        break;
+      case 3: layout = (
+        <div>
+          <div className="video-3-1">
+            <Video {...videoJsOptions} />
+          </div>
+          <div className="video-3-2">
+            <Video {...videoJsOptions1} />
+          </div>
+          <div className="video-3-3">
+            <Video {...videoJsOptions2} />
+          </div>
+          <div className="video-3-4">
+            <Video {...videoJsOptions3} />
+          </div>
         </div>
-        <div className="video-3-2">
-          <Video {...videoJsOptions1}/>
+      )
+        break;
+      case 4: layout = (
+        <div>
+          <div className="video-4-1">
+            {this.state.layoutstate && <Video {...videoJsOptions4} />}
+          </div>
+          <div className="video-4-2">
+            <Video {...videoJsOptions3} />
+          </div>
+          <div className="video-4-3">
+            <Video {...videoJsOptions2} />
+          </div>
+          <div className="video-4-4">
+            <Video {...videoJsOptions1} />
+          </div>
+          <div className="video-4-5">
+            <Video {...videoJsOptions} />
+          </div>
         </div>
-        <div className="video-3-3">
-          <Video {...videoJsOptions2}/>
+      )
+        break;
+      default: layout = (
+        <div className="video-1-1">
+          <Video {...videoJsOptions} />
         </div>
-        <div className="video-3-4">
-          <Video {...videoJsOptions3}/>
-        </div>
-      </div>
-    )
-      break;
-    case 4:layout=(
-      <div>
-        <div className="video-4-1">
-          {this.state.layoutstate&&<Video {...videoJsOptions4}/>}
-        </div>
-        <div className="video-4-2">
-          <Video {...videoJsOptions3}/>
-        </div>
-        <div className="video-4-3">
-          <Video {...videoJsOptions2}/>
-        </div>
-        <div className="video-4-4">
-          <Video {...videoJsOptions1}/>
-        </div>
-        <div className="video-4-5">
-          <Video {...videoJsOptions}/>
-        </div>
-      </div>
-    )
-      break;
-    default: layout=(
-      <div className="video-1-1">
-        <Video {...videoJsOptions}/>
-      </div>
-    )
+      )
     }
     return (
       <div>
-        <PageTitle titles={['监测预警','实时监控']} />
+        <PageTitle titles={['智能监测', '视频监控']} />
         <Module>
           <Row>
             <Col span={FORM_ITEM_SPAN}>
@@ -210,17 +209,17 @@ class Surveillance extends React.Component{
                 label="选择分屏选项"
                 {...formItemLayout}
               >
-                <Col span="4"><Button onClick={()=>{this.setState({layoutstate:1})}}><Icon type="laptop"
-                  style={{ fontSize: 24,}}
+                <Col span="4"><Button onClick={() => { this.setState({ layoutstate: 1 }) }}><Icon type="laptop"
+                  style={{ fontSize: 24, }}
                 /></Button></Col>
-                <Col span="4"><Button onClick={()=>{this.setState({layoutstate:2})}}><Icon type="appstore-o"
-                  style={{ fontSize: 24,}}
+                <Col span="4"><Button onClick={() => { this.setState({ layoutstate: 2 }) }}><Icon type="appstore-o"
+                  style={{ fontSize: 24, }}
                 /></Button></Col>
-                <Col span="4"><Button onClick={()=>{this.setState({layoutstate:3})}}><Icon type="layout"
-                  style={{ fontSize: 24,}}
+                <Col span="4"><Button onClick={() => { this.setState({ layoutstate: 3 }) }}><Icon type="layout"
+                  style={{ fontSize: 24, }}
                 /></Button></Col>
-                <Col span="4"><Button onClick={()=>{this.setState({layoutstate:4})}}><Icon type="exception"
-                  style={{ fontSize: 24,}}
+                <Col span="4"><Button onClick={() => { this.setState({ layoutstate: 4 }) }}><Icon type="exception"
+                  style={{ fontSize: 24, }}
                 /></Button></Col>
               </FormItem>
             </Col>

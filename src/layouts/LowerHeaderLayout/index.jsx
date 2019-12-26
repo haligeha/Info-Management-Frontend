@@ -18,11 +18,11 @@ class LowerHeaderLayout extends Component {
           children: [
             {
               id: '11',
-              name: '首页展示',
+              name: '实时监测',
               url: '/monitor/view'
             }, {
               id: '12',
-              name: "实时监控",
+              name: "视频监控",
               url: '/monitor/video'
             },
             {
@@ -90,7 +90,7 @@ class LowerHeaderLayout extends Component {
           children: [
             {
               id: '41',
-              name: '入廊作业',
+              name: '入廊登记',
               url: '/entrance/work'
             },
             {
@@ -111,7 +111,7 @@ class LowerHeaderLayout extends Component {
             },
             {
               id: '52',
-              name: '管廊区域信息',
+              name: '管廊区域',
               url: '/pipe/area'
             },
             // {

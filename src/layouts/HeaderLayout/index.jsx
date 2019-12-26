@@ -13,12 +13,12 @@ class HeaderLayout extends Component {
       meuList: [
         {
           id: '1',
-          name: "监测预警",
+          name: "智能监测",
           url: '/monitor',
           children: [
             {
               id: '11',
-              name: '首页展示',
+              name: '实时监测',
               url: '/monitor/view'
             },
             {
@@ -95,7 +95,7 @@ class HeaderLayout extends Component {
           children: [
             {
               id: '41',
-              name: '入廊作业',
+              name: '入廊登记',
               url: '/entrance/work'
             },
             {
@@ -116,7 +116,7 @@ class HeaderLayout extends Component {
             },
             {
               id: '52',
-              name: '管廊区域信息',
+              name: '管廊区域',
               url: '/pipe/area'
             },
             // {

@@ -32,6 +32,15 @@ class DailyInspection extends Component {
 
   componentDidMount() {
     this.getAllReport();
+    // 测试json-server
+    // axios.get(`http://localhost:3000/getUserInfo`)
+    //   .then((res) => {
+    //     console.log("json-server获取数据")
+    //     console.log(res)
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }
 
   //获取全部巡检信息

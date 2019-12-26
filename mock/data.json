@@ -1,0 +1,125 @@
+{
+  "getUserInfo": {
+    "status": 200,
+    "msg": "operation success",
+    "data": {
+      "idCard": "372922****07037891",
+      "customerName": "耿传银",
+      "phoneNumber": "18364066530",
+      "gender": "先生",
+      "cuid": 51020584
+    }
+  },
+  "getMockData": {
+    "status": 500,
+    "msg": "operation success"
+  },
+  "getPipeInfo": {
+    "status": 200,
+    "msg": "success",
+    "data": [
+      {
+        "name": "#001号综合管廊",
+        "id": 1,
+        "length": 5.1,
+        "line": "电力、给水、通信、燃气等",
+        "percent": 90
+      },
+      {
+        "name": "#002号综合管廊",
+        "id": 2,
+        "length": 8.66,
+        "line": "电力、给水、通信、燃气、雨水等",
+        "percent": 60
+      },
+      {
+        "name": "#003号综合管廊",
+        "id": 3,
+        "length": 10,
+        "line": "电力、给水、通信、燃气、优质水、污水等",
+        "percent": 80
+      },
+      {
+        "name": "#004号综合管廊",
+        "id": 4,
+        "length": 4.3,
+        "line": "电力、给水、通信、燃气、优质水、污水等",
+        "percent": 70
+      },
+      {
+        "name": "3005号综合管廊",
+        "id": 5,
+        "length": 4.6,
+        "line": "电力、给水、通信、燃气、优质水等",
+        "percent": 80
+      },
+      {
+        "name": "#006号综合管廊",
+        "id": 6,
+        "length": 7.1,
+        "line": "电力、给水、通信、燃气、污水等",
+        "percent": 70
+      }
+    ]
+  },
+  "getPollingList": {
+    "status": 200,
+    "msg": "success",
+    "data": [
+      {
+        "name": "手动报警按钮1",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      },
+      {
+        "name": "手动报警按钮2",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      },
+      {
+        "name": "手动报警按钮3",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      },
+      {
+        "name": "手动报警按钮4",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      },
+      {
+        "name": "火灾声光报警器1",
+        "position": "7号防火分区",
+        "status": "关闭",
+        "statusId": 1
+      },
+      {
+        "name": "火灾声光报警器2",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      },
+      {
+        "name": "火灾声光报警器3",
+        "position": "7号防火分区",
+        "status": "关闭",
+        "statusId": 1
+      },
+      {
+        "name": "火灾声光报警器4",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      },
+      {
+        "name": "手动报警按钮5",
+        "position": "7号防火分区",
+        "status": "正常",
+        "statusId": 0
+      }
+    ]
+  }
+}

@@ -34,7 +34,7 @@ class EntranceWorkDetail extends Component {
     const { entranceDetail } = this.state
     return (
       <div className="entrance-work-detail-page">
-        <PageTitle titles={['巡检维护', '入廊作业', '详情']} />
+        <PageTitle titles={['巡检维护', '入廊登记', '详情']} />
         <section className="basic-info-container">
           <TitleNav title="基本信息"></TitleNav>
           <Row>

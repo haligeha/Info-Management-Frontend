@@ -20,8 +20,8 @@ class RouteView extends Component {
           path="/"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Scene" */
-              './Monitor/Scene'),
+              /* webpackChunkName: "DataDisplay" */
+              './Monitor/DataDisplay'),
             loading: Loading
           })}
         />
