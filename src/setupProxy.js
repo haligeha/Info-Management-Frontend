@@ -8,7 +8,7 @@ const proxy = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    proxy("/api/v1/user/", { target: "http://10.112.196.254:8086" }) // 张宇非
+    proxy("/api/v1/user/", { target: "http://10.112.12.81:8086" }) // 张宇非
   );
   app.use(
     proxy("/api/v1/info/", { target: "http://10.112.12.81:8100" }) // 艺

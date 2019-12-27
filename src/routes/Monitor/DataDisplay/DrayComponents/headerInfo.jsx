@@ -8,7 +8,7 @@ class HeaderInfo extends Component {
     this.state = {
     };
   }
-  renderInfo = (data = []) => {
+  renderInfo = (data) => {
     return data.map(item =>
       (<div className="header-info-box" key={item.id}>
         <span>{item.name}</span>
