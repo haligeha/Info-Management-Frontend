@@ -14,7 +14,7 @@ class Video extends React.Component {
 
   componentDidMount() {
     this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
-      console.log('onPlayerReady', this)
+      //console.log('onPlayerReady', this)
     });
     videojs.addLanguage('zh-CN', videozhCN);
   }
@@ -27,16 +27,16 @@ class Video extends React.Component {
   render() {
     return (
       // <Player>
-      //   {/* <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" /> */}
-      //   <source src="rtmp://www.anbotcloud.cn:1936/live/19WV420011/front" />
-      //   <ControlBar>
-      //     <ReplayControl seconds={10} order={1.1} />
-      //     <ForwardControl seconds={30} order={1.2} />
-      //     <CurrentTimeDisplay order={4.1} />
-      //     <TimeDivider order={4.2} />
-      //     <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
-      //     <VolumeMenuButton disabled />
-      //   </ControlBar>
+      // {/* <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" /> */}
+      // <source src="rtmp://www.anbotcloud.cn:1936/live/19WV420011/front" />
+      // <ControlBar>
+      //   <ReplayControl seconds={10} order={1.1} />
+      //   <ForwardControl seconds={30} order={1.2} />
+      //   <CurrentTimeDisplay order={4.1} />
+      //   <TimeDivider order={4.2} />
+      //   <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+      //   <VolumeMenuButton disabled />
+      //  </ControlBar>
       // </Player>
       <div>
         <div data-vjs-player>

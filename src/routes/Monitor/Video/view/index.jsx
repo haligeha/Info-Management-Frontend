@@ -200,7 +200,7 @@ class Surveillance extends React.Component {
       )
     }
     return (
-      <div>
+      <div className="video-show">
         <PageTitle titles={['智能监测', '视频监控']} />
         <Module>
           <Row>
@@ -224,20 +224,6 @@ class Surveillance extends React.Component {
               </FormItem>
             </Col>
           </Row>
-          {/* <Row>
-            <Col span={FORM_ITEM_SPAN}>
-              <FormItem
-                label="选择视频源"
-                {...formItemLayout}
-              >
-                <Col span="4">1</Col>
-                <Col span="4">1</Col>
-                <Col span="4">1</Col>
-                <Col span="4">1</Col>
-                <Col span="4">1</Col>
-              </FormItem>
-            </Col>
-          </Row> */}
         </Module>
         <div>
           {layout}

@@ -114,11 +114,11 @@ class LowerHeaderLayout extends Component {
               name: '管廊区域',
               url: '/pipe/area'
             },
-            // {
-            //   id: '53',
-            //   name: '用户操作日志',
-            //   url: '/pipe/area'
-            // },
+            {
+              id: '53',
+              name: '操作日志',
+              url: '/pipe/log'
+            },
             // {
             //   id: '54',
             //   name: 'Kibana',
@@ -130,9 +130,6 @@ class LowerHeaderLayout extends Component {
     };
   }
 
-  componentDidMount() {
-
-  }
   //退出登录
   handleExit = () => {
     console.log(window.sessionStorage.getItem('username'))

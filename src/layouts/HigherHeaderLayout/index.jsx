@@ -123,11 +123,11 @@ class HigherHeaderLayout extends Component {
               name: '管廊区域',
               url: '/pipe/area'
             },
-            // {
-            //   id:'54',
-            //   name:'用户操作日志',
-            //   url:'/pipe/area'
-            // },
+            {
+              id:'54',
+              name:'操作日志',
+              url:'/pipe/log'
+            },
           ]
         }
       ],

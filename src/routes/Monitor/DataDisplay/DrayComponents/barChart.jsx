@@ -29,7 +29,13 @@ class CombChart extends Component {
         }
       },
       legend: {
-        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他']
+        textStyle: {
+          color: '#fff'
+        },
+        data: ['CO', 'CH4', 'O2', 'H2S', '温度', '湿度', '集水井水位', '入侵', '设备故障']
+      },
+      textStyle: {
+        color: '#fff'
       },
       grid: {
         left: '3%',
@@ -37,11 +43,11 @@ class CombChart extends Component {
         bottom: '3%',
         containLabel: true
       },
-      xAxis: [
+      xAxis: [        
         {
           type: 'category',
           data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-        }
+        }       
       ],
       yAxis: [
         {
@@ -50,30 +56,30 @@ class CombChart extends Component {
       ],
       series: [
         {
-          name: '直接访问',
+          name: 'CO',
           type: 'bar',
           data: [320, 332, 301, 334, 390, 330, 320]
         },
         {
-          name: '邮件营销',
+          name: 'CH4',
           type: 'bar',
           stack: '广告',
           data: [120, 132, 101, 134, 90, 230, 210]
         },
         {
-          name: '联盟广告',
+          name: 'O2',
           type: 'bar',
           stack: '广告',
           data: [220, 182, 191, 234, 290, 330, 310]
         },
         {
-          name: '视频广告',
+          name: 'H2S',
           type: 'bar',
           stack: '广告',
           data: [150, 232, 201, 154, 190, 330, 410]
         },
         {
-          name: '搜索引擎',
+          name: '温度',
           type: 'bar',
           data: [862, 1018, 964, 1026, 1679, 1600, 1570],
           markLine: {
@@ -88,26 +94,26 @@ class CombChart extends Component {
           }
         },
         {
-          name: '百度',
+          name: '湿度',
           type: 'bar',
           barWidth: 5,
           stack: '搜索引擎',
           data: [620, 732, 701, 734, 1090, 1130, 1120]
         },
         {
-          name: '谷歌',
+          name: '集水井水位',
           type: 'bar',
           stack: '搜索引擎',
           data: [120, 132, 101, 134, 290, 230, 220]
         },
         {
-          name: '必应',
+          name: '入侵',
           type: 'bar',
           stack: '搜索引擎',
           data: [60, 72, 71, 74, 190, 130, 110]
         },
         {
-          name: '其他',
+          name: '设备故障',
           type: 'bar',
           stack: '搜索引擎',
           data: [62, 82, 91, 84, 109, 110, 120]
@@ -120,8 +126,8 @@ class CombChart extends Component {
 
     return (
       <div className="border-line">
-        <p><Icon style={{ color: 'yellow' }} type="alert" /> 报警预测</p>
-        <ReactEcharts option={this.getOption()} />
+        <p><Icon style={{ color: 'yellow' }} type="alert" /> 报警预测</p>        
+          <ReactEcharts style={{height : '250px'}} option={this.getOption()} />
       </div>
 
     );

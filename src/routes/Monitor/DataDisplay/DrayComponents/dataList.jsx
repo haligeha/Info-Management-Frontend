@@ -17,18 +17,25 @@ class DataList extends Component {
       <div className="border-line">
         <p><Icon style={{ color: '#87F7CF' }} type="bars" /> 管廊列表</p>
         <div className="data-list">
-          <p><span>名称</span>安装位置  状态</p>
-          {data && data.map(item =>
+          <p>
+            <b className="data-list-info">名称</b>
+            <b className="data-list-info">安装位置</b>
+            <b>状态</b>
+          </p>
+          {data && data.map((item, index) =>
             (
-              <p>{item.name}{item.position}
+              <p key={index}>
+                <span className="data-list-info">{item.name}</span>
+                <span className="data-list-info">{item.position}</span>
                 <Icon
                   type={item.statusId === 1 ? "exclamation-circle" : "check-circle"}
                   style={{ color: item.statusId === 1 ? "red" : "green" }}
-                />{item.status}
+                /> {item.status}
               </p>),
-          )}
+          )
+          }
         </div>
-      </div>
+      </div >
 
     );
   }

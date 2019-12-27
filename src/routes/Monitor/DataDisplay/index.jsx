@@ -1,5 +1,5 @@
 import React, { Component, } from 'react'
-import { CombChart, DataList, PieChart, VideoDisplay, HeaderInfo } from './DrayComponents'
+import { BarChart, DataList, PieChart, VideoDisplay, HeaderInfo } from './DrayComponents'
 import axios from 'axios';
 import './index.styl';
 
@@ -45,7 +45,7 @@ class DataDisplay extends Component {
         <HeaderInfo data={this.state.headerInfoData} />
         <div className="data-display-content">
           <PieChart />
-          <CombChart />
+          <BarChart />
         </div>
         <div className="data-display-content">
           <DataList data={this.state.pollingData} />

@@ -122,7 +122,6 @@ class RouteView extends Component {
             loading: Loading
           })}
         />
-
         <Route
           path="/emergency/approval"
           component={Loadable({
@@ -168,15 +167,6 @@ class RouteView extends Component {
             loading: Loading
           })}
         />
-        {/* <Route
-          path="/emergency/alarm"
-          component={Loadable({
-            loader: () => import(
-             
-              './Emergency/Alarm'),
-            loading: Loading
-          })}
-        /> */}
         <Route
           path="/entrance/work"
           component={Loadable({
@@ -210,6 +200,15 @@ class RouteView extends Component {
             loader: () => import(
               /* webpackChunkName: "PipeGallery" */
               './PipeGallery/Management'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/pipe/log"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "PipeLog" */
+              './PipeGallery/OperationLog'),
             loading: Loading
           })}
         />
