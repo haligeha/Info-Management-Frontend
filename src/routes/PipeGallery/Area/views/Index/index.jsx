@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import { PageTitle, Module, } from '../../../../../components';
-import { Button, Row, Col, Table, Input, Popconfirm, message } from 'antd';
+import { PageTitle, Module, } from '@src/components';
+import { Button, Row, Col, Table, Input, Popconfirm, message,Icon } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 const FIRST_PAGE = 0;
@@ -83,6 +83,85 @@ class Area extends Component {
     const total = allCount
     const current = page + 1
     const size = limit
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      },
+      getCheckboxProps: record => ({
+        disabled: record.name === 'Disabled User', 
+        name: record.name,
+      }),
+    };
+    const columns = [{
+      title: '序号',
+      key: 'index',
+      render: (text, record, index) => { return (index + 1) }
+    }, {
+      title: '区域编号',
+      key: 'number',
+      render: (text, record) => {
+        return (record.number && record.number) || '--'
+      }
+    }, {
+      title: '区域名称',
+      width: 200,
+      key: 'name',
+      render: (text, record) => {
+        return (record.name && record.name) || '--'
+      }
+    }, {
+      title: '区域长度（公里）',
+      key: 'length',
+      render: (text, record) => {
+        return (record.length && record.length) || '--'
+      }
+    }, {
+      title: '所属管廊',
+      key: 'pipe_belong',
+      render: (text, record) => {
+        return (record.pipe_belong && record.pipe_belong) || '--'
+      }
+    }, {
+      title: '起始点（经度，纬度）',
+      key: 'startpoint',
+      render: (text, record) => {
+        return (record.startpoint && record.startpoint) || '--'
+      }
+    }, {
+      title: '终止点（经度，纬度）',
+      key: 'endpoint',
+      render: (text, record) => {
+        return (record.endpoint && record.endpoint) || '--'
+      }
+    }, {
+      title: '说明描述',
+      key: 'description',
+      render: (text, record) => {
+        return (record.description && record.description) || '--'
+      }
+    }, {
+      title: '操作',
+      render: (text, record, index) => (
+        <div className="operate-btns"
+          style={{ display: 'block' }}
+        >
+          <Link
+            to={`/pipe/area/edit/${record.id}`}
+            style={{ marginRight: '5px' }}
+          >编辑</Link>
+          <Button type="link" onClick={this.showMapModal}>查看</Button>
+          <Popconfirm
+            title="确定要删除吗？"
+            onConfirm={() => { this.deleteGroup(record) }}
+          >
+            <Button
+              type="simple"
+              style={{ border: 'none', padding: 0, color: "#357aff", background: 'transparent' }}
+            >删除</Button>
+          </Popconfirm>
+        </div>
+      ),
+    }]
     return (
       <div>
         <PageTitle titles={['运营管理', '管廊区域']}>
@@ -107,6 +186,12 @@ class Area extends Component {
         <Table
           className="group-list-module"
           bordered
+          footer={() => <div>
+            <Button type="danger"><Icon type="delete" /> 删除</Button>
+            <Button type="danger"><Icon type="printer" /> 打印</Button>
+            <Button type="danger"><Icon type="download" /> 导出</Button>
+          </div>}
+          rowSelection={rowSelection}
           pagination={{
             current,
             total,
@@ -115,75 +200,7 @@ class Area extends Component {
             showTotal: () => `共${allCount} 条数据`
           }}
           dataSource={data}
-          columns={[{
-            title: '区域编号',
-            key: 'number',
-            render: (text, record) => {
-              return (record.number && record.number) || '--'
-            }
-          }, {
-            title: '区域名称',
-            width: 200,
-            key: 'name',
-            render: (text, record) => {
-              return (record.name && record.name) || '--'
-            }
-          }, {
-            title: '区域长度',
-            key: 'length',
-            render: (text, record) => {
-              return (record.length && record.length) || '--'
-            }
-          }, {
-            title: '所属管廊',
-            key: 'pipe_belong',
-            render: (text, record) => {
-              return (record.pipe_belong && record.pipe_belong) || '--'
-            }
-          }, {
-            title: '起点',
-            key: 'startpoint',
-            render: (text, record) => {
-              return (record.startpoint && record.startpoint) || '--'
-            }
-          }, {
-            title: '终点',
-            key: 'endpoint',
-            render: (text, record) => {
-              return (record.endpoint && record.endpoint) || '--'
-            }
-          }, {
-            title: '说明描述',
-            key: 'description',
-            render: (text, record) => {
-              return (record.description && record.description) || '--'
-            }
-          }, {
-            title: '操作',
-            render: (text, record, index) => (
-              <div className="operate-btns"
-                style={{ display: 'block' }}
-              >
-                <Link
-                  to={`/pipe/area/edit/${record.id}`}
-                  style={{ marginRight: '5px' }}
-                >编辑</Link>
-                {/* <Link
-                  to={`/pipe/area/detail/${record.id}`}
-                  style={{marginRight:'5px'}}
-                >详情</Link> */}
-                <Popconfirm
-                  title="确定要删除吗？"
-                  onConfirm={() => { this.deleteGroup(record) }}
-                >
-                  <Button
-                    type="simple"
-                    style={{ border: 'none', padding: 0, color: "#357aff", background: 'transparent' }}
-                  >删除</Button>
-                </Popconfirm>
-              </div>
-            ),
-          }]}
+          columns={columns}
         />
       </div>
 
