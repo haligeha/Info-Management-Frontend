@@ -181,7 +181,7 @@ class RouteView extends Component {
           component={Loadable({
             loader: () => import(
               /* webpackChunkName: "EntranceWork" */
-              './EntranceWork/WorkApproval'),
+              './EntranceWork/WorkApproval/views'),
             loading: Loading
           })}
         />

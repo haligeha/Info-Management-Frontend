@@ -105,7 +105,7 @@ class HigherHeaderLayout extends Component {
             {
               id: '42',
               name: '作业审批',
-              url: '/entrance/work'
+              url: '/entrance/approval'
             },
           ]
         }, {
@@ -124,9 +124,9 @@ class HigherHeaderLayout extends Component {
               url: '/pipe/area'
             },
             {
-              id:'54',
-              name:'操作日志',
-              url:'/pipe/log'
+              id: '54',
+              name: '操作日志',
+              url: '/pipe/log'
             },
           ]
         }

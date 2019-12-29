@@ -9,8 +9,7 @@ import { actions } from '@src/modules/DailyInspection';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import moment from 'moment';
-import ReportCard from '../ReportCard/reportContent'
-import EmptyReportCard from '../ReportCard/reportEmpty'
+import ReportCard from './ReportCard/reportContent'
 import './index.styl'
 
 let dateList = [];
@@ -116,7 +115,6 @@ class DailyInspection extends Component {
     axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0&user_id=${user_id}`)
       .then((res) => {
         if (res && res.status === 200) {
-          console.log(res.data.data + '组件中内容')
           reportList = []
           for (var i = 0; i < res.data.data.length; i++) {
             let reportone = res.data.data[i]
@@ -202,7 +200,7 @@ class DailyInspection extends Component {
             <Icon type="swap" className="inspection-report-contact" />
           </Col>
           <Col span={10}>
-            <ReportCard cardData={reportCardData.data} />
+            <ReportCard />
             {/* <EmptyReportCard /> */}
           </Col>
         </Row>

@@ -1,8 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
-import { Form, Input, Select, Button, Upload, Tooltip, Icon, Row, Col } from 'antd';
-//import Billboard from './billboard'
-
+import { Form, Input, Select, Button, Upload, Tooltip, Icon } from 'antd';
 import {
   SELECT_HOME_WORK_NUM,
   SELECT_INSPECTION_STATUS,
@@ -10,7 +8,9 @@ import {
   SELECT_INSPECTION_ABNORMA_ITEM
 } from '../../configs';
 import './index.styl'
-const { TextArea } = Input;
+
+const { TextArea } = Input
+
 class DailyInspectionCreate extends Component {
   constructor(props) {
     super(props);
@@ -40,8 +40,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="巡检人："
             >
-              {getFieldDecorator('duration', {
-                // initialValue: id && entranceDetail.duration,
+              {getFieldDecorator('inspection_person', {
                 rules: [{
                   required: true,
                   message: "巡检人为必填项",
@@ -65,8 +64,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="巡检总况"
             >
-              {getFieldDecorator('work_number', {
-                //initialValue: id && entranceDetail.work_number,
+              {getFieldDecorator('stateId', {
                 rules: [{
                   required: true,
                   message: "请选择巡检总况",
@@ -90,7 +88,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="异常说明："
             >
-              {getFieldDecorator('activity_range7')(
+              {getFieldDecorator('summary')(
                 <TextArea rows={4} placeholder="请输入异常说明..." />
               )}
             </Form.Item>
@@ -112,7 +110,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="异常项："
             >
-              {getFieldDecorator('activity_range2')(
+              {getFieldDecorator('abnormal')(
                 <div className="inspection-log-abnormal">
                   <div className="inspection-log-abnormal-flex">
                     <Select placeholder="请选择异常项"
@@ -138,7 +136,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="维保公司："
             >
-              {getFieldDecorator('activity_range9')(
+              {getFieldDecorator('maintenance')(
                 <Select placeholder="请选择维保公司"
                   allowClear
                 >
@@ -157,7 +155,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="维保公司说明："
             >
-              {getFieldDecorator('activity_range1')(
+              {getFieldDecorator('maintenanceCompany')(
                 <TextArea rows={4} placeholder="请输入维保公司维保详情..." />
               )}
             </Form.Item>
