@@ -44,7 +44,7 @@ class LowerHeaderLayout extends Component {
           children: [
             {
               id: '21',
-              name: '巡检日志',
+              name: '巡检报告',
               url: '/inspection/calendar'
             },
             {

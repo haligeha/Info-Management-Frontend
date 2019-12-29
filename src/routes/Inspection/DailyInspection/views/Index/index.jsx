@@ -31,15 +31,6 @@ class DailyInspection extends Component {
 
   componentDidMount() {
     this.getAllReport();
-    // 测试json-server
-    // axios.get(`http://localhost:3000/getUserInfo`)
-    //   .then((res) => {
-    //     console.log("json-server获取数据")
-    //     console.log(res)
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }
 
   //获取全部巡检信息
@@ -57,20 +48,6 @@ class DailyInspection extends Component {
         console.log(error);
       });
   }
-
-  //在有事件发生的日期上添加标识
-  dateCellRender = (value) => {
-    for (let m = 0; m < dateList.length; m++) {
-      if (this.getdate(value) === dateList[m]) {
-        return (
-          <Badge dot>
-            <Icon type="notification" />
-          </Badge>
-        )
-      }
-    }
-  }
-
   //获取日期数组
   getData = () => {
     const { data } = this.state
@@ -87,6 +64,18 @@ class DailyInspection extends Component {
     return Array.from(new Set(arr))
   }
 
+  //在有事件发生的日期上添加标识
+  dateCellRender = (value) => {
+    for (let m = 0; m < dateList.length; m++) {
+      if (this.getdate(value) === dateList[m]) {
+        return (
+          <Badge dot>
+            <Icon type="notification" />
+          </Badge>
+        )
+      }
+    }
+  }
   //点击日期时，将该天状态存入state
   onSelect = value => {
     this.setState({
@@ -111,23 +100,6 @@ class DailyInspection extends Component {
     value.user_id = user_id
     const { actions: { fetchDailyInspentionReport } } = this.props
     fetchDailyInspentionReport(value)
-
-    axios.get(`/api/v1/info/inspectionReportByPage?date=${selected}&limit=4&page=0&user_id=${user_id}`)
-      .then((res) => {
-        if (res && res.status === 200) {
-          reportList = []
-          for (var i = 0; i < res.data.data.length; i++) {
-            let reportone = res.data.data[i]
-            reportList.push(reportone)
-          }
-          this.setState({ report: reportList })
-
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
   }
 
   getdate = (value) => {
@@ -156,29 +128,9 @@ class DailyInspection extends Component {
   }
 
   render() {
-    const { reportCardData } = this.props
-    console.log(reportCardData)
-    const { report } = this.state
-    const elements = [];
-    report.forEach((item) => {
-      elements.push(
-        <div className="report">
-          巡检时间：{this.timestampToTime(item.calendar_date)}&nbsp;
-          巡检人员：{item.inspection_person}<br />
-          负责人：{item.duty_person}&nbsp;
-          创建时间：{item.create_date}<br />
-          巡检状态：{item.state}&nbsp;
-          异常项：{item.abnormal}<br />
-          维修公司：{item.maintenance}&nbsp;
-          图像：{item.image}<br />
-          视频：{item.video}&nbsp;
-          总结：{item.summary}<br />
-        </div>
-      )
-    });
     return (
       <div className="inspection-report">
-        <PageTitle titles={['巡检维护', '巡检日志']}>
+        <PageTitle titles={['巡检维护', '巡检报告']}>
           {
             <Link to={"/inspection/calendar/new"}>
               <Button type="primary">+ 新建日常巡检</Button>
@@ -201,14 +153,8 @@ class DailyInspection extends Component {
           </Col>
           <Col span={10}>
             <ReportCard />
-            {/* <EmptyReportCard /> */}
           </Col>
         </Row>
-
-
-        {/* <div style={{ width: 500, height: 320, border: '1px solid #d9d9d9', borderRadius: 4, float: "right", "overflow-y": "scroll" }}>
-          {elements}
-        </div> */}
       </div>
     )
   }
@@ -217,60 +163,7 @@ class DailyInspection extends Component {
 
 export default connect(
   state => ({
-    reportCardData: state.dailyInspention.reportCardData
+
   }),
   dispatch => ({ actions: bindActionCreators(actions, dispatch) })
 )(DailyInspection)
-
-
-
-
-
-
-
-//   render() {
-//     const { report } = this.state
-//     const elements = [];
-//     report.forEach((item) => {
-//       elements.push(
-//         <div className="report">
-//           巡检时间：{this.timestampToTime(item.calendar_date)}&nbsp;
-//           巡检人员：{item.inspection_person}<br />
-//           负责人：{item.duty_person}&nbsp;
-//           创建时间：{item.create_date}<br />
-//           巡检状态：{item.state}&nbsp;
-//           异常项：{item.abnormal}<br />
-//           维修公司：{item.maintenance}&nbsp;
-//           图像：{item.image}<br />
-//           视频：{item.video}&nbsp;
-//           总结：{item.summary}<br />
-//         </div>
-//       )
-//     });
-//     return (
-//       <div>
-//         <PageTitle titles={['巡检维护', '日常/年度巡检']}>
-//           {
-//             <Link to={"/inspection/calendar/new"}>
-//               <Button type="primary">+ 新建日常巡检</Button>
-//             </Link>
-//           }
-//         </PageTitle>
-//         <div style={{ width: 700, border: '1px solid #d9d9d9', borderRadius: 4, float: "left" }}>
-//           <LocaleProvider locale={zh_CN}>
-//             <Calendar
-//               onSelect={this.onSelect}
-//               dateCellRender={this.dateCellRender}
-//             />
-//           </LocaleProvider>
-
-//         </div>
-
-//         <div style={{ width: 500, height: 320, border: '1px solid #d9d9d9', borderRadius: 4, float: "right", "overflow-y": "scroll" }}>
-//           {elements}
-//         </div>
-//       </div>
-//     )
-//   }
-
-// }

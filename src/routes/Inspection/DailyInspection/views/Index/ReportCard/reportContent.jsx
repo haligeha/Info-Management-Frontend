@@ -16,12 +16,7 @@ class ReportCard extends Component {
     };
   }
   componentDidMount() { }
-  // 将10时间戳转化为13位，并保留时分秒
-  formatDuring = (data) => {
-    console.log(data)
-    console.log(data.toString())
 
-  }
   render() {
     const { reportCardData: { data } } = this.props
     console.log("右侧巡检报告")

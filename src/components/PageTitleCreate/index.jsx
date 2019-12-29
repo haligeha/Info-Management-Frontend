@@ -21,7 +21,6 @@ class PageTitleCreate extends Component {
       titles,
       jump,
     } = this.props;
-    console.log(jump)
     return (
       <div className="page-title-create-component">
         <ul className="page-title-create">
