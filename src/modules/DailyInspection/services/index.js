@@ -1,8 +1,14 @@
 import { fetch, jsonToParams } from '@src/lib'
 
 export async function fetchDailyInspentionReportApi(params) {
-  console.log(params + 'redux中接收到的services参数')
+  console.log("haha")
+  console.log(params)
   const data = await fetch(`/api/v1/info/inspectionReportByPage?${params && jsonToParams(params)}`)
-  console.log(data + "redux中services数据")
   return data
 }
+
+export async function getInspectionPeopleApi(params) {
+  const data = await fetch(`/api/v1/user/userByPage?${params && jsonToParams(params)}`)
+  return data
+}
+

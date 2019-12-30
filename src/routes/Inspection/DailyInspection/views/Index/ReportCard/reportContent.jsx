@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { actions } from '@src/modules/DailyInspection';
 import EmptyReportCard from './reportEmpty'
 import moment from 'moment';
+import { SELECT_MAINTENANCE_COMPANY, SELECT_INSPECTION_ABNORMA_ITEM } from '../../../configs';
 import './index.styl';
 
 class ReportCard extends Component {
@@ -15,26 +16,37 @@ class ReportCard extends Component {
       currentIndex: 1
     };
   }
-  componentDidMount() { }
-
+  // 维保公司-静态数据
+  weiBaoCompanyName = (value) => {
+    const result = SELECT_MAINTENANCE_COMPANY.filter(item => item.id === value)
+    return result[0] ? result[0].name : ''
+  }
+  // 设备异常项-静态数据
+  abnormalDevice = (value) => {
+    const result = SELECT_INSPECTION_ABNORMA_ITEM.filter(item => item.id === value)
+    return result[0] ? result[0].name : ''
+  }
+  // 巡检人
   render() {
-    const { reportCardData: { data } } = this.props
+    const { reportCardData: { data }, dutyPeople, selectedDate } = this.props
     console.log("右侧巡检报告")
     console.log(data)
+    console.log(selectedDate)
+    console.log(typeof (dutyPeople))
     return (
       <div className="report-card">
+        <div className="report-card-header">
+          <p>{selectedDate} 巡检报告</p>
+          <Button className="whiteButton" value="small"><Icon type="printer" />打印</Button>
+        </div>
         {data && data.map((item, index) => (
           <div key={index}>
-            <div className="report-card-header">
-              <p>{moment(item.create_date * 1000).format('YYYY/MM/DD')} 巡检报告</p>
-              <Button className="whiteButton" value="small"><Icon type="printer" />打印</Button>
-            </div>
             <div className="report-card-content">
               <div className="content-name">
-                <p>值班人 ：{item.duty_person}</p>
+                <p>值班人 ：{dutyPeople}</p>
                 <p>
                   <Icon type="user" className="prople-icon" /> {item.inspection_person}
-                  <Icon type="user" className="prople-icon" /> {moment(item.calendar_date * 1000).format('YYYY/MM/DD HH:mm:ss')}
+                  <Icon type="user" className="prople-icon" /> {moment(item.create_date).format('YYYY/MM/DD HH:mm:ss')}
                 </p>
               </div>
               <Row>
@@ -45,9 +57,9 @@ class ReportCard extends Component {
                   <p>
                     <Icon
                       type="exclamation-circle"
-                      style={{ color: (1 === this.state.currentIndex) ? "#ff461f" : "#52c41a" }}
-                    /> {item.state}</p>
-                  <p>{item.summary}</p>
+                      style={{ color: (1 === item.state) ? "#ff461f" : "#52c41a" }}
+                    /> {(item.state === 1) ? '异常' : '正常'}</p>
+                  <p> {item.summary}</p>
                 </Col>
               </Row>
             </div>
@@ -57,16 +69,15 @@ class ReportCard extends Component {
                   异常项 ：
                 </Col>
                 <Col span={19}>
-                  <p className="content-line">
-                    <Icon
-                      type="exclamation-circle"
-                      style={{ color: (1 === this.state.currentIndex) ? "#ff461f" : "#52c41a" }}
-                    /> 地下综合管廊-1号防火区
-                    <span className="content-remark"> 平均温度：25*C（舒适）；平均温度：50（较干燥）</span>
-                  </p>
-                  <p className="content-line"><Icon type="exclamation-circle" style={{ color: (2 === this.state.currentIndex) ? "#ff461f" : "#52c41a" }} /> 地下电缆仓-接地箱</p>
-                  <p className="content-line"><Icon type="exclamation-circle" style={{ color: (2 === this.state.currentIndex) ? "#ff461f" : "#52c41a" }} /> 地下电缆仓-接地箱</p>
-                  <p className="content-line"><Icon type="exclamation-circle" style={{ color: (1 === this.state.currentIndex) ? "#ff461f" : "#52c41a" }} /> 德胜路地下综合管廊-1号防火区</p>
+                  {data[0] && JSON.parse(data[index].abnormal).map((item, index) => (
+                    <p className="content-line" key={index}>
+                      <Icon
+                        type="exclamation-circle"
+                        style={{ color: (1 === this.state.currentIndex) ? "#ff461f" : "#52c41a" }}
+                      /> {this.abnormalDevice(item.device)}
+                      <span className="content-remark">{item.description}</span>
+                    </p>
+                  ))}
                 </Col>
               </Row>
             </div>
@@ -76,26 +87,25 @@ class ReportCard extends Component {
                   维保信息 ：
                 </Col>
                 <Col span={19}>
-                  <p>{item.maintenance}</p>
-                  <p>我是对维保公司的说明，目前还没这个字段（maintenanceCompany）</p>
+                  <p>{this.weiBaoCompanyName(item.maintenance)}</p>
+                  <p>{item.maintenanceDescription}</p>
                 </Col>
               </Row>
             </div>
           </div>
         ))
-
         }
         {!data &&
           <EmptyReportCard />
         }
-
       </div>
     );
   }
 }
 export default connect(
   state => ({
-    reportCardData: state.dailyInspention.reportCardData.data
+    reportCardData: state.dailyInspention.reportCardData.data,
+    selectedDate: state.dailyInspention.selectedDate
   }),
   dispatch => ({ actions: bindActionCreators(actions, dispatch) })
 )(ReportCard)

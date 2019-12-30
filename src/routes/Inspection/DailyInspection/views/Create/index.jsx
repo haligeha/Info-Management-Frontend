@@ -1,17 +1,22 @@
 import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
-import { Form, Input, Select, Button, Upload, Tooltip, Icon } from 'antd';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actions } from '@src/modules/DailyInspection';
+import { Form, Input, Select, Button, Upload, Tooltip, message, Icon } from 'antd';
 import {
-  SELECT_HOME_WORK_NUM,
   SELECT_INSPECTION_STATUS,
   SELECT_MAINTENANCE_COMPANY,
-  SELECT_INSPECTION_ABNORMA_ITEM
+  SELECT_INSPECTION_ABNORMA_ITEM,
+  INSPECTION_DUTY_PEOPLE
 } from '../../configs';
-import './index.styl'
-
+import './index.styl';
+import moment from 'moment';
+let user_id = window.sessionStorage.getItem("user_id")
 const { TextArea } = Input
 let newArr = []
-let indexSeletct = null
+
 class DailyInspectionCreate extends Component {
   constructor(props) {
     super(props);
@@ -19,58 +24,137 @@ class DailyInspectionCreate extends Component {
       situationValue: '',
       abnormalItem: [
         {
-          stateId: '',
-          description: '',
-          remark: ''
+          state: '',//是否在维保期内
+          device: '',// 异常设备
+          description: '',// 对异常设备的描述
+          deleteDisplay: false,//删除异常设备按钮是否出现
+          addDisplay: true,//添加异常项按钮是否出现
         }
       ],
-      abnormalStateId: '',
-      abnormalDescription: '',
-      abnormalRemark: ''
     };
   }
+  componentDidMount() {
+    const value = {
+      limit: '100',
+      page: '0',
+      user_id: user_id
+    }
+    const { actions: { getInspectionPeople } } = this.props
+    getInspectionPeople(value)
+  }
+  // 巡检总况
   selectSituation = (value) => {
     this.setState({ situationValue: value })
   }
-  // 异常项选择
-  selectSomeone = (index) => {
-    indexSeletct = index
+  // 选择故障设备
+  selectAbnormal = (value, index) => {
+    newArr = this.state.abnormalItem
+    newArr[index].device = value
+    this.setState({ abnormalItem: newArr })
   }
-  selectAbnormal = (value) => {
-    console.log(value + "value")
-    let { abnormalItem } = this.state
-    console.log(abnormalItem)
-    console.log(indexSeletct)
-    abnormalItem[indexSeletct].stateId = value
+  // 输入设备描述
+  inputDescription = (e, index) => {
+    newArr = this.state.abnormalItem
+    newArr[index].description = e.target.value
+    this.setState({ abnormalItem: newArr })
   }
   // 添加异常项
   addAbnormalItem = () => {
     const item = {
-      stateId: '',
-      description: '',
-      remark: ''
+      state: '',//是否在维保期内
+      device: '',// 异常设备
+      description: '',// 对异常设备的描述
+      deleteDisplay: true,
+      addDisplay: true,
     }
     newArr = this.state.abnormalItem
     newArr.push(item)
-    this.setState({ situationValue: newArr })
+    for (let i = 0; i < newArr.length - 1; i++) {
+      newArr[i].addDisplay = false
+      newArr[i].deleteDisplay = true
+    }
+    this.setState({ abnormalItem: newArr })
   }
   // 删除异常项
   deleteAbnormalItem = (value) => {
-    console.log(value)
+    if (newArr.length === 1) {
+      newArr[0].addDisplay = true
+      newArr[0].deleteDisplay = false
+      return
+    }
     newArr.splice(value, 1)
-    console.log(newArr)
-    this.setState({ situationValue: newArr })
+    let len = newArr.length
+    if (len === 1) {
+      newArr[len - 1].addDisplay = true
+      newArr[len - 1].deleteDisplay = false
+    } else {
+      newArr[len - 1].addDisplay = true
+      newArr[len - 1].deleteDisplay = true
+    }
+    this.setState({ abnormalItem: newArr })
   }
-
+  onDutyPeople = (value) => {
+    const result = INSPECTION_DUTY_PEOPLE.filter(item => item.id == value)
+    return result[0] ? result[0].name : ''
+  }
+  // 限制字数
+  descriptionTextJudge = (e) => {
+    // if (e.target.value && e.target.value.length > 240) {
+    //   message.error('PUSH文案不超过240个汉字')
+    //   const pushText = document.getElementById('pushText')
+    //   pushText.focus()
+    // }
+  }
+  // 新建巡检报告
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const {
+      form,
+      history,
+    } = this.props
+    const { getFieldValue } = form;
+    const values = form.getFieldsValue()
+    if (!getFieldValue('inspection_person')) {
+      message.error('请输入巡检人')
+    }
+    if (!getFieldValue('state')) {
+      message.error('请选择巡检总况')
+    }
+    newArr.map((item) => (
+      delete item.deleteDisplay,
+      delete item.addDisplay,
+      item.state = Math.floor(Math.random() + 0.5))
+    )
+    values.abnormal = newArr
+    values.create_date = JSON.stringify(new Date().getTime())
+    let standardDate = new Date(moment().format("YYYY-MM-DD")).getTime()
+    values.calendar_date = JSON.stringify(standardDate) //时间戳
+    delete values.picture_video
+    console.log(values)
+    axios.post(`/api/v1/info/inspection?user_id=${user_id}`, values)
+      .then(function (response) {
+        if (response.status === 200) {
+          message.info('创建成功')
+          history.push('/inspection/calendar')
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
   render() {
     const createFormItemLayout = {
       labelCol: { span: 7 },
       wrapperCol: { span: 14 },
     }
     const {
-      form: { getFieldDecorator }
+      form: { getFieldDecorator },
+      inspectionPeople,
+      dutyPeople,
+      selectedDate
     } = this.props
-    const { situationValue, abnormalItem, abnormalStateId, abnormalDescription, abnormalRemark } = this.state
+    const { situationValue, abnormalItem } = this.state
+    //console.log(dutyPeople)//获取巡检人员
     return (
       <div className="inspection-log">
         <PageTitleCreate titles={['巡检报告', '新建']} jump={'/inspection/calendar'} />
@@ -90,10 +174,10 @@ class DailyInspectionCreate extends Component {
               })(
                 <Select placeholder="请填入巡检人" allowClear>
                   {
-                    SELECT_HOME_WORK_NUM &&
-                    SELECT_HOME_WORK_NUM.map(cur => (
+                    inspectionPeople &&
+                    inspectionPeople.map(cur => (
                       <Select.Option key={cur.id}
-                        value={cur.id}
+                        value={cur.name}
                       >{cur.name}</Select.Option>
                     ))
                   }
@@ -104,7 +188,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="巡检总况"
             >
-              {getFieldDecorator('stateId', {
+              {getFieldDecorator('state', {
                 rules: [{
                   required: true,
                   message: "请选择巡检总况",
@@ -136,7 +220,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="上传"
             >
-              {getFieldDecorator('activity_range3')(
+              {getFieldDecorator('picture_video')(
                 <div className="inspection-log-upload">
                   <Upload>
                     <Tooltip placement="right" title={'支持图片和视频的上传'}>
@@ -159,26 +243,33 @@ class DailyInspectionCreate extends Component {
                           <Select
                             placeholder="请选择异常项"
                             className="inspection-log-abnormal-select"
-                            value={item.stateId && item.stateId}
-                            onSelect={() => { this.selectSomeone(index) }}
-                            onChange={this.selectAbnormal}
+                            value={item.device}
+                            onChange={(value) => { this.selectAbnormal(value, index) }}
                             allowClear
                           >
                             {
                               SELECT_INSPECTION_ABNORMA_ITEM &&
-                              SELECT_INSPECTION_ABNORMA_ITEM.map(cur => (
-                                <Select.Option key={cur.id}
+                              SELECT_INSPECTION_ABNORMA_ITEM.map((cur, index) => (
+                                <Select.Option key={index}
                                   value={cur.id}
                                 >{cur.name}</Select.Option>
                               ))
                             }
                           </Select>
-                          <TextArea rows={4} placeholder="请输入异常项具体说明..." />
+                          <TextArea
+                            value={item.description}
+                            onChange={(value) => { this.inputDescription(value, index) }}
+                            rows={4}
+                            onBlur={this.descriptionTextJudge}
+                            placeholder="请输入异常项具体说明，不超过240个汉字"
+                          />
                         </div>
                         <Icon type="minus-circle" className="inspection-log-abnormal-delete"
+                          style={{ display: (item.deleteDisplay === true) ? '' : 'none' }}
                           onClick={() => { this.deleteAbnormalItem(index) }}
                         />
                         <Icon type="plus-circle" className="inspection-log-abnormal-plus"
+                          style={{ display: (item.addDisplay === true) ? '' : 'none' }}
                           onClick={this.addAbnormalItem}
                         />
                       </div>
@@ -208,7 +299,7 @@ class DailyInspectionCreate extends Component {
               {...createFormItemLayout}
               label="维保公司说明："
             >
-              {getFieldDecorator('maintenanceCompany')(
+              {getFieldDecorator('maintenanceDescription')(
                 <TextArea rows={4} placeholder="请输入维保公司维保详情..." />
               )}
             </Form.Item>
@@ -237,8 +328,8 @@ class DailyInspectionCreate extends Component {
         </div>
         <div className="inspection-log-right">
           <img src={[require('@src/img/listing.jpg')]} alt="值班人员" width="200" height="180" />
-          <p className="inspection-log-date">2019/12/21</p>
-          <p className="inspection-log-name">值班人 ：刘苗苗</p>
+          <p className="inspection-log-date">{selectedDate}</p>
+          <p className="inspection-log-name">值班人 ：{this.onDutyPeople(dutyPeople)}</p>
         </div>
       </div>
 
@@ -246,5 +337,13 @@ class DailyInspectionCreate extends Component {
   }
 }
 
-export default Form.create()(DailyInspectionCreate);
+//export default Form.create()(DailyInspectionCreate);
 
+export default connect(
+  state => ({
+    inspectionPeople: state.dailyInspention.inspectionPeople.data.data,
+    dutyPeople: state.dailyInspention.dutyPeople,
+    selectedDate: state.dailyInspention.selectedDate
+  }),
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+)(Form.create()(DailyInspectionCreate))

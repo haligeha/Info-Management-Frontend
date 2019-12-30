@@ -111,7 +111,7 @@ class HeaderLayout extends Component {
           children: [
             {
               id: '51',
-              name: '管廊信息',
+              name: '管廊管理',
               url: '/pipe/management'
             },
             {

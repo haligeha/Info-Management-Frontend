@@ -9,11 +9,12 @@ import { actions } from '@src/modules/DailyInspection';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import moment from 'moment';
-import ReportCard from './ReportCard/reportContent'
+import ReportCard from './ReportCard/reportContent';
+import { INSPECTION_DUTY_PEOPLE } from '../../configs';
 import './index.styl'
 
 let dateList = [];
-let reportList = []
+
 var user_id = window.sessionStorage.getItem("user_id")
 // var user_id = 1
 class DailyInspection extends Component {
@@ -81,25 +82,24 @@ class DailyInspection extends Component {
     this.setState({
       value,
       selectedValue: value,
-    }, () => {
-      this.getListData()
-    });
-
+    })
+    this.getListData(value._d)
   };
-
   //点击日期后 右侧显示具体信息
-  getListData = () => {
-    const { selectedValue } = this.state;
-    const select = this.getdate(selectedValue) + " 0:0:0"
-    const selected = Math.round(new Date(select).getTime() / 1000).toString()
+  getListData = (item) => {
+    let standardDate = new Date(moment(item).format("YYYY-MM-DD")).getTime()
+    let standardDateItem = moment(item).format("YYYY/MM/DD")
+    let weekDay = item.getDay()
     // redux 传参需要一个对象
     const value = {}
-    value.date = selected
-    value.limit = 4
+    value.date = standardDate
+    value.limit = 400
     value.page = 0
     value.user_id = user_id
-    const { actions: { fetchDailyInspentionReport } } = this.props
+    const { actions: { fetchDailyInspentionReport, fetchDutyPeople, fetchInspectionDate } } = this.props
     fetchDailyInspentionReport(value)
+    fetchDutyPeople(weekDay)
+    fetchInspectionDate(standardDateItem)
   }
 
   getdate = (value) => {
@@ -126,8 +126,18 @@ class DailyInspection extends Component {
       return (<div>123</div>)
     }
   }
+  onDutyPeople = (value) => {
+    return (<div>
+      <ReportCard
+        dutyPeople={INSPECTION_DUTY_PEOPLE.filter(item => item.id == value)[0] ?
+          INSPECTION_DUTY_PEOPLE.filter(item => item.id == value)[0].name : ''}
+      />
+    </div>)
+
+  }
 
   render() {
+    const { dutyPeople } = this.props
     return (
       <div className="inspection-report">
         <PageTitle titles={['巡检维护', '巡检报告']}>
@@ -152,18 +162,17 @@ class DailyInspection extends Component {
             <Icon type="swap" className="inspection-report-contact" />
           </Col>
           <Col span={10}>
-            <ReportCard />
+            {this.onDutyPeople(dutyPeople)}
           </Col>
         </Row>
       </div>
     )
   }
-
 }
 
 export default connect(
   state => ({
-
+    dutyPeople: state.dailyInspention.dutyPeople
   }),
   dispatch => ({ actions: bindActionCreators(actions, dispatch) })
 )(DailyInspection)
