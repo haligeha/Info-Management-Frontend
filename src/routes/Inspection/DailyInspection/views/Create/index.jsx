@@ -154,7 +154,6 @@ class DailyInspectionCreate extends Component {
       selectedDate
     } = this.props
     const { situationValue, abnormalItem } = this.state
-    //console.log(dutyPeople)//获取巡检人员
     return (
       <div className="inspection-log">
         <PageTitleCreate titles={['巡检报告', '新建']} jump={'/inspection/calendar'} />
@@ -336,8 +335,6 @@ class DailyInspectionCreate extends Component {
     );
   }
 }
-
-//export default Form.create()(DailyInspectionCreate);
 
 export default connect(
   state => ({

@@ -128,7 +128,7 @@ class PathWay extends React.Component {
     }, {
       title: '线路名称',
       key: 'number1',
-      render: (text, record) => { return (record.number && record.number) || '--' }
+      render: (text, record) => { return (record.name && record.name) || '--' }
     }, {
       title: '所属区域',
       key: 'area_belong',
@@ -163,7 +163,7 @@ class PathWay extends React.Component {
       title: '启用/停用',
       key: 'startpoint1',
       render: (text, record) => {
-        return (record.startpoint && record.startpoint) || '--'
+        return (record.status && record.status) || '--'
       }
     }, {
       title: '说明描述',

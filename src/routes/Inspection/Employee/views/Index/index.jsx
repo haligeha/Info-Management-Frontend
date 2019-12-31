@@ -117,6 +117,10 @@ class Employee extends Component {
           }}
           dataSource={data}
           columns={[{
+            title: '序号',
+            key: 'index',
+            render: (text, record, index) => { return (index + 1) }
+          }, {
             title: '员工工号',
             key: 'id',
             render: (text, record) => {
@@ -148,6 +152,18 @@ class Employee extends Component {
             key: 'email',
             render: (text, record) => {
               return (record.email && record.email) || '--'
+            }
+          }, {
+            title: '电话',
+            key: 'phone',
+            render: (text, record) => {
+              return (record.phone && record.phone) || '--'
+            }
+          }, {
+            title: '微信',
+            key: 'we_chat',
+            render: (text, record) => {
+              return (record.we_chat && record.we_chat) || '--'
             }
           }, {
             title: '操作',

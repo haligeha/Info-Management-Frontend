@@ -15,9 +15,7 @@ class PathWayNew extends Component {
       pipeBelong: [],
       areaBelong: [],
     };
-
   }
-
   componentDidMount() {
     this.getpipeBelong();
     this.getAreaBelong();
@@ -164,6 +162,25 @@ class PathWayNew extends Component {
         >
           <Form.Item
             {...createFormItemLayout}
+            label="所属管廊"
+          >
+            {getFieldDecorator('pipe_gallery', {
+              initialValue: id && planWayDetail.pipe_belong,
+              rules: [{
+                required: true,
+                message: "请选择所属管廊",
+              }]
+            })(
+              <Select
+                className="path-way-width"
+                placeholder="请选择所属管廊"
+              >
+                {pipeBelong}
+              </Select>,
+            )}
+          </Form.Item>
+          <Form.Item
+            {...createFormItemLayout}
             label="所属区域"
           >
             {getFieldDecorator('area', {
@@ -183,26 +200,6 @@ class PathWayNew extends Component {
                 <Button className="area-button">圈选区域</Button>
                 <div style={{ width: '100%', height: '300px' }} id="mapArea"></div>
               </div>
-
-            )}
-          </Form.Item>
-          <Form.Item
-            {...createFormItemLayout}
-            label="所属管廊"
-          >
-            {getFieldDecorator('pipe_gallery', {
-              initialValue: id && planWayDetail.pipe_belong,
-              rules: [{
-                required: true,
-                message: "请选择所属管廊",
-              }]
-            })(
-              <Select
-                className="path-way-width"
-                placeholder="请选择所属管廊"
-              >
-                {pipeBelong}
-              </Select>,
             )}
           </Form.Item>
           <Form.Item

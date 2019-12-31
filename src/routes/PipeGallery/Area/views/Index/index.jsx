@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitle, Module, } from '@src/components';
-import { Button, Row, Col, Table, Input, Popconfirm, message,Icon } from 'antd';
+import { Button, Row, Col, Table, Input, Popconfirm, message, Icon, Form, DatePicker } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 const FIRST_PAGE = 0;
@@ -88,10 +88,23 @@ class Area extends Component {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       },
       getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', 
+        disabled: record.name === 'Disabled User',
         name: record.name,
       }),
     };
+    const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 },
+    }
+    const colSpan = {
+      span: 6,
+    }
+    const {
+      form,
+    } = this.props
+    const {
+      getFieldDecorator,
+    } = form
     const columns = [{
       title: '序号',
       key: 'index',
@@ -141,7 +154,7 @@ class Area extends Component {
       }
     }, {
       title: '操作',
-      render: (text, record, index) => (
+      render: (text, record) => (
         <div className="operate-btns"
           style={{ display: 'block' }}
         >
@@ -172,7 +185,44 @@ class Area extends Component {
           }
         </PageTitle>
         <Module>
-          <Row>
+          <Form onSubmit={this.selectActivity}>
+            <Row>
+              <Col {...colSpan}>
+                <Form.Item {...formItemLayout} label="区域名称：">
+                  {getFieldDecorator('activityId')(
+                    <Input
+                      placeholder="请输入区域名称"
+                      onBlur={this.judgeID}
+                    />,
+                  )}
+                </Form.Item>
+              </Col>
+              <Col {...colSpan}>
+                <Form.Item {...formItemLayout} label="区域长度：">
+                  {getFieldDecorator('activityName')(
+                    <Input
+                      placeholder="请输入区域名称"
+                    />,
+                  )}
+                </Form.Item>
+              </Col>
+              <Col {...colSpan}>
+                <Form.Item {...formItemLayout} label="所属管廊：">
+                  {getFieldDecorator('operatorName')(
+
+                    <Input placeholder="请选择所属管廊" />,
+                  )}
+                </Form.Item>
+              </Col>
+              <Col {...colSpan}>
+                <div style={{ textAlign: 'center' }}>
+                  <Button type="primary" htmlType="submit">查询</Button>
+                  <Button style={{ marginLeft: 28 }} onClick={this.onReset}>清空</Button>
+                </div>
+              </Col>
+            </Row>
+          </Form>
+          {/* <Row>
             <Col span={2}>管廊名称：</Col>
             <Col span={4}>
               <Search
@@ -181,7 +231,7 @@ class Area extends Component {
                 onSearch={value => this.selectActivity(value)}
               />
             </Col>
-          </Row>
+          </Row> */}
         </Module>
         <Table
           className="group-list-module"
@@ -208,4 +258,4 @@ class Area extends Component {
   }
 }
 
-export default Area;
+export default Form.create()(Area);

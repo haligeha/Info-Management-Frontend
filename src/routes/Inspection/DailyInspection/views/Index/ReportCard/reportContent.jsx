@@ -29,10 +29,6 @@ class ReportCard extends Component {
   // 巡检人
   render() {
     const { reportCardData: { data }, dutyPeople, selectedDate } = this.props
-    console.log("右侧巡检报告")
-    console.log(data)
-    console.log(selectedDate)
-    console.log(typeof (dutyPeople))
     return (
       <div className="report-card">
         <div className="report-card-header">

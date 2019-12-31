@@ -1,8 +1,10 @@
 import React, { Component, } from 'react';
-import { PageTitle, Module } from '../../../../../components';
+import { PageTitleCreate } from '@src/components';
 import { Form, Input, Button, message, } from 'antd';
 import axios from 'axios';
+import BMap from 'BMap'
 //const Option = Select.Option;
+const { TextArea } = Input;
 //const dateFormat = 'YYYY-MM-DD';
 var user_id = window.sessionStorage.getItem("user_id")
 class ManagementNew extends Component {
@@ -26,6 +28,20 @@ class ManagementNew extends Component {
           console.log(err);
         });
     }
+    // 加载地图模块
+    var mapStart = new BMap.Map("mapManagementStart");    // 创建Map实例
+    mapStart.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    mapStart.addControl(new BMap.MapTypeControl());
+    mapStart.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    mapStart.enableScrollWheelZoom(true);
+    // 加载地图模块
+    var mapEnd = new BMap.Map("mapManagementEnd");    // 创建Map实例
+    mapEnd.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    mapEnd.addControl(new BMap.MapTypeControl());
+    mapEnd.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    mapEnd.enableScrollWheelZoom(true);
 
   }
 
@@ -102,114 +118,123 @@ class ManagementNew extends Component {
     return (
       <div>
         {id ?
-          <PageTitle titles={['管廊维护', '管廊管理', '编辑']} />
+          <PageTitleCreate titles={['管廊管理', '编辑']} jump={'/pipe/management'} />
           :
-          <PageTitle titles={['管廊维护', '管廊管理', '新建']} />
+          <PageTitleCreate titles={['管廊管理', '新建']} jump={'/pipe/management'} />
         }
         <div className="entrance-work-create-page">
-          <Module>
-            <Form
-              onSubmit={this.handleSubmit}
+          <Form
+            onSubmit={this.handleSubmit}
+          >
+
+            <Form.Item
+              {...createFormItemLayout}
+              label="管廊名称"
             >
-
-              <Form.Item
-                {...createFormItemLayout}
-                label="管廊名称"
-              >
-                {getFieldDecorator('name', {
-                  initialValue: id && pipeDetail.name,
-                  rules: [{
-                    required: true,
-                    message: "请输入管廊名称",
-                  }]
-                })(
-                  <Input placeholder="请输入管廊名称" />
-                )}
-              </Form.Item>
-
-              <Form.Item
-                {...createFormItemLayout}
-                label="管廊长度"
-              >
-                {getFieldDecorator('length', {
-                  initialValue: id && pipeDetail.length,
-                  rules: [{
-                    required: true,
-                    message: "请输入管廊长度",
-                  }]
-                })(<Input placeholder="请输入管廊长度" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="所属单位"
-              >
-                {getFieldDecorator('unit', {
-                  initialValue: id && pipeDetail.unit,
-                  rules: [{
-                    required: true,
-                    message: "请输入所属单位",
-                  }]
-                })(<Input placeholder="请输入所属单位" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="起点"
-              >
-                {getFieldDecorator('startpoint', {
-                  initialValue: id && pipeDetail.startpoint,
-                  rules: [{
-                    required: true,
-                    message: "请输入起点",
-                  }]
-                })(<Input placeholder="请输入起点" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="终点"
-              >
-                {getFieldDecorator('endpoint', {
-                  initialValue: id && pipeDetail.endpoint,
-                  rules: [{
-                    required: true,
-                    message: "请输入终点",
-                  }]
-                })(<Input placeholder="请输入终点" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="说明描述"
-              >
-                {getFieldDecorator('description', {
-                  initialValue: id && pipeDetail.description,
-                  rules: [{
-                    required: true,
-                    message: "请输入说明描述",
-                  }]
-                })(<Input placeholder="请输入说明描述" />)}
-              </Form.Item>
-              <section className="operator-container">
-                <div style={{ textAlign: "center" }}>
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="default"
-                  >{id ? '编辑' : '新建'}
-                  </Button>
-                  <Button
-                    style={{ marginLeft: "28px" }}
-                    size="default"
-                    onClick={() => {
-                      const {
-                        history,
-                      } = this.props
-                      history.push('/pipe/management')
-                    }}
-                  >取消
-                  </Button>
+              {getFieldDecorator('name', {
+                initialValue: id && pipeDetail.name,
+                rules: [{
+                  required: true,
+                  message: "请输入管廊名称",
+                }]
+              })(
+                <Input placeholder="请输入管廊名称" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="管廊长度"
+            >
+              {getFieldDecorator('length', {
+                initialValue: id && pipeDetail.length,
+                rules: [{
+                  required: true,
+                  message: "请输入管廊长度",
+                }]
+              })(<Input placeholder="请输入管廊长度" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="所属单位"
+            >
+              {getFieldDecorator('unit', {
+                initialValue: id && pipeDetail.unit,
+                rules: [{
+                  required: true,
+                  message: "请输入所属单位",
+                }]
+              })(<Input placeholder="请输入所属单位" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="管廊起点"
+            >
+              {getFieldDecorator('startpoint', {
+                initialValue: id && pipeDetail.startpoint,
+                rules: [{
+                  required: true,
+                  message: "请输入起点",
+                }]
+              })(
+                <div className="path-way-border">
+                  <Input placeholder="请输入起点" />
+                  <Button className="area-button">打点</Button>
+                  <div style={{ width: '100%', height: '300px' }} id="mapManagementStart"></div>
                 </div>
-              </section>
-            </Form>
-          </Module>
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="管廊终点"
+            >
+              {getFieldDecorator('endpoint', {
+                initialValue: id && pipeDetail.endpoint,
+                rules: [{
+                  required: true,
+                  message: "请输入终点",
+                }]
+              })(
+                <div className="path-way-border">
+                  <Input placeholder="请输入终点" />
+                  <Button className="area-button">打点</Button>
+                  <div style={{ width: '100%', height: '300px' }} id="mapManagementEnd"></div>
+                </div>
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="说明描述"
+            >
+              {getFieldDecorator('description', {
+                initialValue: id && pipeDetail.description,
+                rules: [{
+                  required: true,
+                  message: "请输入说明描述",
+                }]
+              })(<TextArea rows={4} placeholder="请输入说明描述" />)}
+            </Form.Item>
+            <section className="operator-container">
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="default"
+                >{id ? '编辑' : '新建'}
+                </Button>
+                <Button
+                  style={{ marginLeft: "28px" }}
+                  size="default"
+                  onClick={() => {
+                    const {
+                      history,
+                    } = this.props
+                    history.push('/pipe/management')
+                  }}
+                >取消
+                </Button>
+              </div>
+            </section>
+          </Form>
         </div>
       </div>
 

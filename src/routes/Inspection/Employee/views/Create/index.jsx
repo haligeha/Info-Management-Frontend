@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import { PageTitle, Module } from '@src/components';
-import { Form, Input, Button, message, } from 'antd';
+import { PageTitleCreate } from '@src/components';
+import { Form, Input, Button, message, Upload, Tooltip, Icon } from 'antd';
 import axios from 'axios';
 //const Option = Select.Option;
 //const dateFormat = 'YYYY-MM-DD';
@@ -88,89 +88,118 @@ class EmployeeNew extends Component {
     return (
       <div>
         {id ?
-          <PageTitle titles={['巡检维护', '员工信息', '编辑']} />
+          <PageTitleCreate titles={['员工信息', '编辑']} jump={'/inspection/employee'} />
           :
-          <PageTitle titles={['巡检维护', '员工信息', '新建']} />
+          <PageTitleCreate titles={['员工信息', '新建']} jump={'/inspection/employee'} />
         }
         <div className="entrance-work-create-page">
-          <Module>
-            <Form
-              onSubmit={this.handleSubmit}
+          <Form
+            onSubmit={this.handleSubmit}
+          >
+            <Form.Item
+              {...createFormItemLayout}
+              label="员工姓名"
             >
-              <Form.Item
-                {...createFormItemLayout}
-                label="员工姓名"
-              >
-                {getFieldDecorator('name', {
-                  initialValue: id && employeeDetail.name,
-                  rules: [{
-                    required: true,
-                    message: "请输入员工姓名",
-                  }]
-                })(
-                  <Input placeholder="请输入员工姓名" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="电子邮箱"
-              >
-                {getFieldDecorator('email', {
-                  initialValue: id && employeeDetail.email,
-                  rules: [{
-                    required: true,
-                    message: "请输入电子邮箱",
-                  }]
-                })(<Input placeholder="请输入电子邮箱" type="email" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="所属部门"
-              >
-                {getFieldDecorator('department', {
-                  initialValue: id && employeeDetail.email,
-                  rules: [{
-                    required: true,
-                    message: "请输入所属部门",
-                  }]
-                })(<Input placeholder="请输入所属部门" />)}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="职位"
-              >
-                {getFieldDecorator('position', {
-                  initialValue: id && employeeDetail.email,
-                  rules: [{
-                    required: true,
-                    message: "请输入职位",
-                  }]
-                })(<Input placeholder="请输入职位" />)}
-              </Form.Item>
+              {getFieldDecorator('name', {
+                initialValue: id && employeeDetail.name,
+                rules: [{
+                  required: true,
+                  message: "请输入员工姓名",
+                }]
+              })(
+                <Input placeholder="请输入员工姓名" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="电子邮箱"
+            >
+              {getFieldDecorator('email', {
+                initialValue: id && employeeDetail.email,
+                rules: [{
+                  required: true,
+                  message: "请输入电子邮箱",
+                }]
+              })(<Input placeholder="请输入电子邮箱" type="email" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="所属部门"
+            >
+              {getFieldDecorator('department', {
+                initialValue: id && employeeDetail.email,
+                rules: [{
+                  required: true,
+                  message: "请输入所属部门",
+                }]
+              })(<Input placeholder="请输入所属部门" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="职位"
+            >
+              {getFieldDecorator('position', {
+                initialValue: id && employeeDetail.email,
+                rules: [{
+                  required: true,
+                  message: "请输入职位",
+                }]
+              })(<Input placeholder="请输入职位" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="电话"
+            >
+              {getFieldDecorator('phone', {
+                initialValue: id && employeeDetail.phone
+              })(<Input placeholder="请输入电话" type="phone" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="微信号"
+            >
+              {getFieldDecorator('we_chat', {
+                initialValue: id && employeeDetail.we_chat
+              })(<Input placeholder="请输入微信号" type="we_chat" />)}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="上传头像"
+            >
+              {getFieldDecorator('avatar', {
+                initialValue: id && employeeDetail.avatar,
+              })(<div className="inspection-log-upload">
+                <Upload>
+                  <Tooltip placement="right" title={'支持图片和视频的上传'}>
+                    <Button><Icon type="upload" />上传</Button>
+                  </Tooltip>
+                </Upload>
+              </div>)}
+            </Form.Item>
 
-              <section className="operator-container">
-                <div style={{ textAlign: "center" }}>
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="default"
-                  >{id ? '编辑' : '新建'}
-                  </Button>
-                  <Button
-                    style={{ marginLeft: "28px" }}
-                    size="default"
-                    onClick={() => {
-                      const {
-                        history,
-                      } = this.props
-                      history.push('/inspection/employee')
-                    }}
-                  >取消
-                  </Button>
-                </div>
-              </section>
-            </Form>
-          </Module>
+            <section className="operator-container">
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="default"
+                >{id ? '编辑' : '新建'}
+                </Button>
+                <Button
+                  style={{ marginLeft: "28px" }}
+                  size="default"
+                  onClick={() => {
+                    const {
+                      history,
+                    } = this.props
+                    history.push('/inspection/employee')
+                  }}
+                >取消
+                </Button>
+              </div>
+            </section>
+          </Form>
+
         </div>
       </div>
 
