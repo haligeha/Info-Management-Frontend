@@ -2,18 +2,18 @@ import React from 'react';
 import { PageTitle, Module, } from '@src/components';
 import { Button, Row, Col, Table, Input, Popconfirm, message, Form, DatePicker, Icon } from 'antd';
 import axios from 'axios';
-import BMap from 'BMap'
+import AMap from 'AMap'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import './index.styl'
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
-const Search = Input.Search;
+//const Search = Input.Search;
+
 
 class PathWay extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       current: FIRST_PAGE,
       size: PAGE_SIZE,
@@ -29,7 +29,6 @@ class PathWay extends React.Component {
 
   componentDidMount() {
     this.getGroupList(FIRST_PAGE);
-
   }
 
   //获取列表信息
@@ -80,13 +79,12 @@ class PathWay extends React.Component {
     this.setState({
       mapVisible: true,
     });
-    // var { BMap } = window;
-    var map = new BMap.Map("routeMap");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-    //添加地图类型控件
-    map.addControl(new BMap.MapTypeControl());
-    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    // 
+    var map = new AMap.Map('routeMap', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
   };
 
   closeMapModal = e => {

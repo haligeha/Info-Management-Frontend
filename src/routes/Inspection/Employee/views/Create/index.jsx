@@ -2,8 +2,6 @@ import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
 import { Form, Input, Button, message, Upload, Tooltip, Icon } from 'antd';
 import axios from 'axios';
-//const Option = Select.Option;
-//const dateFormat = 'YYYY-MM-DD';
 
 class EmployeeNew extends Component {
   constructor(props) {
@@ -26,7 +24,6 @@ class EmployeeNew extends Component {
           console.log(err);
         });
     }
-
   }
 
   //创建员工信息
@@ -45,7 +42,8 @@ class EmployeeNew extends Component {
     if (!getFieldValue('email')) {
       message.error('请输入电子邮箱')
     }
-
+    console.log("查看提交数据")
+    console.log(values)
     if (id) {
       values.id = id
       axios.put('/api/v1/user/user', values)
@@ -59,20 +57,17 @@ class EmployeeNew extends Component {
           console.log(error);
         });
     } else {
-      console.log(values)
       axios.post('/api/v1/user/user', values)
         .then(function (response) {
           if (response.status === 200) {
             message.info('创建成功')
             history.push('/inspection/employee')
-
           }
         })
         .catch(function (error) {
           console.log(error);
         });
     }
-
   }
   render() {
     const createFormItemLayout = {
@@ -83,7 +78,6 @@ class EmployeeNew extends Component {
       form: { getFieldDecorator },
       match: { params: { id } }
     } = this.props
-
     const { employeeDetail } = this.state
     return (
       <div>
@@ -166,15 +160,9 @@ class EmployeeNew extends Component {
               {...createFormItemLayout}
               label="上传头像"
             >
-              {getFieldDecorator('avatar', {
+              {getFieldDecorator('auatar', {
                 initialValue: id && employeeDetail.avatar,
-              })(<div className="inspection-log-upload">
-                <Upload>
-                  <Tooltip placement="right" title={'支持图片和视频的上传'}>
-                    <Button><Icon type="upload" />上传</Button>
-                  </Tooltip>
-                </Upload>
-              </div>)}
+              })(<Input placeholder="请输入微信号" type="auatar" />)}
             </Form.Item>
 
             <section className="operator-container">

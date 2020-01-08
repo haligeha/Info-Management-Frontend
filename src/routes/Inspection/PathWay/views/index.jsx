@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class PathWayRoute extends Component{
-  constructor(props){
+class PathWayRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,12 +18,12 @@ class PathWayRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/inspection/pathway"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
+              /* webpackChunkName: "InspectionPathway" */
               './Index/index'),
             loading: Loading
           })}
@@ -33,7 +33,7 @@ class PathWayRoute extends Component{
           path="/inspection/pathway/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Device" */
+              /* webpackChunkName: "InspectionPathwayNew" */
               './Create/index'),
             loading: Loading
           })}
@@ -43,7 +43,7 @@ class PathWayRoute extends Component{
           path="/inspection/pathway/edit/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Dssevice" */
+              /* webpackChunkName: "InspectionPathwayEdit" */
               './Create/index'),
             loading: Loading
           })}

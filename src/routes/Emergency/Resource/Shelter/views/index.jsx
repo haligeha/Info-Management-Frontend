@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class ShelterRoute extends Component{
-  constructor(props){
+class ShelterRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,8 +18,8 @@ class ShelterRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/emergency/resource/shelter"
           component={Loadable({
             loader: () => import(
@@ -43,7 +43,7 @@ class ShelterRoute extends Component{
           path="/emergency/resource/shelter/detail/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Gis" */
+              /* webpackChunkName: "EmergencyResourceShelterDetail" */
               './Detail/index'),
             loading: Loading
           })}
@@ -52,10 +52,11 @@ class ShelterRoute extends Component{
           exact
           path="/emergency/resource/shelter/edit/:id"
           component={Loadable({
-            loader:()=>import('./Create/index'),
-            loading:Loading})}
+            loader: () => import('./Create/index'),
+            loading: Loading
+          })}
         />
-        
+
       </Switch>
     );
   }

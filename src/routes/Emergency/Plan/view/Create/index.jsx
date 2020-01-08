@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { PageTitle, Module } from '../../../../../components';
+import { PageTitleCreate } from '@src/components';
 import { Form, Input, Select, Button, message, Upload, Icon } from 'antd';
 import { SELECT_EMERGENCY_PLAN_LEVEL } from '../../config';
 import axios from 'axios';
@@ -266,230 +266,228 @@ class EmergencyNew extends Component {
     return (
       <div>
         {id ?
-          <PageTitle titles={['应急指挥', '应急预案', '编辑']} />
+          <PageTitleCreate titles={['应急预案', '编辑']} jump={'/emergency/plan'} />
           :
-          <PageTitle titles={['应急指挥', '应急预案', '新建']} />
+          <PageTitleCreate titles={['应急预案', '新建']} jump={'/emergency/plan'} />
         }
         <div className="entrance-work-create-page">
-          <Module>
-            <Form
-              onSubmit={this.handleSubmit}
+          <Form
+            onSubmit={this.handleSubmit}
+          >
+            <Form.Item
+              {...createFormItemLayout}
+              label="预案级别"
             >
-              <Form.Item
-                {...createFormItemLayout}
-                label="预案级别"
-              >
-                {getFieldDecorator('level', {
-                  initialValue: id && planDetail.level,
-                  rules: [{
-                    required: true,
-                    message: "请选择预案级别",
-                  }]
-                })(
-                  <Select placeholder="请选择预案级别"
-                    allowClear
+              {getFieldDecorator('level', {
+                initialValue: id && planDetail.level,
+                rules: [{
+                  required: true,
+                  message: "请选择预案级别",
+                }]
+              })(
+                <Select placeholder="请选择预案级别"
+                  allowClear
+                >
+                  {SELECT_EMERGENCY_PLAN_LEVEL &&
+                    SELECT_EMERGENCY_PLAN_LEVEL.map(cur => (
+                      <Select.Option key={cur.id}
+                        value={cur.id}
+                      >{cur.name}</Select.Option>
+                    ))
+
+                  }
+                </Select>
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="预案名称"
+            >
+              {getFieldDecorator('name', {
+                initialValue: id && planDetail.name,
+                rules: [{
+                  required: true,
+                  message: "请输入预案名称",
+                }]
+              })(
+                <Input placeholder="请输入预案名称" />
+              )}
+
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="预案类别"
+            >
+              {getFieldDecorator('category', {
+                initialValue: id && planDetail.category,
+                rules: [{
+                  required: true,
+                  message: "请输入预案类别",
+                }]
+              })(
+                <Input placeholder="请输入预案类别" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="预案关联事件类型"
+            >
+              {getFieldDecorator('associated_event_type', {
+                initialValue: id && planDetail.associated_event_type,
+                rules: [{
+                  required: true,
+                  message: "请输入预案关联事件类型",
+                }]
+              })(
+                <Input placeholder="请输入预案关联事件类型" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="预案内容"
+            >
+              {getFieldDecorator('content', {
+                initialValue: id && planDetail.content,
+                rules: [{
+                  //   required:true,
+                  message: "请输入预案内容",
+                }]
+              })(
+                <div>
+                  <Upload
+                    className="upload"
+                    accept=".pdf,.doc"
+                    {...uploadProps}
+                    defaultFileList={this.state.uploadFiles}
+                    previewFile={this.preview}
+                    onRemove={this.removeFile}   //移除文件事件
+                  // fileList={this.state.fileList}
                   >
-                    {SELECT_EMERGENCY_PLAN_LEVEL &&
-                      SELECT_EMERGENCY_PLAN_LEVEL.map(cur => (
-                        <Select.Option key={cur.id}
-                          value={cur.id}
-                        >{cur.name}</Select.Option>
-                      ))
-
-                    }
-                  </Select>
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="预案名称"
-              >
-                {getFieldDecorator('name', {
-                  initialValue: id && planDetail.name,
-                  rules: [{
-                    required: true,
-                    message: "请输入预案名称",
-                  }]
-                })(
-                  <Input placeholder="请输入预案名称" />
-                )}
-
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="预案类别"
-              >
-                {getFieldDecorator('category', {
-                  initialValue: id && planDetail.category,
-                  rules: [{
-                    required: true,
-                    message: "请输入预案类别",
-                  }]
-                })(
-                  <Input placeholder="请输入预案类别" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="预案关联事件类型"
-              >
-                {getFieldDecorator('associated_event_type', {
-                  initialValue: id && planDetail.associated_event_type,
-                  rules: [{
-                    required: true,
-                    message: "请输入预案关联事件类型",
-                  }]
-                })(
-                  <Input placeholder="请输入预案关联事件类型" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="预案内容"
-              >
-                {getFieldDecorator('content', {
-                  initialValue: id && planDetail.content,
-                  rules: [{
-                    //   required:true,
-                    message: "请输入预案内容",
-                  }]
-                })(
-                  <div>
-                    <Upload
-                      className="upload"
-                      accept=".pdf,.doc"
-                      {...uploadProps}
-                      defaultFileList={this.state.uploadFiles}
-                      previewFile={this.preview}
-                      onRemove={this.removeFile}   //移除文件事件
-                    // fileList={this.state.fileList}
-                    >
-                      <Button>
-                        <Icon type="upload" />上传文件
-                      </Button>
-                    </Upload>
-                    <Button onClick={this.downLoadFile}>
-                      <Icon type="download" />下载文件
+                    <Button>
+                      <Icon type="upload" />上传文件
                     </Button>
-                    <Button onClick={this.removeFile}>
-                      <Icon type="delete" />文件删除
-                    </Button>
-                  </div>
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="编制单位/部门"
-              >
-                {getFieldDecorator('department', {
-                  initialValue: id && planDetail.department,
-                  rules: [{
-                    required: true,
-                    message: "请输入编制单位/部门",
-                  }]
-                })(
-                  <Input placeholder="请输入编制单位/部门" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="发布文号"
-              >
-                {getFieldDecorator('release_number', {
-                  initialValue: id && planDetail.release_number,
-                  rules: [{
-                    required: true,
-                    message: "请输入发布文号",
-                  }]
-                })(
-                  <Input placeholder="请输入发布文号" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="发布单位"
-              >
-                {getFieldDecorator('issued', {
-                  initialValue: id && planDetail.issued,
-                  rules: [{
-                    required: true,
-                    message: "请输入发布单位",
-                  }]
-                })(
-                  <Input placeholder="请输入发布单位" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="请输入签发人"
-              >
-                {getFieldDecorator('signer', {
-                  initialValue: id && planDetail.signer,
-                  rules: [{
-                    required: true,
-                    message: "请输入签发人",
-                  }]
-                })(
-                  <Input placeholder="请输入签发人" />
-                )}
-              </Form.Item>
-              <Form.Item
-                {...createFormItemLayout}
-                label="相关附件"
-              >
-                {getFieldDecorator('file', {
-                  initialValue: id && planDetail.file,
-                  rules: [{
-                    //  required:true,
-                    message: "请输入相关附件",
-                  }]
-                })(
-                  <div>
-                    <Upload
-                      className="upload"
-                      accept=".pdf,.doc"
-                      {...uploadAttachProps}
-                      defaultFileList={this.state.uploadAttachFiles}
-                      previewFile={this.attachPreview}
-                      onRemove={this.removeAttachFile}   //移除文件事件
-                    // fileList={this.state.fileList}
-                    >
-                      <Button>
-                        <Icon type="upload" />上传文件
-                      </Button>
-                    </Upload>
-                    <Button onClick={this.downLoadAttachFile}>
-                      <Icon type="download" />下载文件
-                    </Button>
-                    <Button onClick={this.removeAttachFile}>
-                      <Icon type="delete" />文件删除
-                    </Button>
-                  </div>
-                )}
-              </Form.Item>
-              <section className="operator-container">
-                <div style={{ textAlign: "center" }}>
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="default"
-                  >{id ? '编辑' : '新建'}
+                  </Upload>
+                  <Button onClick={this.downLoadFile}>
+                    <Icon type="download" />下载文件
                   </Button>
-                  <Button
-                    style={{ marginLeft: "28px" }}
-                    size="default"
-                    onClick={() => {
-                      const {
-                        history,
-                      } = this.props
-                      history.push('/emergency/plan')
-                    }}
-                  >取消
+                  <Button onClick={this.removeFile}>
+                    <Icon type="delete" />文件删除
                   </Button>
                 </div>
-              </section>
-            </Form>
-          </Module>
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="编制单位/部门"
+            >
+              {getFieldDecorator('department', {
+                initialValue: id && planDetail.department,
+                rules: [{
+                  required: true,
+                  message: "请输入编制单位/部门",
+                }]
+              })(
+                <Input placeholder="请输入编制单位/部门" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="发布文号"
+            >
+              {getFieldDecorator('release_number', {
+                initialValue: id && planDetail.release_number,
+                rules: [{
+                  required: true,
+                  message: "请输入发布文号",
+                }]
+              })(
+                <Input placeholder="请输入发布文号" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="发布单位"
+            >
+              {getFieldDecorator('issued', {
+                initialValue: id && planDetail.issued,
+                rules: [{
+                  required: true,
+                  message: "请输入发布单位",
+                }]
+              })(
+                <Input placeholder="请输入发布单位" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="请输入签发人"
+            >
+              {getFieldDecorator('signer', {
+                initialValue: id && planDetail.signer,
+                rules: [{
+                  required: true,
+                  message: "请输入签发人",
+                }]
+              })(
+                <Input placeholder="请输入签发人" />
+              )}
+            </Form.Item>
+            <Form.Item
+              {...createFormItemLayout}
+              label="相关附件"
+            >
+              {getFieldDecorator('file', {
+                initialValue: id && planDetail.file,
+                rules: [{
+                  //  required:true,
+                  message: "请输入相关附件",
+                }]
+              })(
+                <div>
+                  <Upload
+                    className="upload"
+                    accept=".pdf,.doc"
+                    {...uploadAttachProps}
+                    defaultFileList={this.state.uploadAttachFiles}
+                    previewFile={this.attachPreview}
+                    onRemove={this.removeAttachFile}   //移除文件事件
+                  // fileList={this.state.fileList}
+                  >
+                    <Button>
+                      <Icon type="upload" />上传文件
+                    </Button>
+                  </Upload>
+                  <Button onClick={this.downLoadAttachFile}>
+                    <Icon type="download" />下载文件
+                  </Button>
+                  <Button onClick={this.removeAttachFile}>
+                    <Icon type="delete" />文件删除
+                  </Button>
+                </div>
+              )}
+            </Form.Item>
+            <section className="operator-container">
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="default"
+                >{id ? '编辑' : '新建'}
+                </Button>
+                <Button
+                  style={{ marginLeft: "28px" }}
+                  size="default"
+                  onClick={() => {
+                    const {
+                      history,
+                    } = this.props
+                    history.push('/emergency/plan')
+                  }}
+                >取消
+                </Button>
+              </div>
+            </section>
+          </Form>
         </div>
       </div>
 

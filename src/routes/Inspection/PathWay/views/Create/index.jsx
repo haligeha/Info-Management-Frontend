@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PageTitleCreate } from '@src/components';
 import { Button, Form, Input, Select, message } from 'antd';
 import axios from 'axios';
-import BMap from 'BMap'
+import AMap from 'AMap'
 import './index.styl'
 const { TextArea } = Input;
 const { Option } = Select;
@@ -30,13 +30,14 @@ class PathWayNew extends Component {
           console.log(err);
         });
     }
-    // 加载地图模块
-    var map = new BMap.Map("mapArea");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-    //添加地图类型控件
-    map.addControl(new BMap.MapTypeControl());
-    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-    map.enableScrollWheelZoom(true);
+    this.initMap()
+  }
+  initMap = () => {
+    var map = new AMap.Map('mapArea', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
   }
 
   //创建巡检路线信息

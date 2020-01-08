@@ -57,6 +57,7 @@ class ManagementPeople extends Component {
     })
     this.renderLeftBox(propsData)
     this.setState({ rightData: rightArr })
+    console.log(rightArr)
   }
   renderLeftBox = (data) => {
     return data.map((item, index) => (

@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class MaterialRoute extends Component{
-  constructor(props){
+class MaterialRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,12 +18,12 @@ class MaterialRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/emergency/resource/material"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
+              /* webpackChunkName: "EmergencyResourceMaterial" */
               './Index/index'),
             loading: Loading
           })}
@@ -33,7 +33,7 @@ class MaterialRoute extends Component{
           path="/emergency/resource/material/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Device" */
+              /* webpackChunkName: "EmergencyResourceMaterialNew" */
               './Create/index'),
             loading: Loading
           })}
@@ -43,7 +43,7 @@ class MaterialRoute extends Component{
           path="/emergency/resource/material/detail/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Gis" */
+              /* webpackChunkName: "EmergencyResourceMaterialDetail" */
               './Detail/index'),
             loading: Loading
           })}
@@ -52,10 +52,11 @@ class MaterialRoute extends Component{
           exact
           path="/emergency/resource/material/edit/:id"
           component={Loadable({
-            loader:()=>import('./Create/index'),
-            loading:Loading})}
+            loader: () => import('./Create/index'),
+            loading: Loading
+          })}
         />
-        
+
       </Switch>
     );
   }

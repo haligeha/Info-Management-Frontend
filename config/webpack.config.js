@@ -156,7 +156,7 @@ module.exports = function (webpackEnv) {
     ].filter(Boolean),
     // 地图模块的配置
     externals: {
-      "BMap": "BMap"
+      "AMap": "AMap"
     },
     output: {
       // The build folder.

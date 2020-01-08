@@ -99,7 +99,7 @@ class HigherHeaderLayout extends Component {
           children: [
             {
               id: '41',
-              name: '入廊登记',
+              name: '入廊申请',
               url: '/entrance/work'
             },
             {

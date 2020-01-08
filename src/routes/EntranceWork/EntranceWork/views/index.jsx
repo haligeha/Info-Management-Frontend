@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class EntranceWorkRoute extends Component{
-  constructor(props){
+class EntranceWorkRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,8 +18,8 @@ class EntranceWorkRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/entrance/work"
           component={Loadable({
             loader: () => import(
@@ -53,12 +53,12 @@ class EntranceWorkRoute extends Component{
           path="/entrance/work/detail/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Gis" */
+              /* webpackChunkName: "EntranceWorkDetail" */
               './Detail/index'),
             loading: Loading
           })}
         />
-        
+
       </Switch>
     );
   }

@@ -2,11 +2,12 @@ import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
 import ManagementPeople from './people'
 import { Form, Input, Select, Button, message, } from 'antd';
-import BMap from 'BMap'
+import AMap from 'AMap'
 import axios from 'axios'
 
 const { Option } = Select;
 const { TextArea } = Input;
+let marker
 
 var user_id = window.sessionStorage.getItem("user_id")
 class AreaNew extends Component {
@@ -16,6 +17,8 @@ class AreaNew extends Component {
     this.state = {
       areaDetail: {},
       pipeBelong: [],
+      startPoint: [],
+      endPoint: [],
     };
 
   }
@@ -25,21 +28,19 @@ class AreaNew extends Component {
     if (id) {
       axios.get(`/api/v1/info/galleryArea?Id=${id}&user_id=${user_id}`)
         .then((res) => {
+          console.log(res.data)
           this.setState({ areaDetail: res.data })
         })
         .catch((err) => {
           console.log(err);
         });
     }
-    // 加载地图模块
-    var map = new BMap.Map("mapAreaCreate");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-    //添加地图类型控件
-    map.addControl(new BMap.MapTypeControl());
-    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-    map.enableScrollWheelZoom(true);
+    this.initMapStartPoint()
+    this.initMapEndPoint()
   }
-
+  componentWillUnmount() {
+    marker = 0
+  }
   //获取管廊区域信息
   getpipeBelong = () => {
     axios.get(`/api/v1/info/pipeGalleryAll?user_id=${user_id}`)
@@ -59,7 +60,63 @@ class AreaNew extends Component {
       .catch(function (error) {
         console.log(error);
       });
+  }
 
+
+  initMapStartPoint = () => {
+    this.map = new AMap.Map('mapManagementStart', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
+    //监听双击事件
+    this.map.on('dblclick', (e) => {
+      console.log(`您点击了地图的[${e.lnglat.getLng()},${e.lnglat.getLat()}]`)
+      const lnglatXY = [e.lnglat.getLng(), e.lnglat.getLat()]
+      this.setState({ startPoint: lnglatXY })
+      //控制单次打点
+      if (!marker) {
+        this.addMarker(lnglatXY)
+      } else {
+        marker.setPosition(lnglatXY)
+      }
+    })
+  }
+  //高德地图打点
+  addMarker = (lnglat) => {
+    marker = new AMap.Marker({
+      map: this.map,
+      position: lnglat,
+    });
+    marker.setMap(this.map);
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  initMapEndPoint = () => {
+    this.mapEnd = new AMap.Map('mapManagementEnd', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
+    //监听双击事件
+    this.mapEnd.on('dblclick', (e) => {
+      console.log(`您点击了地图的[${e.lnglat.getLng()},${e.lnglat.getLat()}]`)
+      const lnglatXY = [e.lnglat.getLng(), e.lnglat.getLat()]
+      this.setState({ endPoint: lnglatXY })
+      //控制单次打点
+      if (!marker) {
+        this.addEndMarker(lnglatXY)
+      } else {
+        marker.setPosition(lnglatXY)
+      }
+    })
+  }
+  //高德地图打点
+  addEndMarker = (lnglat) => {
+    marker = new AMap.Marker({
+      mapEnd: this.mapEnd,
+      position: lnglat,
+    });
+    marker.setMap(this.mapEnd);
   }
 
 
@@ -91,6 +148,9 @@ class AreaNew extends Component {
     if (!getFieldValue('description')) {
       message.error('请输入说明描述')
     }
+    values.drawpoint = [this.state.startPoint, this.state.endPoint]
+    values.principal = [{ name: 'miaomiao', id: 3, status: 1 }, { name: 'zanzan', id: 3, status: 1 }]
+    console.log(values)
     if (id) {
       values.id = id
       axios.put('/api/v1/info/galleryArea?user_id=' + user_id, values)
@@ -187,16 +247,14 @@ class AreaNew extends Component {
               {...createFormItemLayout}
               label="选择负责人："
             >
-              {getFieldDecorator('pipe_people')(<ManagementPeople />)}
+              {getFieldDecorator('principal')(<ManagementPeople />)}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
               label="绘制区域："
             >
               {getFieldDecorator('pipe_map')(
-                <div>
-                  <div style={{ width: '100%', height: '300px' }} id="mapAreaCreate"></div>
-                </div>)}
+                <Input placeholder="请选择区域" />)}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
@@ -208,7 +266,10 @@ class AreaNew extends Component {
                   required: true,
                   message: "请输入起点",
                 }]
-              })(<Input placeholder="请输入起点" />)}
+              })(<div className="path-way-border">
+                <Input placeholder="请输入终点" />
+                <div style={{ width: '100%', height: '300px' }} id="mapManagementStart"></div>
+              </div>)}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
@@ -220,7 +281,10 @@ class AreaNew extends Component {
                   required: true,
                   message: "请输入终点",
                 }]
-              })(<Input placeholder="请输入终点" />)}
+              })(<div className="path-way-border">
+                <Input placeholder="请输入终点" />
+                <div style={{ width: '100%', height: '300px' }} id="mapManagementEnd"></div>
+              </div>)}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}

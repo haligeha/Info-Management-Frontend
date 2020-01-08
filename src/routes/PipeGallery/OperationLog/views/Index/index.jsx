@@ -13,8 +13,8 @@ class OperationLog extends Component {
     };
   }
   componentDidMount() {
-    const data = fetch(`/api/v1/info/syslog?user_id=${user_id}&limit=10&page=0`)
-    console.log(data)
+    //const data = fetch(`/api/v1/info/syslog?user_id=${user_id}&limit=10&page=0`)
+    //console.log(data)
 
   }
 

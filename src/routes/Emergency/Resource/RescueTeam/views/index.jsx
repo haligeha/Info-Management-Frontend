@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class TeamRoute extends Component{
-  constructor(props){
+class TeamRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,12 +18,12 @@ class TeamRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/emergency/resource/team"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
+              /* webpackChunkName: "EmergencyResourceTeam" */
               './Index/index'),
             loading: Loading
           })}
@@ -33,7 +33,7 @@ class TeamRoute extends Component{
           path="/emergency/resource/team/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Device" */
+              /* webpackChunkName: "EmergencyResourceTeamNew" */
               './Create/index'),
             loading: Loading
           })}
@@ -43,7 +43,7 @@ class TeamRoute extends Component{
           path="/emergency/resource/team/detail/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Gis" */
+              /* webpackChunkName: "EmergencyResourceTeamDetail" */
               './Detail/index'),
             loading: Loading
           })}
@@ -52,8 +52,9 @@ class TeamRoute extends Component{
           exact
           path="/emergency/resource/team/edit/:id"
           component={Loadable({
-            loader:()=>import('./Create/index'),
-            loading:Loading})}
+            loader: () => import('./Create/index'),
+            loading: Loading
+          })}
         />
       </Switch>
     );

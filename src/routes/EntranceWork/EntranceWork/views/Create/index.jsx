@@ -88,9 +88,9 @@ class EntranceWorkNew extends Component {
     return (
       <div>
         {id ?
-          <PageTitle titles={['巡检维护', '入廊登记', '编辑']} />
+          <PageTitle titles={['巡检维护', '入廊申请', '编辑']} />
           :
-          <PageTitle titles={['巡检维护', '入廊登记', '新建']} />
+          <PageTitle titles={['巡检维护', '入廊申请', '新建']} />
         }
         <div className="entrance-work-create-page">
           <Module>

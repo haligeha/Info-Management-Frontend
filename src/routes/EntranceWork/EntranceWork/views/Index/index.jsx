@@ -91,7 +91,7 @@ class Homework extends Component {
     const size = limit
     return (
       <div className="report-page">
-        <PageTitle titles={['入廊作业', '入廊登记']}>
+        <PageTitle titles={['入廊作业', '入廊申请']}>
           {
             <Link to="/entrance/work/new">
               <Button type="primary"> + 添加入廊作业</Button>

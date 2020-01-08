@@ -2,17 +2,20 @@ import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
 import { Form, Input, Button, message, } from 'antd';
 import axios from 'axios';
-import BMap from 'BMap'
-//const Option = Select.Option;
+import AMap from 'AMap'
+
 const { TextArea } = Input;
-//const dateFormat = 'YYYY-MM-DD';
-var user_id = window.sessionStorage.getItem("user_id")
+let user_id = window.sessionStorage.getItem("user_id")
+let marker
+
 class ManagementNew extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       pipeDetail: {},
+      startPoint: [],
+      endPoint: [],
     };
 
   }
@@ -22,27 +25,73 @@ class ManagementNew extends Component {
     if (id) {
       axios.get(`/api/v1/info/pipeGallery?Id=${id}&user_id=${user_id}`)
         .then((res) => {
+          console.log(res.data)
           this.setState({ pipeDetail: res.data })
         })
         .catch((err) => {
           console.log(err);
         });
     }
-    // 加载地图模块
-    var mapStart = new BMap.Map("mapManagementStart");    // 创建Map实例
-    mapStart.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-    //添加地图类型控件
-    mapStart.addControl(new BMap.MapTypeControl());
-    mapStart.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-    mapStart.enableScrollWheelZoom(true);
-    // 加载地图模块
-    var mapEnd = new BMap.Map("mapManagementEnd");    // 创建Map实例
-    mapEnd.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-    //添加地图类型控件
-    mapEnd.addControl(new BMap.MapTypeControl());
-    mapEnd.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-    mapEnd.enableScrollWheelZoom(true);
-
+    this.initMapStartPoint()
+    this.initMapEndPoint()
+  }
+  componentWillUnmount() {
+    marker = 0
+  }
+  initMapStartPoint = () => {
+    this.map = new AMap.Map('mapManagementStart', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
+    //监听双击事件
+    this.map.on('dblclick', (e) => {
+      console.log(`您点击了地图的[${e.lnglat.getLng()},${e.lnglat.getLat()}]`)
+      const lnglatXY = [e.lnglat.getLng(), e.lnglat.getLat()]
+      this.setState({ startPoint: lnglatXY })
+      //控制单次打点
+      if (!marker) {
+        this.addMarker(lnglatXY)
+      } else {
+        marker.setPosition(lnglatXY)
+      }
+    })
+  }
+  //高德地图打点
+  addMarker = (lnglat) => {
+    marker = new AMap.Marker({
+      map: this.map,
+      position: lnglat,
+    });
+    marker.setMap(this.map);
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  initMapEndPoint = () => {
+    this.mapEnd = new AMap.Map('mapManagementEnd', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
+    //监听双击事件
+    this.mapEnd.on('dblclick', (e) => {
+      console.log(`您点击了地图的[${e.lnglat.getLng()},${e.lnglat.getLat()}]`)
+      const lnglatXY = [e.lnglat.getLng(), e.lnglat.getLat()]
+      this.setState({ endPoint: lnglatXY })
+      //控制单次打点
+      if (!marker) {
+        this.addEndMarker(lnglatXY)
+      } else {
+        marker.setPosition(lnglatXY)
+      }
+    })
+  }
+  //高德地图打点
+  addEndMarker = (lnglat) => {
+    marker = new AMap.Marker({
+      mapEnd: this.mapEnd,
+      position: lnglat,
+    });
+    marker.setMap(this.mapEnd);
   }
 
   //创建管廊信息
@@ -76,6 +125,8 @@ class ManagementNew extends Component {
     if (!getFieldValue('description')) {
       message.error('请输入说明描述')
     }
+    values.drawpoint = [this.state.startPoint, this.state.endPoint]
+    console.log(values)
     if (id) {
       values.id = id
       axios.put('/api/v1/info/pipeGallery?user_id=' + user_id, values)
@@ -95,7 +146,6 @@ class ManagementNew extends Component {
           if (response.status === 200) {
             message.info('创建成功')
             history.push('/pipe/management')
-
           }
         })
         .catch(function (error) {
