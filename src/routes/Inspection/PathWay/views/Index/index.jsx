@@ -161,7 +161,9 @@ class PathWay extends React.Component {
       title: '启用/停用',
       key: 'startpoint1',
       render: (text, record) => {
-        return (record.status && record.status) || '--'
+        return (record.status ?
+          <img src={[require('@src/img/turnOff.svg')]} alt="禁用" width="50" height="30" /> :
+          <img src={[require('@src/img/open.svg')]} alt="启用" width="50" height="30" />) || '--'
       }
     }, {
       title: '说明描述',
