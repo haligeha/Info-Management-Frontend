@@ -1,19 +1,18 @@
-import React,{Component} from 'react';
-import {PageTitle,Module} from '../../../../../../components';
-import {Button} from 'antd';
+import React, { Component } from 'react';
+import { PageTitle } from '@src/components';
 
-class MaterialDetail extends Component{
-  constructor(props){
+class MaterialDetail extends Component {
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
 
     };
   }
 
-  render(){
+  render() {
     return (
       <div>
-        <PageTitle titles={['应急指挥','应急资源','应急救援物资','详情']} />
+        <PageTitle titles={['应急指挥', '应急资源', '应急救援物资', '详情']} />
       </div>
     );
   }

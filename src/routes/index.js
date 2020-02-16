@@ -123,11 +123,31 @@ class RouteView extends Component {
           })}
         />
         <Route
+          exact
           path="/emergency/resource/material"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "PlanApproval" */
+              /* webpackChunkName: "ResourceMaterial" */
               './Emergency/Resource'),
+            loading: Loading
+          })}
+        />
+        <Route
+          path="/emergency/resource/material/new"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "ResourceMaterialNew" */
+              './Emergency/Resource/Material/views/Create/index'),
+            loading: Loading
+          })}
+        />
+        <Route
+          exact
+          path="/emergency/resource/material/edit/:id"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "ResourceMaterialEdit" */
+              './Emergency/Resource/Material/views/Create/index'),
             loading: Loading
           })}
         />
@@ -135,7 +155,7 @@ class RouteView extends Component {
           path="/emergency/resource/equipment"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "PlanApproval" */
+              /* webpackChunkName: "ResourceEquipment" */
               './Emergency/Resource'),
             loading: Loading
           })}
@@ -144,7 +164,7 @@ class RouteView extends Component {
           path="/emergency/resource/team"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "PlanApproval" */
+              /* webpackChunkName: "ResourceTeam" */
               './Emergency/Resource'),
             loading: Loading
           })}
@@ -153,7 +173,7 @@ class RouteView extends Component {
           path="/emergency/resource/shelter"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "PlanApproval" */
+              /* webpackChunkName: "ResourceShelter" */
               './Emergency/Resource'),
             loading: Loading
           })}

@@ -19,7 +19,6 @@ class MaterialRoute extends Component {
     return (
       <Switch>
         <Route
-          exact
           path="/emergency/resource/material"
           component={Loadable({
             loader: () => import(

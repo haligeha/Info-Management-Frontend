@@ -1,10 +1,11 @@
 import React, { Component, } from 'react';
 import './index.styl';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {SELECT_MATERIAL_CATEGORY} from '../../configs'
-import { PageTitle,Module } from '../../../../../../components';
-import {Button,Table,Row,Col,Select,Popconfirm} from 'antd';
+import { SELECT_MATERIAL_CATEGORY } from '../../configs'
+import { PageTitle, Module } from '@src/components';
+import { Button, Table, Row, Col, Select, Popconfirm } from 'antd';
+
 //const FormItem = Form.Item;
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 10;
@@ -16,69 +17,82 @@ class Material extends Component {
     this.state = {
       current: FIRST_PAGE,
       size: PAGE_SIZE,
-      total: 0,     
-      data:[],
-      category:'',
-      nowCurrent:FIRST_PAGE
+      total: 0,
+      data: [],
+      category: '',
+      nowCurrent: FIRST_PAGE
     };
     this.getGroupList = this.getGroupList.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getGroupList(FIRST_PAGE);
+    this.getDetail(1)
+  }
+  // 测试详情接口
+  getDetail = (id) => {
+    console.log(id)
+    console.log("获取详情ID")
+    axios.get(`/api/v1/info/supplies?id=${id}&user_id=${user_id}`)
+      .then(() => {
+        console.log("成功")
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
   //配合分页和筛选条件获取信息
-  getGroupList = (page)=>{
-    const { size,category } = this.state;
+  getGroupList = (page) => {
+    const { size, category } = this.state;
     axios.get(`/api/v1/info/emergencySuppliesByPage?limit=${size}&page=${page}&category=${category}&user_id=${user_id}`)
-      .then((res)=>{
-        if(res&&res.status === 200){
+      .then((res) => {
+        if (res && res.status === 200) {
           console.log(res);
           this.setState({
-            data:res.data,
-            nowCurrent:res.data.page  
+            data: res.data,
+            nowCurrent: res.data.page
           });
         }
       })
-      .catch(function(error){
+      .catch(function (error) {
         console.log(error);
       });
   }
   //页码改变
-  handlePageChange=(page)=>{
-    this.getGroupList(page-1)
+  handlePageChange = (page) => {
+    this.getGroupList(page - 1)
   }
   //筛选条件：category
-  selectActivity=(value)=>{
-    this.setState({category:SELECT_MATERIAL_CATEGORY[value].name})
+  selectActivity = (value) => {
+    this.setState({ category: SELECT_MATERIAL_CATEGORY[value].name })
   }
   //删除
-  deleteGroup = (record) =>{
+  deleteGroup = (record) => {
     axios.delete(`/api/v1/info/supplies?id=${record.supply_id}&user_id=${user_id}`)
-      .then(()=>{
+      .then(() => {
         this.getGroupList(this.state.nowCurrent)
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err)
       })
   }
 
   render() {
     const {
-      data:{
+      data: {
         data,
         allCount,
         limit,
         page
-      }} = this.state;
+      } } = this.state;
     const total = allCount
-    const current = page+1;
+    const current = page + 1;
     const size = limit
 
     return (
       <div className="report-page">
-        <PageTitle titles={['应急指挥','应急资源','应急救援物资']}>
-          { 
+        <PageTitle titles={['应急指挥', '应急资源', '应急救援物资']}>
+          {
             <Link to="/emergency/resource/material/new">
               <Button type="primary">+ 新建应急救援物资</Button>
             </Link>
@@ -93,8 +107,8 @@ class Material extends Component {
                 onChange={this.selectActivity}
               >
                 {
-                  SELECT_MATERIAL_CATEGORY&&
-                  SELECT_MATERIAL_CATEGORY.map(cur =>(
+                  SELECT_MATERIAL_CATEGORY &&
+                  SELECT_MATERIAL_CATEGORY.map(cur => (
                     <Select.Option key={cur.id}
                       value={cur.id}
                     >{cur.name}</Select.Option>
@@ -104,12 +118,12 @@ class Material extends Component {
             </Col>
 
             <Col span={2}>
-              <Button 
-                type="primary" 
-                onClick={()=>{this.getGroupList(0)}}
+              <Button
+                type="primary"
+                onClick={() => { this.getGroupList(0) }}
               >搜索</Button>
             </Col>
-          </Row> 
+          </Row>
         </Module>
         <Table
           className="group-list-module"
@@ -119,7 +133,7 @@ class Material extends Component {
             total,
             pageSize: size,
             onChange: this.handlePageChange,
-            showTotal:()=> `共${allCount}条数据`
+            showTotal: () => `共${allCount}条数据`
           }}
           dataSource={data}
           columns={[{
@@ -130,6 +144,10 @@ class Material extends Component {
             title: '物资名称',
             key: 'name',
             render: (text, record) => (record.name && record.name) || '--',
+          }, {
+            title: '所属单位',
+            key: 'affiliation',
+            render: (text, record) => (record.affiliation && record.affiliation) || '--',
           }, {
             title: '物资类别',
             key: 'category',
@@ -143,30 +161,34 @@ class Material extends Component {
             dataIndex: 'model',
             render: (text, record) => (record.model && record.model) || '--',
           }, {
+            title: '生产厂家',
+            key: 'manufacturer',
+            render: (text, record) => (record.manufacturer && record.manufacturer) || '--',
+          }, {
             title: '存放地点',
             key: 'location',
             render: (text, record) => (record.location && record.location) || '--',
-          },{
+          }, {
             title: '操作',
             render: (text, record, index) => (
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
-                <Link 
+                <Link
                   to={`/emergency/resource/material/edit/${record.supply_id}`}
-                  style={{marginRight:'5px'}}
+                  style={{ marginRight: '5px' }}
                 >编辑</Link>
-                <Link 
+                <Link
                   to={`/emergency/resource/material/detail/${record.supply_id}`}
-                  style={{marginRight:'5px'}}
+                  style={{ marginRight: '5px' }}
                 >详情</Link>
-                <Popconfirm 
-                  title="确定要删除吗" 
-                  onConfirm={()=>{this.deleteGroup(record)}}
+                <Popconfirm
+                  title="确定要删除吗"
+                  onConfirm={() => { this.deleteGroup(record) }}
                 >
-                  <Button 
+                  <Button
                     type="simple"
-                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                    style={{ border: 'none', padding: 0, color: "#357aff", background: 'transparent' }}
                   >删除</Button>
                 </Popconfirm>
               </div>
