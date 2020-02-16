@@ -8,7 +8,7 @@ const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
 var user_id = window.sessionStorage.getItem("user_id")
-class Employee extends Component {
+class InspectorInformation extends Component {
   constructor(props) {
     super(props);
 
@@ -171,6 +171,10 @@ class Employee extends Component {
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
+                <Link
+                  to={`/inspection/employee/edit/${record.id}`}
+                  style={{ marginRight: '5px' }}
+                >编辑</Link>
                 <Popconfirm
                   title="确定要删除吗？"
                   onConfirm={() => { this.deleteGroup(record) }}
@@ -190,4 +194,4 @@ class Employee extends Component {
   }
 }
 
-export default Employee;
+export default InspectorInformation;

@@ -7,7 +7,7 @@ import './index.styl'
 const { TextArea } = Input;
 const { Option } = Select;
 var user_id = window.sessionStorage.getItem("user_id")
-class PathWayNew extends Component {
+class InspectionRouteNew extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -274,4 +274,4 @@ class PathWayNew extends Component {
 }
 
 
-export default Form.create()(PathWayNew);
+export default Form.create()(InspectionRouteNew);

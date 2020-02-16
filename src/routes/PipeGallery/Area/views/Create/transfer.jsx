@@ -32,7 +32,7 @@ const propsData = List([{
   id: 6,
   status: 0
 }])
-class ManagementPeople extends Component {
+class Transfer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -126,4 +126,4 @@ class ManagementPeople extends Component {
   }
 }
 
-export default ManagementPeople;
+export default Transfer;

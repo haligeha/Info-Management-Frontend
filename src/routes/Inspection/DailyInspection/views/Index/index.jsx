@@ -16,8 +16,9 @@ import './index.styl'
 let dateList = [];
 
 var user_id = window.sessionStorage.getItem("user_id")
-// var user_id = 1
-class DailyInspection extends Component {
+// var user_id = 1 Inspection report
+
+class InspectionReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -175,4 +176,4 @@ export default connect(
     dutyPeople: state.dailyInspention.dutyPeople
   }),
   dispatch => ({ actions: bindActionCreators(actions, dispatch) })
-)(DailyInspection)
+)(InspectionReport)

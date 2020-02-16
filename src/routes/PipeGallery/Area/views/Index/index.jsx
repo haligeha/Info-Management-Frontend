@@ -2,12 +2,14 @@ import React, { Component, } from 'react';
 import { PageTitle, Module, } from '@src/components';
 import { Button, Row, Col, Table, Input, Popconfirm, message, Icon, Form, DatePicker } from 'antd';
 import axios from 'axios';
+import AMap from 'AMap'
 import { Link } from 'react-router-dom'
+import './index.styl'
 const FIRST_PAGE = 0;
 const PAGE_SIZE = 6;
 const Search = Input.Search;
 var user_id = window.sessionStorage.getItem("user_id")
-class Area extends Component {
+class PipeArea extends Component {
   constructor(props) {
     super(props);
 
@@ -18,6 +20,7 @@ class Area extends Component {
       data: [],
       pipe_belong: '',
       nowCurrent: FIRST_PAGE,
+      mapVisible: false, // 模态框初始不显示
     };
 
     this.getGroupList = this.getGroupList.bind(this);
@@ -70,6 +73,24 @@ class Area extends Component {
     console.log(this.state)
     this.getGroupList(0)
   }
+  // 控制模态框显示
+  showMapModal = () => {
+    this.setState({
+      mapVisible: true,
+    });
+    // 
+    var map = new AMap.Map('routeMap', {
+      zoom: 11,//级别
+      center: [116.397428, 39.90923],//中心点坐标
+      viewMode: '3D'//使用3D视图
+    });
+  };
+  closeMapModal = e => {
+    console.log(e);
+    this.setState({
+      mapVisible: false,
+    });
+  };
 
   render() {
     const {
@@ -176,53 +197,54 @@ class Area extends Component {
       ),
     }]
     return (
-      <div>
-        <PageTitle titles={['运营管理', '管廊区域']}>
-          {
-            <Link to={"/pipe/area/new"}>
-              <Button type="primary">+ 新建管廊区域</Button>
-            </Link>
-          }
-        </PageTitle>
-        <Module>
-          <Form onSubmit={this.selectActivity}>
-            <Row>
-              <Col {...colSpan}>
-                <Form.Item {...formItemLayout} label="区域名称：">
-                  {getFieldDecorator('activityId')(
-                    <Input
-                      placeholder="请输入区域名称"
-                      onBlur={this.judgeID}
-                    />,
-                  )}
-                </Form.Item>
-              </Col>
-              <Col {...colSpan}>
-                <Form.Item {...formItemLayout} label="区域长度：">
-                  {getFieldDecorator('activityName')(
-                    <Input
-                      placeholder="请输入区域名称"
-                    />,
-                  )}
-                </Form.Item>
-              </Col>
-              <Col {...colSpan}>
-                <Form.Item {...formItemLayout} label="所属管廊：">
-                  {getFieldDecorator('operatorName')(
+      <div className="pipa-area">
+        <div style={{ opacity: (this.state.mapVisible === true) ? "0.3" : "1" }}>
+          <PageTitle titles={['运营管理', '管廊区域']}>
+            {
+              <Link to={"/pipe/area/new"}>
+                <Button type="primary">+ 新建管廊区域</Button>
+              </Link>
+            }
+          </PageTitle>
+          <Module>
+            <Form onSubmit={this.selectActivity}>
+              <Row>
+                <Col {...colSpan}>
+                  <Form.Item {...formItemLayout} label="区域名称：">
+                    {getFieldDecorator('activityId')(
+                      <Input
+                        placeholder="请输入区域名称"
+                        onBlur={this.judgeID}
+                      />,
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col {...colSpan}>
+                  <Form.Item {...formItemLayout} label="区域长度：">
+                    {getFieldDecorator('activityName')(
+                      <Input
+                        placeholder="请输入区域名称"
+                      />,
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col {...colSpan}>
+                  <Form.Item {...formItemLayout} label="所属管廊：">
+                    {getFieldDecorator('operatorName')(
 
-                    <Input placeholder="请选择所属管廊" />,
-                  )}
-                </Form.Item>
-              </Col>
-              <Col {...colSpan}>
-                <div style={{ textAlign: 'center' }}>
-                  <Button type="primary" htmlType="submit">查询</Button>
-                  <Button style={{ marginLeft: 28 }} onClick={this.onReset}>清空</Button>
-                </div>
-              </Col>
-            </Row>
-          </Form>
-          {/* <Row>
+                      <Input placeholder="请选择所属管廊" />,
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col {...colSpan}>
+                  <div style={{ textAlign: 'center' }}>
+                    <Button type="primary" htmlType="submit">查询</Button>
+                    <Button style={{ marginLeft: 28 }} onClick={this.onReset}>清空</Button>
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+            {/* <Row>
             <Col span={2}>管廊名称：</Col>
             <Col span={4}>
               <Search
@@ -232,30 +254,34 @@ class Area extends Component {
               />
             </Col>
           </Row> */}
-        </Module>
-        <Table
-          className="group-list-module"
-          bordered
-          footer={() => <div>
-            <Button type="danger"><Icon type="delete" /> 删除</Button>
-            <Button type="danger"><Icon type="printer" /> 打印</Button>
-            <Button type="danger"><Icon type="download" /> 导出</Button>
-          </div>}
-          rowSelection={rowSelection}
-          pagination={{
-            current,
-            total,
-            pageSize: size,
-            onChange: this.handlePageChagne,
-            showTotal: () => `共${allCount} 条数据`
-          }}
-          dataSource={data}
-          columns={columns}
-        />
+          </Module>
+          <Table
+            className="group-list-module"
+            bordered
+            footer={() => <div>
+              <Button type="danger"><Icon type="delete" /> 删除</Button>
+              <Button type="danger"><Icon type="printer" /> 打印</Button>
+              <Button type="danger"><Icon type="download" /> 导出</Button>
+            </div>}
+            rowSelection={rowSelection}
+            pagination={{
+              current,
+              total,
+              pageSize: size,
+              onChange: this.handlePageChagne,
+              showTotal: () => `共${allCount} 条数据`
+            }}
+            dataSource={data}
+            columns={columns}
+          />
+        </div>
+        <div className="path-map" style={{ display: (this.state.mapVisible === true) ? "" : "none" }} >
+          <p>路线查看</p><Icon className="path-map-icon" type="close-circle" onClick={this.closeMapModal} />
+          <div style={{ width: '550px', height: '350px' }} id="routeMap"></div>
+        </div>
       </div>
-
     );
   }
 }
 
-export default Form.create()(Area);
+export default Form.create()(PipeArea);

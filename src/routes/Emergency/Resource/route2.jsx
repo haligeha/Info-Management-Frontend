@@ -23,7 +23,7 @@ class EquipmentRoute extends Component {
           path="/emergency/resource/equipment"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
+              /* webpackChunkName: "ResourceEquipment" */
               './Equipment/views/Index/index'),
             loading: Loading
           })}
@@ -33,7 +33,7 @@ class EquipmentRoute extends Component {
           path="/emergency/resource/equipment/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Device" */
+              /* webpackChunkName: "ResourceEquipmentNew" */
               './Equipment/views/Create/index'),
             loading: Loading
           })}
@@ -43,7 +43,7 @@ class EquipmentRoute extends Component {
           path="/emergency/resource/equipment/detail/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyResourceDetail" */
+              /* webpackChunkName: "ResourceEquipmentDetail" */
               './Equipment/views/Detail/index'),
             loading: Loading
           })}
@@ -52,7 +52,9 @@ class EquipmentRoute extends Component {
           exact
           path="/emergency/resource/equipment/edit/:id"
           component={Loadable({
-            loader: () => import('./Equipment/views/Create/index'),
+            loader: () => import(
+              /* webpackChunkName: "ResourceEquipmentEdit" */
+              './Equipment/views/Create/index'),
             loading: Loading
           })}
         />

@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import Loadable from 'react-loadable';
 
-class EmployeeRoute extends Component{
-  constructor(props){
+class EmployeeRoute extends Component {
+  constructor(props) {
     super(props);
     this.state = {};
   }
-  render(){
+  render() {
     const Loading = () => {
       return (
         <div className="loading">
@@ -18,12 +18,12 @@ class EmployeeRoute extends Component{
     };
     return (
       <Switch>
-        <Route 
-          exact   
+        <Route
+          exact
           path="/inspection/employee"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
+              /* webpackChunkName: "Employee" */
               './Index/index'),
             loading: Loading
           })}
@@ -33,7 +33,17 @@ class EmployeeRoute extends Component{
           path="/inspection/employee/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "Device" */
+              /* webpackChunkName: "EmployeeNew" */
+              './Create/index'),
+            loading: Loading
+          })}
+        />
+        <Route
+          exact
+          path="/inspection/employee/edit/:id"
+          component={Loadable({
+            loader: () => import(
+              /* webpackChunkName: "EmployeeEdit" */
               './Create/index'),
             loading: Loading
           })}

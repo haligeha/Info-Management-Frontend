@@ -8,7 +8,7 @@ const { TextArea } = Input;
 let user_id = window.sessionStorage.getItem("user_id")
 let marker
 
-class ManagementNew extends Component {
+class PipeManagementNew extends Component {
   constructor(props) {
     super(props);
 
@@ -292,4 +292,4 @@ class ManagementNew extends Component {
   }
 }
 
-export default Form.create()(ManagementNew);
+export default Form.create()(PipeManagementNew);

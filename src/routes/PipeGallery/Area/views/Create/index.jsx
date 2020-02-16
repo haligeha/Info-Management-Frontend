@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
-import ManagementPeople from './people'
+import Transfer from './transfer'
 import { Form, Input, Select, Button, message, } from 'antd';
 import AMap from 'AMap'
 import axios from 'axios'
@@ -10,7 +10,7 @@ const { TextArea } = Input;
 let marker
 
 var user_id = window.sessionStorage.getItem("user_id")
-class AreaNew extends Component {
+class PipeAreaNew extends Component {
   constructor(props) {
     super(props);
 
@@ -247,7 +247,7 @@ class AreaNew extends Component {
               {...createFormItemLayout}
               label="选择负责人："
             >
-              {getFieldDecorator('principal')(<ManagementPeople />)}
+              {getFieldDecorator('principal')(<Transfer />)}
             </Form.Item>
             <Form.Item
               {...createFormItemLayout}
@@ -327,4 +327,4 @@ class AreaNew extends Component {
   }
 }
 
-export default Form.create()(AreaNew);
+export default Form.create()(PipeAreaNew);

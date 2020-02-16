@@ -23,7 +23,7 @@ class MaterialRoute extends Component {
           path="/emergency/resource/material"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyResourceMaterial" */
+              /* webpackChunkName: "ResourceMaterial" */
               './Index/index'),
             loading: Loading
           })}
@@ -33,7 +33,7 @@ class MaterialRoute extends Component {
           path="/emergency/resource/material/new"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyResourceMaterialNew" */
+              /* webpackChunkName: "ResourceMaterialNew" */
               './Create/index'),
             loading: Loading
           })}
@@ -43,7 +43,7 @@ class MaterialRoute extends Component {
           path="/emergency/resource/material/detail/:id"
           component={Loadable({
             loader: () => import(
-              /* webpackChunkName: "EmergencyResourceMaterialDetail" */
+              /* webpackChunkName: "ResourceMaterialDetail" */
               './Detail/index'),
             loading: Loading
           })}
@@ -52,7 +52,9 @@ class MaterialRoute extends Component {
           exact
           path="/emergency/resource/material/edit/:id"
           component={Loadable({
-            loader: () => import('./Create/index'),
+            loader: () => import(
+              /* webpackChunkName: "ResourceMaterialEdit" */
+              './Create/index'),
             loading: Loading
           })}
         />

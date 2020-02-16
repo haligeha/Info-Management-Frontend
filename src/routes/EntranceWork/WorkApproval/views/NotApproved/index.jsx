@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { Button, Table,Popconfirm } from 'antd';
+import { Button, Table, Popconfirm } from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import axios from 'axios';
@@ -12,41 +12,41 @@ class NotApproved extends Component {
     this.state = {
       current: FIRST_PAGE,
       size: PAGE_SIZE,
-      total: 0,   
-      data:[]  
+      total: 0,
+      data: []
     };
     this.getGroupList = this.getGroupList.bind(this);
   }
-  
+
   componentDidMount() {
     this.getGroupList();
   }
-  
-  getGroupList = () =>{
+
+  getGroupList = () => {
     axios.get(`/api/v1/user/noReservePlan?user_id=${user_id}`)
-      .then((res)=>{
-        if(res&&res.status ===200){
+      .then((res) => {
+        if (res && res.status === 200) {
           console.log('====================================');
           console.log(res);
           console.log('====================================');
           this.setState({
-            data:res.data
+            data: res.data
           })
         }
       })
-      .catch(function(error){
+      .catch(function (error) {
         console.log('====================================');
         console.log(error);
         console.log('====================================');
       })
   }
 
-  deleteGroup = (record) =>{
+  deleteGroup = (record) => {
     axios.delete(`/api/v1/user/planAuditById?id=${record.id}&user_id=${user_id}`)
-      .then(()=>{
+      .then(() => {
         this.getGroupList(this.state.nowCurrent)
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err)
       })
   }
@@ -54,7 +54,7 @@ class NotApproved extends Component {
   render() {
     const {
       data,
-      
+
     } = this.state;
     return (
       <div>
@@ -99,18 +99,18 @@ class NotApproved extends Component {
               <div className="operate-btns"
                 style={{ display: 'block' }}
               >
-                <Link 
+                <Link
                   to={`/entrance/approval/new/${record.id}`}
-                  style={{marginRight:'5px'}}
+                  style={{ marginRight: '5px' }}
                 >新建审批</Link>
-                
-                <Popconfirm 
-                  title="确定要删除吗" 
-                  onConfirm={()=>{this.deleteGroup(record)}}
+
+                <Popconfirm
+                  title="确定要删除吗"
+                  onConfirm={() => { this.deleteGroup(record) }}
                 >
-                  <Button 
+                  <Button
                     type="simple"
-                    style={{border:'none',padding:0,color:"#357aff",background:'transparent'}}
+                    style={{ border: 'none', padding: 0, color: "#357aff", background: 'transparent' }}
                   >删除</Button>
                 </Popconfirm>
               </div>

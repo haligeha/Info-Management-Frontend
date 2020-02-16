@@ -2,8 +2,8 @@ import React, { Component, } from 'react';
 import { PageTitleCreate } from '@src/components';
 import { Form, Input, Button, message, Upload, Tooltip, Icon } from 'antd';
 import axios from 'axios';
-
-class EmployeeNew extends Component {
+var user_id = window.sessionStorage.getItem("user_id")
+class InspectorInformationNew extends Component {
   constructor(props) {
     super(props);
 
@@ -16,7 +16,7 @@ class EmployeeNew extends Component {
     const { match: { params: { id } } } = this.props
     console.log(id)
     if (id) {
-      axios.get(`/api/v1/user/userById?id=${id}`)
+      axios.get(`/api/v1/user/userById?id=${id}&user_id=${user_id}`)
         .then((res) => {
           this.setState({ employeeDetail: res.data })
         })
@@ -86,7 +86,7 @@ class EmployeeNew extends Component {
           :
           <PageTitleCreate titles={['员工信息', '新建']} jump={'/inspection/employee'} />
         }
-        <div className="entrance-work-create-page">
+        <div className="employee-create-page">
           <Form
             onSubmit={this.handleSubmit}
           >
@@ -195,4 +195,4 @@ class EmployeeNew extends Component {
   }
 }
 
-export default Form.create()(EmployeeNew);
+export default Form.create()(InspectorInformationNew);

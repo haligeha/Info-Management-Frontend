@@ -17,7 +17,7 @@ let user_id = window.sessionStorage.getItem("user_id")
 const { TextArea } = Input
 let newArr = []
 
-class DailyInspectionCreate extends Component {
+class InspectionReportNew extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -343,4 +343,4 @@ export default connect(
     selectedDate: state.dailyInspention.selectedDate
   }),
   dispatch => ({ actions: bindActionCreators(actions, dispatch) })
-)(Form.create()(DailyInspectionCreate))
+)(Form.create()(InspectionReportNew))

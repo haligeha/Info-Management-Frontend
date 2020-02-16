@@ -11,30 +11,26 @@ class Approved extends Component {
     this.state = {
       current: FIRST_PAGE,
       size: PAGE_SIZE,
-      total: 0,     
-      data:[]
+      total: 0,
+      data: []
     };
     this.getGroupList = this.getGroupList.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     this.getGroupList();
   }
   getGroupList = () => {
-    axios.get('/api/v1/user/alreadyReservePlan?user_id='+user_id)
-      .then((res)=>{
-        if(res&&res.status === 200){
-          console.log('====================================');
+    axios.get('/api/v1/user/alreadyReservePlan?user_id=' + user_id)
+      .then((res) => {
+        if (res && res.status === 200) {
           console.log(res);
-          console.log('====================================');
           this.setState({
-            data:res.data
+            data: res.data
           })
         }
       })
-      .catch(function(error){
-        console.log('====================================');
+      .catch(function (error) {
         console.log(error);
-        console.log('====================================');
       })
   }
   render() {
@@ -80,9 +76,9 @@ class Approved extends Component {
           }, {
             title: '审批状态',
             key: 'state',
-            render: (text, record) => 
+            render: (text, record) =>
               `${record.state === 2 ? text = "未通过" : (record.state === 1 ? text = "通过" : text = "未审批")}`
-           
+
           }]}
         />
       </div>

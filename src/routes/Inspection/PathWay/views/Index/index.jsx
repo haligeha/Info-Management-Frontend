@@ -2,6 +2,7 @@ import React from 'react';
 import { PageTitle, Module, } from '@src/components';
 import { Button, Row, Col, Table, Input, Popconfirm, message, Form, DatePicker, Icon } from 'antd';
 import axios from 'axios';
+//import exportExcel from './exportExcel';
 import AMap from 'AMap'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
@@ -11,7 +12,7 @@ const PAGE_SIZE = 6;
 //const Search = Input.Search;
 
 
-class PathWay extends React.Component {
+class InspectionRoute extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -295,4 +296,4 @@ class PathWay extends React.Component {
   }
 }
 
-export default Form.create()(PathWay);
+export default Form.create()(InspectionRoute);

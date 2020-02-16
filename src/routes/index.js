@@ -105,15 +105,6 @@ class RouteView extends Component {
           })}
         />
         <Route
-          path="/inspection/report"
-          component={Loadable({
-            loader: () => import(
-              /* webpackChunkName: "EntranceWork" */
-              './Inspection/Report'),
-            loading: Loading
-          })}
-        />
-        <Route
           path="/emergency/plan"
           component={Loadable({
             loader: () => import(

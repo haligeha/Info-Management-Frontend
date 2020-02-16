@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import {Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 //import { PageTitle } from '../../../components';
 //import { Link } from "react-router-dom";
 import { Tabs } from 'antd';
@@ -14,18 +14,18 @@ const TabPane = Tabs.TabPane;
 class Resource extends Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      tabKey:""
-    };
-    this.onTabChange=this.onTabChange.bind(this);
-  }
-  
-  onTabChange=(key)=>{
 
-    this.setState({tabKey:key});
-    this.props.history.replace({pathname:"/emergency/resource/"+key,state:{tabKey:key}});
-    
+    this.state = {
+      tabKey: ""
+    };
+    this.onTabChange = this.onTabChange.bind(this);
+  }
+
+  onTabChange = (key) => {
+
+    this.setState({ tabKey: key });
+    this.props.history.replace({ pathname: "/emergency/resource/" + key, state: { tabKey: key } });
+
   }
 
   render() {
@@ -35,27 +35,27 @@ class Resource extends Component {
           activeKey={(this.props.location.state && this.props.location.state.tabKey) ? this.props.location.state.tabKey : 'material'}
           onChange={this.onTabChange}
         >
-          <TabPane 
+          <TabPane
             tab="应急救援物资"
             key="material"
           >
-            <Route exact 
-              path="/emergency/resource/material" 
-              component={Material} 
+            <Route exact
+              path="/emergency/resource/material"
+              component={Material}
             />
-            
+
           </TabPane>
-          <TabPane 
+          <TabPane
             tab="应急救援装备"
             key="equipment"
-          > 
+          >
             <Route exact
               path="/emergency/resource/equipment"
               component={Equipment}
 
             />
           </TabPane>
-          <TabPane 
+          <TabPane
             tab="应急救援队伍"
             key="team"
           >
@@ -64,9 +64,9 @@ class Resource extends Component {
               component={RescueTeam}
 
             />
-            
+
           </TabPane>
-          <TabPane 
+          <TabPane
             tab="应急避难场所"
             key="shelter"
           >
@@ -75,10 +75,10 @@ class Resource extends Component {
               component={Shelter}
 
             />
-            
+
           </TabPane>
         </Tabs>
-        
+
       </div>
 
     );
